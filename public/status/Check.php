@@ -371,7 +371,7 @@ class Check {
 
 		if ($this->_currentEnv == 'production') {
 			$this->_checklist[] = array(
-					'code' => 0,
+					'code' => 1,
 					'canBeBetter' => true,
 					'isNotSecure' => false,
 					'text' => 'Current APPLICATION_ENV is <strong>' . $this->_currentEnv . '</strong>',
