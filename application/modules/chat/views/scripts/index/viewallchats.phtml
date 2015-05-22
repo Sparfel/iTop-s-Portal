@@ -1,0 +1,13 @@
+<h1>Listes des Salons de discussions Client</h1>
+<?php foreach($this->entries as $entry): ?>
+    <form method="post" action="<?php echo $this->url(array('controller' => 'index', 'action' => 'viewcustomerchat')) ?>">
+        <label>
+            <input type="hidden" name="sessId" value="<?php echo $entry->sessId; ?>" />
+            <?php /*echo $entry->sessId;*/ 
+			echo $entry->user. ' de '.$entry->organization;
+
+			?>
+        </label>
+        <input type="submit" name="submit" value="Open chat" />
+    </form>
+<?php endforeach; ?>

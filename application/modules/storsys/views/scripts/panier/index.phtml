@@ -1,0 +1,56 @@
+<?php
+
+//$session = Zend_Registry::get('session');
+//print_r($session);
+
+$panier = $this->panier;
+$form = $this->form;
+if (isset($panier) && sizeof($panier->getLignes()) > 0) {
+    ?>
+<h1> Detail de votre panier</h1>
+<form enctype="application/x-www-form-urlencoded" action="<?= $form->getAction() ?>" method="post">
+
+    <table class="tableau">
+        <tr>
+            <th>Article </th>
+            <th>Prix unitaire</th>
+            <th>Quantité</th>
+            <th>Prix Total</th>
+        </tr>
+            <?php
+            foreach ($panier->getLignes() as $ligne) {
+                $produit = $ligne->getProduit();
+                ?>
+        <tr>
+            <td><?php echo $produit['nom'] ?></td>
+            <td><?php echo $produit['prix'] ?> €</td>
+            <td><?php echo $form->getElement('NbProduit'.$produit['produitId']) ?>
+                        <?php
+                        $helperUrl = new Zend_View_Helper_Url ( );
+                        $deleteUrl = $helperUrl->url(array('controller'=>'panier','action'=>'delete','id'=>$produit['produitId']));
+                        ?>
+                <a href="<?php echo $deleteUrl ?>">
+                <img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/delete.png" alt="supprimer" title="supprimer"/></a>
+            </td>
+            <td><?php echo $produit['prix']*$ligne->getNbProduit() ?> €</td>
+        </tr>
+                <?php
+            }
+            ?>
+    </table>
+        <?php echo $form->getElement('recalculer') ?>
+    <h3 class="total">Total : <?php echo $panier->getTotal() ?> €</h3>
+</form>
+    <?php
+    $helperUrl = new Zend_View_Helper_Url ( );
+    $ContinuerLink = $helperUrl->url ( array ('action' => 'validation') );
+    $boncde = $helperUrl->url ( array ('controller'=>'pdf','action'=>'list'));
+    ?>
+<!-- <a class="validation" href="<?php echo $ContinuerLink ?>">valider la commande</a>
+<br> -->
+<a class="validation" href="<?php echo $boncde ?>" target="blank">Voir le Bon de commande</a>
+    <?php
+} else {
+	echo '<h3>Votre Panier</h3>';
+    echo "<p>Le panier est vide.</p>";
+}?>

@@ -1,0 +1,53 @@
+<?php
+
+echo '<h1>Tableau de bord.</h1>';
+?>
+<h2>Les incidents ouverts sur l'année écoulée </h2>
+
+<?php //Zend_Debug::dump($this->tableau); ?>
+
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+		['Mois - Année','Nbre de tickets'],
+         <?php
+    	$i=0;
+		foreach($this->tableau as $key => $value) {
+			if ($i>0) {echo ',';}
+			//echo '[\''.$result['DATE_FORMAT(ticket.start_date, \'%M-%Y\')'].'\','.$result['COUNT(*)'].']';
+			//echo '[\''.$result['mois'].'\','.$result['total'].']';
+			echo '[\''.$key.'\','.$value.']';
+			$i++;
+		}
+		?>
+        ]);
+
+       var options = {
+          title: 'Tickets par mois',
+		  titleTextStyle:{color: '#1C94C4', fontName: 'Calibri', fontSize:16},
+          hAxis: {title: 'Mois - Année',  colors: 'red',
+					fontName: 'Arial', 
+					fontSize: 10,
+					titleTextStyle: {color: '#1C94C4'}},
+		  chartArea:{left:45,top:20,width:"100%",height:"70%"},
+		  colors: ['#1C94C4'],
+		   animation:{duration:5000,easing: 'out',}
+				
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 700px; height: 300px;"></div>
+<br>
+<p>Le graphique ci-dessus donne la répartition des tickets incidents déclarés les mois passés.</p>
+<p>Une application nouvellement installée devrait voir ce nombre décroitre au fur et à mesure que le temps passe?.</p>
+
+
+     

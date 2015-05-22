@@ -1,0 +1,97 @@
+
+<!--<div class="ecommerce">-->
+<h1>Bienvenue dans votre store Syleps</h1>
+
+<?php
+$session = Zend_Registry::get('session');
+$data = $session->panier;
+//print_r($data);
+$Panier = $data->getLignes();
+if (!(empty($Panier))){
+	foreach($Panier as $article)
+		{
+		$ligne_article = $article->getProduit();
+		echo $ligne_article['nom']. ' / '.$ligne_article['prix']. ' €';
+		echo '<br>';
+		}
+	}	
+else {
+	?>
+
+	<script language="javascript">
+	jQuery(document).ready(function() {
+
+		jQuery.featureList(
+				jQuery(" #tabs li a"),
+				jQuery(" #output li"), {
+					start_item	:	0
+				}
+			);
+
+			/*
+			
+			// Alternative
+
+			
+			$('#tabs li a').featureList({
+				output			:	'#output li',
+				start_item		:	1
+			});
+
+			*/
+
+		});
+	</script>
+
+	<div id="feature_list">
+		<ul id="tabs">
+			<li>
+				<a href="javascript:;">
+					<img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/slide/hardware.png" />
+					<h3 class="demo">Hardware</h3>
+					<span>Assemblage de PC, serveurs ...</span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/slide/admin.png" />
+					<h3 class="demo">Imprimantes</h3>
+					<span>Raid, Serveur Web, Base de données ...</span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/slide/applications.png" />
+					<h3 class="demo">Robotique</h3>
+					<span>Framework Zend, Php, Html, Javascript, CSS, SQL ...</span>
+				</a>
+			</li>
+		</ul>
+		<ul id="output">
+			<li>
+				<img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/slide/hardware_output.png" />
+				<a href="<?php echo $this->url(array('controller'=>'competence','action'=>'hardware')); ?>">Détails sur le sujet</a>
+			</li>
+			<li>
+				<img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/slide/administration4.png" />
+				<a href="<?php echo $this->url(array('controller'=>'competence','action'=>'software')); ?>">Détails sur le sujet</a>
+			</li>
+			<li>
+				<img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/slide/webdesign2.jpg" />
+				<a href="<?php echo $this->url(array('controller'=>'competence','action'=>'webdesign')); ?>">Détails sur le sujet</a>
+			</li>
+		</ul>
+	
+	</div>
+		
+
+	
+	
+	
+	
+		<?php	// echo '<div class="mi-slider"><p>Votre panier est vide.</p></div>';		
+	}	
+
+?>
+
+

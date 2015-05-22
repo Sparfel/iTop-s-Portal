@@ -1,0 +1,73 @@
+<h1>Catalogue Produits Syleps</h1>
+<div class="ecommerce" style="width:100%px;margin-right:200px; ">
+<?php
+if (isset ( $this->produitsAll ) && sizeof ( $this->produitsAll ) > 0) {?>
+<table >
+    <thead>
+		<tr >
+			<th> </th>
+			<th>Nom</th>
+			<th>Description</th>
+			<th>Prix</th>
+			<th> </th>
+		</tr>
+	</thead>
+	<tbody>
+    <?php
+	
+    foreach ( $this->produitsAll as $produit ) {
+		$urlAjouter = $this->url(array('controller'=>'panier', 'action'=>'ajouter','id'=>$produit['produitId']));
+		?>
+    	<tr  >
+			<td><img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/<?php echo $produit ['image'] ?>"></td>
+			<td> <?php echo $produit ['nom'] ?></td>
+			<td> <?php echo $produit ['description'] ?></td>
+			<td class="Price" > <?php echo $produit ['prix']?> €</td>
+			<td class="ajouterPanier">
+				<a href="<?php echo $urlAjouter ?>">
+				<img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/panier.png" alt="Panier">
+				</a>
+			</td>
+		</tr>
+            <?php
+			
+    } ?> 
+	</tbody>
+</table>
+    <?php
+}
+?>
+</div>
+<?php
+$this->placeholder('aside')->captureStart();
+?>
+<div class="box grid-filter" style="margin-top :85px; background-color:rgb(213, 213, 213);box-shadow: 5px 5px 6px rgb(100, 100, 150);" >
+<div style="float:left;position:relative; margin:-3px 0 0 -10px;">
+	<img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/cart.png" alt="Panier">
+</div>
+<h2>Panier en cours</h2>
+<?php 
+
+$panier = $this->panier;
+
+
+if (isset($panier) && sizeof($panier->getLignes()) > 0) {
+	foreach ($panier->getLignes() as $ligne) {
+	    $produit = $ligne->getProduit();
+	    $qte = $ligne->getNbProduit();
+		echo $qte.' à '.$produit['nom'].' : '.$qte * $produit['prix'].' €';
+		echo '<br>';
+	    
+	}
+}
+
+
+?>
+</div>
+
+
+<?php
+$this->placeholder('aside')->captureEnd();
+?>
+
+

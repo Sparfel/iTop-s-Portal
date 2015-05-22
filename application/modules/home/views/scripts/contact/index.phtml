@@ -1,0 +1,24 @@
+﻿<?php
+
+echo '<h1>Vos Contacts.</h1>';
+
+echo '<h2>Le responsable</h2>';
+echo '<ul>';
+foreach ($this->leader as $member) {
+	echo '<li class="list">'.$member['first_name'].' '.$member['name'].', '.$member['description'].'</li>';
+}
+echo '</ul>';
+echo '<br>';
+
+echo '<h2>Les membres de l\'équipe</h2>';
+
+echo '<ul>';
+foreach ($this->team as $member) {
+	echo '<li class="list">'.$member['first_name'].' '.$member['name'].', '.$member['description'].'</li>';
+}
+echo '</ul>';
+?>
+
+
+
+<?php //echo $this->form;?>

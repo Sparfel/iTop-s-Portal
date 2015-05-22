@@ -1,0 +1,64 @@
+<?php $this->placeholder('body_id')->set('login-background'); ?>			 
+			
+<style>
+
+</style>
+
+
+   <div id="progressbar-container" >    
+  <div id="zend-progressbar-container" >
+    	<div id="zend-progressbar-done"></div>
+	</div>
+	<div id="zend-progressbar-info"></div>
+</div> 
+
+<script>
+
+	function Zend_ProgressBar_Update(data)
+		{
+		if (data.percent == 0 ) {
+		//document.getElementById('zend-progressbar-container').style.visibility = 'hidden';
+		document.getElementById('facebookG').style.visibility = 'hidden';
+		document.getElementById('progress').style.visibility = 'hidden';
+		document.getElementById('zend-progressbar-info').style.visibility = 'hidden';
+		document.getElementById('zend-progressbar-container').style.visibility = 'hidden';
+		}
+		else { 
+			//document.getElementById('zend-progressbar-container').style.visibility = 'visible';
+			document.getElementById('facebookG').style.visibility = 'visible';
+			document.getElementById('progress').style.visibility = 'visible';
+			document.getElementById('zend-progressbar-info').style.visibility = 'visible';
+			//document.getElementById('zend-progressbar-container').style.visibility = 'visible';
+	    	document.getElementById('zend-progressbar-done').style.width = data.percent + '%';
+	    	//document.getElementById('progress').asProgress('go',data.percent);
+	    	 jQuery(document).ready(function($){$('.progress').asProgress('go',data.percent);});
+		}
+	
+		
+	
+	    document.getElementById('zend-progressbar-info').style.display = 'none';
+	    document.getElementById('zend-progressbar-info').innerHTML= data.text;
+	    jQuery(document).ready(function($){$('#zend-progressbar-info').fadeIn('slow');});
+	    setTimeout(function(){
+	    					jQuery(document).ready(function($){$("#zend-progressbar-info").fadeOut('slow');});
+		    		}, 10000);
+	
+		
+	}
+
+
+</script>
+
+ <iframe src="/authentification/login/" id="long-running-process" scrolling="no" ></iframe>	
+
+
+<div id="facebookG">
+	<div id="blockG_1" class="facebook_blockG">
+	</div>
+	<div id="blockG_2" class="facebook_blockG">
+	</div>
+	<div id="blockG_3" class="facebook_blockG">
+	</div>
+</div> 
+	
+

@@ -1,0 +1,204 @@
+/* CSS Document */
+/* text decoration (balise a) :  
+--> none : pas soulign�,
+--> underline : soulign� (bas),
+--> overline : soulign� (haut)
+--> overline underline : soulign� en hait et en bas...*/
+
+
+.global {  cellpadding:5;
+		  cellspacing:10;
+	 }
+	 
+.global_line {
+
+}
+
+.global_cell {
+	border-width:10px;
+ border-style:solid; 
+ border-color:white;
+
+}
+
+td {text-align : center;}
+
+.date_simple {
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	color: #FFFFFF;
+	font-weight: bold;
+	vertical-align:middle;
+}
+
+
+.jours_simple {
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+.tab_numero_simple {
+	background:url(../../images/gite/administration/icone.jpg);
+	background-repeat:no-repeat;
+	background-position:bottom right;
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	font-weight: normal;
+	border-style:solid; 
+	border-width:2px; 
+	border-color:#646496;
+	border-top:hidden;
+}
+
+.tab_cal_simple {
+	background:url(./entete.png);
+	background-repeat:no-repeat;
+	border-style:solid; 
+	border-width:2px; 
+	border-color:#646496;
+    color: white;
+	border-bottom:hidden;
+	padding:5;
+}
+
+
+.reserve_simple {
+	background-color: #990009;
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+}
+
+/* Style pour le calendrier annuel */
+
+.we {
+	background-color: gray;
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color:white;
+}
+
+.descriptif {
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+    text-align:left;
+	padding-left:10px;
+}
+
+.selection_liste {
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+    text-align:left;
+    height:18px;
+}
+.date {
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+	vertical-align:middle;
+}
+
+
+.jours {
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-color: white;
+    //background-color: #990009;
+	font-weight: bold;
+}
+
+.tab_numero {
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+	font-weight: normal;
+	border-style:solid; 
+	border-width:2px; 
+	border-color:#36CF06;
+	border-top:hidden;
+}
+
+
+.tab_cal {
+	background:url("./entete.png");
+	background-repeat:no-repeat;
+	border-style:solid; 
+	border-width:2px; 
+	border-color:#646496;
+    color: white;
+}
+.reserve {
+	background-color: #FF9900; /*#990009;*/
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+	padding:5;
+}
+
+.normal {
+	background-color: white;
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #696969;
+	padding:5px;
+}
+
+
+.we {
+	background-color: gray;
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color:white;
+}
+
+
+.zonea {
+	background-color:  #3CB371;
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+
+
+} 
+
+
+.zoneb {
+	background-color: #008B8B;
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+
+
+} 
+
+.zonec {
+	background-color: #CD5C5C;
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+} 
+.zoned {
+	background-color: #F08080;
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+} 
+.zonee {
+	background-color: #DA70D6;
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+} 
+.zonef {
+	background-color: #4682B4;
+	font-family: Tahoma,Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+} 
+

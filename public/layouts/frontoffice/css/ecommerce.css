@@ -1,0 +1,65 @@
+.ecommerce  table {
+    display: table;
+    border-spacing: 0;
+    -moz-border-radius: 12px;
+    -moz-box-shadow: #646496 5px 5px 6px;
+    -webkit-border-radius: 12px;
+    -webkit-box-shadow: #646496 5px 5px 6px;
+    border-radius: 12px;
+    box-shadow: #646496 5px 5px 6px;
+	width:100%;
+}
+
+.ecommerce th {
+    color: white;
+	background-color:black;
+    font-size: 110%;
+	padding: 3px 18px 3px 10px;
+}
+
+.ecommerce th:first-of-type {
+        font-weight: bold;
+        font-style: italic
+    }
+
+.ecommerce tbody tr:nth-child(odd) {
+    color: #696969;
+    background: #F1F1F1;
+}
+
+.ecommerce tbody tr:nth-child(even) {
+    color: #696969
+}
+
+.ecommerce tbody tr:hover{
+    background-color:#d0d0d0;
+}
+
+.ecommerce td {
+	vertical-align:middle;
+	}
+
+.ecommerce th:first-of-type,
+.ecommerce td:first-of-type {
+    padding: 4 3 2 4em;
+	padding: 3px 18px 3px 10px;
+}
+
+.ecommerce th:last-of-type,
+.ecommerce td:last-of-type {
+    /*padding: 0 4em 0 0*/
+	padding: 3px 18px 3px 10px;
+}
+
+.ecommerce tbody tr:nth-last-child(-n+2) {
+    opacity: .75
+}
+
+.ecommerce tbody tr:nth-child(3n+1):not(:last-child) td {
+    /*text-shadow: red 0 0 8px*/
+}
+
+.ecommerce td.Price { text-align:center;}
+
+.ecommerce  td.ajouterPanier{	
+	}

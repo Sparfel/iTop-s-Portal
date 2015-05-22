@@ -1,0 +1,39 @@
+[production]
+
+resources.db.adapter = "Pdo_Mysql"
+resources.db.params.host = "_DB_HOST_"
+resources.db.params.username = "_DB_USER_"
+resources.db.params.password = "_DB_PASSWORD_"
+resources.db.params.dbname = "_DB_NAME_"
+resources.db.params.driver_options.1002 = "SET NAMES utf8"
+
+[pre-prod : production]
+
+
+
+[testing : production]
+
+resources.db.adapter = "Pdo_Mysql"
+resources.db.params.host = "_DB_HOST_"
+resources.db.params.username = "_DB_USER_"
+resources.db.params.password = "_DB_PASSWORD_"
+resources.db.params.dbname = "_DB_NAME_"
+resources.db.params.driver_options.1002 = "SET NAMES utf8"
+
+
+
+[staging : production]
+
+
+
+[development : production]
+
+resources.db.adapter = "Pdo_Mysql"
+resources.db.params.host = "_DB_HOST_"
+resources.db.params.username = "_DB_USER_"
+resources.db.params.password = "_DB_PASSWORD_"
+resources.db.params.dbname = "_DB_NAME_"
+resources.db.params.driver_options.1002 = "SET NAMES utf8"
+
+[local : production]
+

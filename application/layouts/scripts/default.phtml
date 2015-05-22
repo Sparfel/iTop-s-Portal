@@ -1,0 +1,245 @@
+<?php echo $this->doctype('HTML5'); ?>
+<?php 
+    $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
+                     ->appendHttpEquiv('Content-Language', 'fr-FR');
+   
+//$this->headScript()->prependFile('/public/cui/libs/jquery.js');
+// Pour la partie publique, on prend un Jquery plus récent que pour la partie Admin
+//$this->headScript()->prependFile('/public/layouts/frontoffice/js/jquery.min.js');
+//$this->headScript()->prependFile('/layouts/frontoffice/js/jquery-1.11.1.js');
+//$this->headScript()->appendFile('/layouts/frontoffice/js/jquery-ui-1.9.1.custom.min.js');
+//$this->headScript()->appendFile('/layouts/backoffice/js/all.js');
+$this->headScript()->appendFile('/cui/jquery.CUI2.js');
+$this->headScript()->appendFile('/layouts/frontoffice/js/listoption/ui.dropdownchecklist.js');
+//$this->headLink()->appendStylesheet('/layouts/frontoffice/styles.css');
+//$this->headLink()->appendStylesheet('/layouts/frontoffice/css/smoothness/jquery-ui-1.10.4.custom.min.css');
+//$this->headLink()->appendStylesheet('/layouts/frontoffice/css/listoption/ui.dropdownchecklist.themeroller.css');
+
+
+?>
+<html>
+    <head>
+        <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <?php 
+        	echo $this->headTitle();
+        	
+        	echo $this->headMeta();
+        	//echo $this->headStyle();
+        	
+        	echo $this->jQuery();
+        	echo $this->headScript();
+        	echo $this->headStyle();
+        	echo $this->headLink();
+        	//$this->jQuery()->enable(); */
+        	 ?>
+        
+        <script>
+			  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			  ga('create', 'UA-42203148-2', 'shost.ca');
+			  ga('send', 'pageview');
+		</script>
+        
+    </head>
+    <body<?php if($this->placeholder('body_id')!= '') :
+        echo ' id="'.$this->placeholder('body_id') . '"'; 
+     endif;
+     if($this->placeholder('body_class') != '') 
+		{echo ' class="'.$this->placeholder('body_class').'"';} ?>>
+  
+     <header id="header">
+	<?php // $session = new Zend_Session_Namespace('Zend_Auth');
+            //	echo 'Langue : '.$session->language;?>
+		<div class="holder">
+          <div class="top-menu">
+          
+            <div class="logout">
+	            <?php echo $this->render('_settings.phtml')?>
+	            
+	            	<?php 
+	            	// on met en par défaut comme langue accessible
+	            	// le fr étant celle par défaut
+	            	
+	            	$lang = 'en';
+	            	$flag = 'uk';
+	            	if ($this->language == 'en') 
+	            		{$flag = 'fr';$lang = 'fr';}
+	              		elseif ($this->language == 'fr') 
+							{ $flag = 'uk';
+							  $lang = 'en';}
+	              	?>
+	            <a class="language" href="
+	              	<?php echo $this->url(array('controller' => 'language', 'action' => 'change', 'module' => 'user','language'=>$lang,'url'=>$tab_url = explode('/',$this->url())), 'default'); 
+	              	?>">
+	              	<img src="<?php echo $this->baseUrl();?>/layouts/backoffice/images/flags/<?php echo $flag;?>.png" title="Change language"></img> 
+	          	</a>
+	            <a class="out" href="
+	              	<?php echo $this->url(array('controller' => 'login', 'action' => 'logout', 'module' => 'authentification'), 'default'); 
+	              	?>">
+	              	<?php echo $this->translate('Log out@backoffice'); ?>
+	          	</a>
+            </div>
+			<span class="titre"> <?php if (strlen($this->layout()->titre) >0 ) {echo $this->translate($this->layout()->titre);} ?></span>
+            <ul class="add-nav">
+              <li> <?php 
+                $session = new Zend_Session_Namespace('Zend_Auth');
+                $identity = Centurion_Auth::getInstance()->getIdentity();
+                //echo $this->translate('Welcome').' <b>'.$this->user()->getIdentity().'</b> '.$this->translate('from').' <b>'.$session->org_name.'</b>';
+                if (($identity->is_staff == '0') AND isset($session->pref->_user_id_iTop_account)) { //iTop Test et compte iTop existant => vert - vert
+					$span1 = '<span style="color:green">';
+					$span2 = '<span style="color:green">';
+					$endspan = '</span>';
+				}
+                elseif (($identity->is_staff == '0') AND (!isset($session->pref->_user_id_iTop_account))) {//iTop Test et compte iTop inexistant => vert - rouge
+					$span1 = '<span style="color:green">';
+					$span2 = '<span style="color:red">';
+					$endspan = '</span>';
+				}
+				elseif (($identity->is_staff == '1') AND (!isset($session->pref->_user_id_iTop_account))) {//iTop Prod et compte iTop inexistant => rouge - rouge
+					$span1 = '<span style="color:red">';
+					$span2 = '<span style="color:red">';
+					$endspan = '</span>';
+				} 
+				else {$span1 = $span2 = $endspan =  '';} // iTop Production et Compte iTop déclaré => tout va bien, on laisse tout en gris
+                echo $this->translate('Welcome').' '.$span1.$session->pref->_user_first_name.' '.$session->pref->_user_name.$endspan.' '.$this->translate('from').' <b>'.$span2.$session->pref->_org_name.$endspan.'</b>'; ?>
+              </li>
+              <!--<li><a href="/ressources/presse.html">Presse</a></li>
+              <li><a href="/clients/carriere.html">Carrière</a></li>-->
+            </ul>
+          </div>
+          	<a class="logo" href="http://www.combodo.com/iTop.html" target="_blank" title="Version du Portail : <?php echo Portal_Version::VERSION?>"><span>iTop</span> SOLUTION DE HELPDESK OPENSOURCE, CMDB &amp; GESTION DE SERVICES</a>
+		</div>
+
+	<div class="banner">
+		<div class="panel">
+			<div class="panel-holder">
+			<a href="/" class="home"><span></span></a>
+                <?php
+                      $navigation = $this->navigation()->getContainer();
+                      $navigation = $navigation->findOneByLabel('Frontoffice');
+                      $menu = $this->navigation()->menu()->setUseTranslator(true);
+                      if ($navigation !== null) :
+                          echo $this->navigation()->menu()
+                                                  ->setUlClass('nav')
+                                                  ->renderMenu($navigation, array('maxDepth' =>  1));
+                        endif;
+                ?>
+        	<!--  </div>
+         
+            </nav>-->
+            </div>
+       </div>
+	    
+		<?php 
+		//Feinte de Sioux pour dégager 'frontoffice'
+		$breadcrumbs = substr($this->navigation()->breadcrumbs()
+			->setMinDepth(0)
+			->setMaxDepth(4)
+			->setLinkLast(false)
+			->setSeparator(" / "),57);
+		$breadcrumbs = $this->navigation()->breadcrumbs()
+		->setMinDepth(0)
+		->setMaxDepth(4)
+		->setLinkLast(false)
+		->setSeparator(" / ");
+		
+		if (strlen($breadcrumbs) > 0)
+		 {
+		?>
+		<div class="breadcrumbs-panel">
+            <div class="breadcrumbs-holder">
+              <nav>
+                <ul class="breadcrumbs">
+                 <?php //echo $breadcrumbs;?>
+                 <?php //print_r(explode(" / ", $breadcrumbs));?>
+                 <?php 
+                 // Obligé de faire cela car avec la langue dans l'URL, si
+                 // on veut enlever le module 'Frontoffice' du breadcrumbsn 
+                 // on le reconstruit nous même.
+                 $tab_breadcrumbs = explode(" / ", $breadcrumbs);
+                 $i = 0;
+                 $imax = count($tab_breadcrumbs);
+                 foreach ($tab_breadcrumbs as $result)
+                 { if ($i > 0) 
+					{if ($i < $imax -1) {echo $result.' / ';}
+						else {echo $result;};
+					};
+					$i++;
+                 } 
+                 ?>
+                </ul>
+              </nav>
+           </div>
+          	<div id="information">
+          	 	<?php 
+          	 	// Que admin dois voir cela pour l'instant
+          	 	/*$identity = Centurion_Auth::getInstance()->getIdentity();
+          	 	if ($identity->is_super_admin == 1) {
+          	 		echo $this->render('_flashinfo.phtml');
+		 		}*/
+		 		?>
+           	</div>
+        
+        </div>
+	 	<?php }?>
+</div>
+</header>
+ 		<section class="<?php echo $this->placeholder('section-class');?>">   
+            <section class="navbar">
+				 <?php 
+	             if ($this->user()->hasIdentity() && $menu->findActive($navigation, 0, 0)): ?>
+	        		
+						<?php $current = $menu->findActive($navigation, 0, 0);?>
+						<h2><?php echo $this->translate($current['page']->getLabel());?></h2>
+						<nav>
+		            	<?php 
+							if ($current): 
+		                		 echo $menu->renderMenu($current['page'], array('ulClass' => 'contents','maxDepth' =>  1));
+		                	endif;
+		            	 	//echo $this->render('_nav.phtml') ?>
+						</nav>
+				<?php endif; ?>
+        		<aside class="undermenu">
+	               	 <?php echo $this->placeholder('undermenu') ?>   
+	            </aside>
+        	</section>
+            <aside>
+                <?php echo $this->placeholder('aside') ?>   
+            </aside>
+            <section class="content">
+                <?php echo $this->layout()->content ?>
+            </section>
+        </section>
+		
+  <!--   </section>--> 
+	<footer id="footer"> 
+	 <div class="footer-holder">
+        <section class="section">
+		<div class="footer-logo">
+			<strong class="footer-logo"><a href="#"><img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/itop-logo-external.png"  alt="Combodo" ></a></strong>
+		</div>
+		<div class="block">
+			<p>Pour assurer la stabilité et la pérennité de vos solutions IT, iTop est la plateforme de Helpdesk Opensource vous permettant de centraliser les incidents et demandes de services.
+		</div>
+		</section>
+	 </div>
+	  <div class="footer-bottom">
+          <div class="holder">
+            <a href="#" class="to-top">to top</a>
+            <div class="links">
+              <ul>
+                <li><a href="http://www.combodo.com/Mentions-legales.html" target="_blank">Mentions légales</a></li>
+				<li><a href="mailto:emmanuel.lozachmeur@syleps.fr">Webmaster</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+	</footer>
+   </body>
+	
+</html>

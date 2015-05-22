@@ -1,0 +1,39 @@
+<?php
+echo '<h1>'.$this->translate($this->title).'</h1>';
+
+if ($this->action =='creation') {
+	
+	echo $this->form;
+	}
+else
+	{?>
+		
+		<table style = "width:100%;">
+		<tr>
+		<td>
+		<p> Votre demande a bien été enregistrée sous la référence <b><?php echo $this->ref_request;?></b></p> 
+		<p>Vous recevrez très bientôt un mail vous rappelant la référence votre demande.</p>
+		<p>L'équipe de support vous remercie.</p>
+		
+
+		</td>
+		<td>
+		<a class="more" href="<?php echo $this->url(array('controller' => 'openedrequest', 'action' => 'index', 'module' => 'request','ref_request'=>null), 'default'); ?>"><?php echo $this->translate('Consulter la liste des incidents');?></a>
+		<br>
+		<a class="more" href="<?php echo $this->url(array('controller' => 'newrequest', 'action' => 'index', 'module' => 'request','ref_request'=>null), 'default'); ?>"><?php echo $this->translate('Nouvelle déclaration d\'incident');?></a>
+		</td>
+		</tr>
+		</table>
+		
+<?php }?>
+
+<script type="text/javascript" >
+$(function(){ // wait for document to load 
+ $('#tab_files-0').MultiFile({ 
+  STRING: {
+   file: '<em title="Click to remove" onclick="$(this).parent().prev().click()">$file</em>',
+   remove: '<img src="/layouts/frontoffice/images/delete-icon.png" height="16" width="16" alt="x"/>'
+  }
+ }); 
+});
+</script>

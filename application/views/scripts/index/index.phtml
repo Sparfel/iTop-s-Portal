@@ -1,0 +1,40 @@
+<?php 
+
+/*$session = new Zend_Session_Namespace('Zend_Auth');
+
+echo 'Nom : '.$session->name;
+echo '<br>';
+echo 'Prénom : '.$session->first_name;
+echo '<br>';
+echo 'Téléphone : '.$session->phone;
+echo '<br>';
+echo 'Organisation : '.$session->org_name;
+echo '<br>';
+echo 'Organisation id : '.$session->org_id;
+*/
+?>
+
+ <script type="text/javascript">
+      var flashvars = {};
+      flashvars.cssSource = "<?php echo $this->baseUrl();?>/layouts/frontoffice/css/slide/piecemaker.css";
+      flashvars.xmlSource = "<?php echo $this->baseUrl();?>/layouts/frontoffice/css/slide/piecemaker.xml";
+		
+      var params = {};
+      params.play = "true";
+      params.menu = "false";
+      params.scale = "showall";
+      params.wmode = "transparent";
+      params.allowfullscreen = "true";
+      params.allowscriptaccess = "always";
+      params.allownetworking = "all";
+	  
+      swfobject.embedSWF('<?php echo $this->baseUrl();?>/layouts/frontoffice/css/slide/piecemaker.swf', 'piecemaker', '700', '409', '10', null, flashvars,    
+      params, null);
+    
+</script>
+<div id="slide">
+    <div id="piecemaker">
+      <p>Put your alternative Non Flash content here.</p>
+    </div>
+</div>
+  </body>

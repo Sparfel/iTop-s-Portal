@@ -1,0 +1,35 @@
+.ddajaxsidepanel{ /* Main Panel Container */
+position: fixed; /* keep this value as is */
+top: 0; /* keep this value as is */
+visibility: hidden; /* keep this value as is */
+background: white;
+border-color: white;
+border-left: 1px ridge #eee;
+-moz-box-shadow: -10px 0 10px rgba(137,137,137, 0.8); /* CSS 3 box shadow */
+-webkit-box-shadow: -10px 0 10px rgba(137,137,137, 0.8);
+box-shadow: -10px 0 10px rgba(137,137,137, 0.8);
+-webkit-box-sizing: border-box; /* Set .ddajaxsidepanel width so that any padding or borders are added inside this width, not in addition to */
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+z-index:7003;
+}
+
+.ddajaxsidepanel .panelhandle{ /* CSS for Panel Handle DIV */
+width: 24px;
+height: 100%;
+position: absolute;
+
+left: -14px;
+top: 0;
+cursor: pointer;
+background: transparent url(./handle.gif) center left no-repeat; /* path to "handle" gif */
+}
+
+.ddajaxsidepanel .contentarea{ /* CSS for main content area DIV */
+height: 100%;
+padding: 10px;
+overflow: scroll;
+
+
+
+}

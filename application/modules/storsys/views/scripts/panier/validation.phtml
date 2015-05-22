@@ -1,0 +1,60 @@
+<?php
+$panier = $this->panier;
+
+
+$utilisateur = $this->utilisateur ;
+
+if (isset($panier) && sizeof($panier->getLignes()) > 0) {
+    ?>
+<h1> Detail de votre panier :</h1>
+<table class="tableau">
+    <tr>
+        <th>Article </th>
+        <th>Prix unitaire</th>
+        <th>Quantité</th>
+        <th>Prix Total</th>
+    </tr>
+        <?php
+        foreach ($panier->getLignes() as $ligne) {
+            $produit = $ligne->getProduit();
+            ?>
+    <tr>
+        <td><?php echo $produit['nom'] ?></td>
+        <td><?php echo $produit['prix'] ?></td>
+        <td><?php echo $ligne->getNbProduit() ?></td>
+        <td><?php echo $produit['prix']*$ligne->getNbProduit() ?></td>
+    </tr>
+            <?php
+        }
+        ?>
+
+</table>
+<h3>Total : <?= $panier->getTotal() ?></h3>
+<h2>Adresse de livraison :</h2>
+<p class="validAdress">
+	<?php
+	 $utilisateur = new Zend_Session_Namespace('Zend_Auth');
+	 
+	
+	//print_r($utilisateur);
+	echo $utilisateur->name. ' ' . $utilisateur->first_name;
+	echo '<br />';
+	echo $utilisateur->org_name;
+	echo '<br>';
+    //echo $utilisateur->codePostale. ' ' . $utilisateur->ville;
+    ?>
+    </p>
+    <?php
+    $helperUrl = new Zend_View_Helper_Url ( );
+    $ContinuerLink = $helperUrl->url ( array ('action' => 'paiement') );
+    ?>
+    
+<a class="validation" href="<?php echo $ContinuerLink ?>">Passer au paiment</a>
+<br /><br /><br /><br />
+    <?
+} else {
+    echo "<p>panier vide</p>";
+}
+
+
+

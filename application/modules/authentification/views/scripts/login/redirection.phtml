@@ -1,0 +1,23 @@
+<script type="text/javascript">
+  	var link ='/home/index/';
+  	//console.log(parent.document.location.href);
+	var lien = parent.document.location.href.split("?"); 
+	//console.log('Taille de lien : '+lien.length);
+	//console.log('lien[0] : '+lien[0]);
+	if (lien.length > 1) {
+		//console.log('lien[1] : '+lien[1]);
+  		for (var i=0; i < lien.length; i++)
+			{
+	   			console.log(lien[i] + " - ");
+			}
+		var target = lien[1].split("=");
+		//console.log('target[0] : '+target[0]);
+		if (target.length > 1) {
+			console.log('target[1] : '+target[1]);
+			link = target[1];
+		}
+	}
+
+  	parent.window.location.href = link;
+    
+</script>

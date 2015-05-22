@@ -1,0 +1,89 @@
+<?php 
+echo '<h1>'.$this->translate($this->title).'</h1>';
+
+if ($this->typ == 'view') {
+	?>
+	
+<style type="text/css">
+table.gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+	width:100%;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 2px;
+	color:#28B4E6;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 2px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+</style>
+	<?php 
+	foreach ($this->ticket as $value) {
+	echo '<TABLE class="gridtable">';
+	echo '<tr>';
+	echo '<td ><b>Ref</b></td>';
+	echo '<td>'.$value['ref'].'</td>';
+	echo '<td><b>Status</b></td>';
+	echo '<td>'.$value['status'].'</td>';
+	echo '</tr>';
+	echo '<tr>';
+	echo '<td ><b>Caller</b></td>';
+	echo '<td>'.$value['full_name'].'</td>';
+	echo '<td><b>Priority</b></td>';
+	echo '<td>'.$value['priority'].'</td>';
+	echo '</tr>';
+	echo '<tr>';
+	echo '<td ><b>Request Type</b></td>';
+	echo '<td>'.$value['request_type'].'</td>';
+	echo '<td><b>Hot Flag</b></td>';
+	echo '<td>?</td>';
+	echo '</tr>';
+	echo '<tr>';
+	echo '<td ><b>Service</b></td>';
+	echo '<td>'.$value['service_name'].'</td>';
+	echo '<td><b>Start Date</b></td>';
+	echo '<td>'.$value['start_date'].'</td>';
+	echo '</tr>';
+	echo '<tr>';
+	echo '<td ><b>Title</b></td>';
+	echo '<td>'.$value['title'].'</td>';
+	echo '<td><b>Resolution Date</b></td>';
+	echo '<td>'.$value['resolution_date'].'</td>';
+	echo '</tr>';
+	echo '<tr>';
+	echo '<td ><b>Description</b></td>';
+	echo '<td>'.$value['description'].'</td>';
+	echo '<td><b>Last Update</b></td>';
+	echo '<td>'.$value['last_update'].'</td>';
+	echo '</tr>';
+	echo '<tr>';
+	echo '<td ></td>';
+	echo '<td></td>';
+	echo '<td><b>Agent</b></td>';
+	echo '<td>'.$value['full_name_agent'].'</td>';
+	
+	echo '</tr>';
+	echo '</table>';
+	}
+	//print_r($this->ticket);
+}
+else {
+	echo '<div id="content">'.$this->tableau.'</div>';
+	
+} 
+
+
+?>

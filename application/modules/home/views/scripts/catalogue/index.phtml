@@ -1,0 +1,80 @@
+<?php
+
+echo '<h1>Consulter notre catalogue de service</h1>';
+
+?>
+<br>
+   
+<?php
+	echo $this->tableau;
+?>
+<br>
+<h2>Hiérarchie des Services.</h2>
+ 
+ <style>
+ /* Pour corriger le bug d'afficahge sous Chrome*/
+.google-visualization-orgchart-node {border:0px;}
+ </style>
+ 
+ <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['orgchart']}]}"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['orgchart']});
+    </script>
+    <script type="text/javascript">
+      function drawVisualization() {
+        // Create and populate the data table.
+        var data = google.visualization.arrayToDataTable([
+          ['Name', 'Service', 'Tooltip'],
+          <?php
+          
+          	echo $this->tableau2;
+      	  	?>  
+        ]);
+      
+        // Create and draw the visualization.
+        new google.visualization.OrgChart(document.getElementById('visualization')).
+            draw(data, {allowHtml: true,
+                		
+                		allowCollapse:true
+            			}
+				);
+      }
+      
+
+      google.setOnLoadCallback(drawVisualization);
+    </script>
+ 	
+ 	
+    <div id="visualization" style="width: 100%; height: 400px; overflow:auto;"></div>
+
+ 	 
+    
+  <!--    <style type="text/css">
+        #service {width: 800px;height: 800px; }   
+    </style>
+
+    <div id="service"></div>
+    <script type="text/ecmascript">
+			$('#service').getOrgChart({
+				scale: 0.2,
+				levelSeparation: 500,
+				orientation: getOrgChart.RO_LEFT,
+				//orientation:getOrgChart.RO_BOTTOM_PARENT_LEFT,
+				theme: "eve",
+				color: "parme",
+				primaryColumns: ["Nom", "Description"],
+				//imageColumn: "image",
+				printable: false,
+				gridView: true,
+				editable: false,
+				dataSource:[<?php //echo $this->tableau3;?>
+				]
+			});
+    </script>
+     -->
+    <?php //echo $this->tableau3;?>
+ 	
+ 	
+ 	
+ 
+ 

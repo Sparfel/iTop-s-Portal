@@ -1,0 +1,176 @@
+<?php
+$this->placeholder('undermenu')->captureStart();
+?>
+	<h2>Réglages de vos préférences</h2>
+	<p>Régler ici vos préférences comme la langue ou les sites auquels vous souhaitez vous rattacher.</p> 
+<?php 
+	$this->placeholder('undermenu')->captureEnd();
+?>
+<?php
+$this->placeholder('aside')->captureStart();
+	echo '<span id="Msg" style="color:red; font-weight:bold;">'.$this->translate($this->actionMsg).'</span>';
+$this->placeholder('aside')->captureEnd();
+?>
+<h1>Préférences</h1>
+<?php echo $this->formPref;?>
+<style>
+label {
+ 	width: 300px;
+    text-align: left;
+    display: inline-block;
+    }
+button[type="button"]{
+ display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
+<?php echo $this->DropDownCheckList($this->OPref);?>
+<?php 
+// On propose la langue qu'on n'a pas actuellement
+$flag = 'uk';
+if ($this->OPref->_language == 'en') 
+    {$flag = 'fr';$lang = 'fr';}
+elseif ($this->OPref->_language == 'fr') 
+	{ $flag = 'uk';
+	$lang = 'en';}
+?>
+
+<FIELDSET id="fieldset-request">
+	<LEGEND> Langue </LEGEND>
+		<a class="language" href="<?php echo $this->url(array('controller' => 'language', 'action' => 'change', 'module' => 'user','language'=>$lang,'url'=>$tab_url = explode('/',$this->url())), 'default');?>">
+		<label>Changer de langue pour :</label>    	
+		<img src="<?php echo $this->baseUrl();?>/layouts/backoffice/images/flags/<?php echo $flag;?>.png" title="Change language"></img> 
+	</a>          	
+</FIELDSET>
+    
+<script type='text/javascript'>
+$(function() {	
+	
+	  $( '#<?php echo $this->OPref->_ParamName_UserFilter?>' ).change(function() {
+			var isChecked = $('#<?php echo $this->OPref->_ParamName_UserFilter?>').is(':checked');
+			launchAjax('<?php echo $this->OPref->_ParamName_UserFilter?>',isChecked);
+	  	});
+	
+	  $( '#<?php echo $this->OPref->_ParamName_UserLocation?>' ).change(function() {
+			//alert($('#<?php echo $this->OPref->_ParamName_UserLocation?>').val());
+			launchAjax('<?php echo $this->OPref->_ParamName_UserLocation?>',$('#<?php echo $this->OPref->_ParamName_UserLocation?>').val());
+	  	});
+
+	  $( '#<?php echo $this->OPref->_ParamName_UserYear?>' ).change(function() {
+			//alert($('#<?php echo $this->OPref->_ParamName_UserYear?>').val());
+			launchAjax('<?php echo $this->OPref->_ParamName_UserYear?>',$('#<?php echo $this->OPref->_ParamName_UserYear?>').val());
+	  	});
+
+	  $('#submitbutton').click(function(){
+		 checkPass();
+	  });
+
+	  $(document).ready(function() {
+		  $("#confirm_pswd").keyup(validate);
+		});
+	  
+	  function validate() {
+		  var goodColor = "#66cc66";
+	      var badColor = "#ff6666";
+		  var password1 = $("#pswd").val();
+		  var password2 = $("#confirm_pswd").val();
+		  var pass2 = document.getElementById('confirm_pswd');
+
+		    if(password1 == password2 ) {
+		       var message = document.getElementById('Msg');
+		       message.style.color = goodColor;
+		       pass2.style.backgroundColor = goodColor;
+		       $("#Msg").text("Mot de passe valide."); 
+		    }
+		    else {
+		    	var message = document.getElementById('Msg');
+			    message.style.color = badColor;
+		        $("#Msg").text("Mot de passe invalide."); 
+		    }
+		   $('#Msg').fadeIn(2000);
+		   setTimeout(function(){$("#Msg").fadeOut('slow');}, 5000);
+		    
+		}
+
+
+	  function checkPass()
+	    {   //Store the password field objects into variables ...
+	        var pass1 = document.getElementById('pswd');
+	        var pass2 = document.getElementById('confirm_pswd');
+	        //Store the Confimation Message Object ...
+	        var message = document.getElementById('Msg');
+	        //Set the colors we will be using ...
+	        var goodColor = "#66cc66";
+	        var badColor = "#ff6666";
+	        //Compare the values in the password field 
+	        //and the confirmation field
+	        if  (pass1.value.length < 5) {
+	        	pass1.style.backgroundColor = badColor;
+	            message.style.color = badColor;
+	            message.innerHTML = "Le mot de passe doit faire au moins 5 caractères."
+	        }
+	        else if(pass1.value == pass2.value ){
+	            //The passwords match. 
+	            //Set the color to the good color and inform
+	            //the user that they have entered the correct password 
+	            pass2.style.backgroundColor = goodColor;
+	            launchAjax('CHG_PWD',pass1.value)
+	            message.style.color = goodColor;
+	            message.innerHTML = "Le mot de passe a été modifié.";
+	            pass1.value="";
+	            pass2.value="";
+	            pass1.style.backgroundColor = "white";
+	            pass2.style.backgroundColor = "white";
+	        }else{
+	            //The passwords do not match.
+	            //Set the color to the bad color and
+	            //notify the user.
+	            pass1.style.backgroundColor = "white";
+	            pass2.style.backgroundColor = badColor;
+	            message.style.color = badColor;
+	            message.innerHTML = "Les mots de passe ne correspondent pas."
+		        pass2.value="";
+	        }
+		}  
+	  
+	  function launchAjax(param,value){
+			$.ajax({
+				url       : '/user/preference/changepref',
+				type      : 'post',
+				dataType : 'html',
+				data      :{
+					'user_id' : '<?php  echo $this->OPref->_user_id;?>',
+					'param' : param,
+					'value' : value
+					},
+				success : function(data){
+					//alert(param);
+					//alert(value);
+					$('#Msg').empty();
+					$('#Msg').append('<?php echo '<span id="Msg" style="color:red; font-weight:bold;">'.$this->translate('Vos modifications ont été prises en compte')."</span>";?>');
+					$('#Msg').fadeIn(2000);
+					setTimeout(function(){$("#Msg").fadeOut('slow');}, 5000);
+				},
+				error :function(xhr, ajaxOptions, thrownError){
+					 alert(xhr.status);
+					alert(thrownError);
+				},
+				complete : function(data){
+				}		
+			});
+		}
+
+	});
+	</script>
+<?php echo $this->formpwd;
+
+echo '<H3>Informations</h3>';
+echo '<p>Environnement : <b>'.$this->span1.$this->environment.'</b>'.$this->endspan.'</p>';
+echo $this->itopinteraction;
+
+echo '<H3>Version du Portail</h3>';
+echo '<p>Version : <b>'.Portal_Version::VERSION.'</b></p>'; 
+?>
+

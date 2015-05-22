@@ -1,0 +1,277 @@
+body {background : #161616;}
+
+/* Full Width Progress Bar */
+
+#content { 
+	width:100%; 
+	height:5px; 
+	margin:50px auto; 
+	background:#000;
+}
+
+.fullwidth .progress__bar { 
+	width:100%; 
+	height:1px; 
+	margin:2px 0; 
+	background:#1C94C4; 
+	position:absolute;
+	box-shadow:0px 0px 10px 1px rgba(0,198,255,0.7);
+    -moz-animation:fullexpand 0s ease-out;
+	-webkit-animation:fullexpand 0s ease-out;
+}
+
+@-moz-keyframes fullexpand {
+	0%  { width:0px;}
+	100%{ width:100%;}	
+}
+@-webkit-keyframes fullexpand {
+	0%  { width:0px;}
+	100%{ width:100%;}	
+}
+
+
+
+.progress {
+  height: 20px;
+  padding: 1px;
+  //background-color: #f7f7f7;
+  //border: 1px solid #eeeeee;
+  overflow: hidden;
+  margin-bottom: 20px;
+  
+ 
+}
+.progress__bar {
+  display: block;
+  height: 100%;
+  background: #1C94C4;
+  
+ width:100%; 
+	height:1px; 
+	margin:2px 0; 
+	background:#1C94C4; 
+	position:absolute;
+	box-shadow:0px 0px 10px 1px rgba(188,188,211,0.7);
+    -moz-animation:fullexpand 0s ease-out;
+	-webkit-animation:fullexpand 0s ease-out;
+  
+}
+
+
+
+
+.progress__label {
+  float: right;
+  padding: 0 2px;
+  color: #1C94C4;
+  font-size: 12px;
+}
+.progress--radius {
+  border-radius: 2px;
+}
+.progress--round {
+  border-radius: 1000px;
+}
+.progress--radius .progress__bar,
+.progress--round .progress__bar {
+  border-radius: inherit;
+}
+.progress--small {
+  height: 15px;
+}
+.progress--large {
+  height: 10px;
+}
+.progress--success .progress__bar {
+  background-color: #43ac6a;
+}
+.progress--alert .progress__bar {
+  background-color: #f04124;
+}
+.progress--striped .progress__bar {
+  background-size: 40px 40px;
+}
+
+
+
+/*style pour l'iframe et le texte d'info + un progresse barre basique masquée*/
+#long-running-process {
+   background-color:white;
+    width:300px;
+    height: 220px;
+    overflow: hidden;
+}
+
+#progressbar-container {
+   /* width: 500px;
+    height: 100px;
+ 	position : relative;
+ 	margin : auto;
+ 	float:left;
+    border: 1px solid #000000;
+    background-color:white;
+    */
+     position:absolute;
+    top: 60%;
+    /*left: 50%;
+    width: 500px;
+    height: 100px;
+    margin-left: -250px; // Cette valeur doit être la moitié négative de la valeur du width 
+    margin-top: -200px; 
+    z-index : 1;*/
+
+}
+ 
+#zend-progressbar-container {
+    width: 300px;
+    height: 5px;
+ 	margin : auto;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+
+    visibility:hidden;
+}
+ 
+#zend-progressbar-done {
+    width: 0;
+    height: 5px;
+ 	
+    background-color: #000000;
+}
+
+#zend-progressbar-info {
+	font : calibri;
+	margin : auto;   
+    text-align : center;
+    font : 11px Verdana, Arial;
+    padding: 0px 0px 12px 0px;
+    color:#555;
+}
+
+
+/*Image Loading pour patienter pendant que le formulaire disparait */ 
+#facebookG{
+width:70px;
+	visibility : hidden;
+	
+	position : relative;
+	margin : auto;
+	margin-top : -180px;
+	}
+
+.facebook_blockG{
+background-color:#1C94C4;
+border:2px solid #1C94C4;
+float:left;
+height:50px;
+margin-left:4px;
+width:13px;
+opacity:0.1;
+-moz-animation-name:bounceG;
+-moz-animation-duration:1.3s;
+-moz-animation-iteration-count:infinite;
+-moz-animation-direction:linear;
+-moz-transform:scale(0.7);
+-webkit-animation-name:bounceG;
+-webkit-animation-duration:1.3s;
+-webkit-animation-iteration-count:infinite;
+-webkit-animation-direction:linear;
+-webkit-transform:scale(0.7);
+-ms-animation-name:bounceG;
+-ms-animation-duration:1.3s;
+-ms-animation-iteration-count:infinite;
+-ms-animation-direction:linear;
+-ms-transform:scale(0.7);
+-o-animation-name:bounceG;
+-o-animation-duration:1.3s;
+-o-animation-iteration-count:infinite;
+-o-animation-direction:linear;
+-o-transform:scale(0.7);
+animation-name:bounceG;
+animation-duration:1.3s;
+animation-iteration-count:infinite;
+animation-direction:linear;
+transform:scale(0.7);
+}
+
+#blockG_1{
+-moz-animation-delay:0.39s;
+-webkit-animation-delay:0.39s;
+-ms-animation-delay:0.39s;
+-o-animation-delay:0.39s;
+animation-delay:0.39s;
+}
+
+#blockG_2{
+-moz-animation-delay:0.52s;
+-webkit-animation-delay:0.52s;
+-ms-animation-delay:0.52s;
+-o-animation-delay:0.52s;
+animation-delay:0.52s;
+}
+
+#blockG_3{
+-moz-animation-delay:0.65s;
+-webkit-animation-delay:0.65s;
+-ms-animation-delay:0.65s;
+-o-animation-delay:0.65s;
+animation-delay:0.65s;
+}
+
+@-moz-keyframes bounceG{
+0%{
+-moz-transform:scale(1.2);
+opacity:1}
+
+100%{
+-moz-transform:scale(0.7);
+opacity:0.1}
+
+}
+
+@-webkit-keyframes bounceG{
+0%{
+-webkit-transform:scale(1.2);
+opacity:1}
+
+100%{
+-webkit-transform:scale(0.7);
+opacity:0.1}
+
+}
+
+@-ms-keyframes bounceG{
+0%{
+-ms-transform:scale(1.2);
+opacity:1}
+
+100%{
+-ms-transform:scale(0.7);
+opacity:0.1}
+
+}
+
+@-o-keyframes bounceG{
+0%{
+-o-transform:scale(1.2);
+opacity:1}
+
+100%{
+-o-transform:scale(0.7);
+opacity:0.1}
+
+}
+
+@keyframes bounceG{
+0%{
+transform:scale(1.2);
+opacity:1}
+
+100%{
+transform:scale(0.7);
+opacity:0.1}
+
+}
+
+
+

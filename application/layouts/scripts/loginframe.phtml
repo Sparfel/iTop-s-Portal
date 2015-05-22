@@ -1,0 +1,14 @@
+ <?php echo $this->headLink() ?>
+  <?php $this->jQuery()->enable(); 
+        echo $this->jQuery(); ?>
+ <?php //echo $this->headScript() ?>
+ <body <?php if($this->placeholder('body_id')!= '') echo 'id="'.$this->placeholder('body_id').'"'; ?>
+	<?php if($this->placeholder('body_onload')!= '') echo 'onload="'.$this->placeholder('body_onload').'"'; ?>  
+	<?php if($this->placeholder('body_class') != '') echo 'class="'.$this->placeholder('body_class').'"'; ?>>
+	
+	 <section class="login-box">
+	 <?php echo $this->layout()->content;?>
+	 </section>
+	 
+	 
+</body>	 

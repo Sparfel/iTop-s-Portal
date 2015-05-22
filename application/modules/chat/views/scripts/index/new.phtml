@@ -1,0 +1,13 @@
+<div id="chatWrapper">
+    <form id="chatForm" onSubmit="Chat.doIt('client'); return false;">
+        <div><textarea id="chatContent" cols="60" rows="20" readonly="readonly"></textarea></div>
+        <div>
+            <input type="hidden" id="sessId" name="sessId" value="<?php echo $this->sessId; ?>" />
+             <input type="hidden" id="user" name="user" value="<?php echo $this->user; ?>" />
+             <input type="hidden" id="org_id" name="org_id" value="<?php echo $this->org_id; ?>" />
+             <input type="hidden" id="organization" name="organization" value="<?php echo $this->organization; ?>" />
+            <input type="text" id="chatMessage" name="message" />
+            <input type="submit" name="submit" value="Send" />
+        </div>
+    </form>
+</div>

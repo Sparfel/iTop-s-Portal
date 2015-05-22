@@ -1,0 +1,40 @@
+<?php
+$panier = $this->panier;
+$utilisateur = $this->utilisateur ;
+
+if (isset($panier) && sizeof($panier->getLignes()) > 0) {
+    ?>
+<h1> Detail de votre panier :</h1>
+<table class="tableau">
+    <tr>
+        <th>Article </th>
+        <th>Prix unitaire</th>
+        <th>Quantité</th>
+        <th>Prix Total</th>
+    </tr>
+        <?php
+        foreach ($panier->getLignes() as $ligne) {
+            $produit = $ligne->getProduit();
+            ?>
+    <tr>
+        <td><?php echo $produit['nom']; ?></td>
+        <td><?php echo $produit['prix'] ?></td>
+        <td><?php echo $ligne->getNbProduit() ?></td>
+        <td><?php echo $produit['prix']*$ligne->getNbProduit() ?></td>
+    </tr>
+            <?php
+        }
+        ?>
+
+</table>
+<h2>Total : <?= $panier->getTotal() ?></h2>
+<h3>Adresse de livraison :</h3>
+<p class="validAdress"><?php echo $utilisateur->nom. ' ' . $utilisateur->prenom ?><br />
+        <?php echo $utilisateur->adresse?><br />
+        <?php echo $utilisateur->codePostale. ' ' . $utilisateur->ville ?></p>
+
+<br /><br /><br /><br />
+    <?php 
+}
+
+

@@ -1,0 +1,400 @@
+<Style>
+
+div#SrvDesc {
+	float:left;
+	margin-left:-35px;
+	
+	
+}
+
+section aside {
+    margin: 0px;
+    margin-top:20px;
+   
+    float: right;
+    width: 250px;
+    z-index: 1;
+    /*background-color : #F0F0F0;
+    background: url("/layouts/frontoffice/images/sprite_syleps.png") no-repeat scroll -157px -66px transparent;*/
+    background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.25);
+	 padding: 0px 15px 0px;
+	color: #FFF;
+	
+}
+
+ #fieldset-Servicerequest dt#eltsrvdesc-label{
+background:url("/layouts/frontoffice/images/info_verysmall.png") no-repeat  transparent;
+background-position : 95%;
+height: 32px;
+
+}
+
+ #fieldset-Servicerequest dd#eltsrvdesc-element{
+/*background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.3);
+	color: #FFF;
+	width:75%;*/
+	font-size:80%;
+}
+
+
+</Style> 
+
+<?php
+
+/*Zend_Debug::dump($this->tab_tri);
+Zend_Debug::dump($this->ServicesList);*/
+
+//echo $this->page.' - '.$this->serviceElementId;
+//echo '<h1>'.$this->translate('Bienvenue dans votre Espace Services Syleps').'</h1>';
+//print_r($this->session);
+if (($this->page == 'ClientServices')){
+	$nb_services = $this->nbServices;
+	if ($nb_services > 0)
+	{ $i = 1;
+		echo '<span id="AllServices">'.chr(13);
+		if (is_array($this->tab_tri)){
+			$no_col = 1;
+			/*echo '<PRE>';
+			print_r($this->tab_tri);
+			echo '</PRE>';*/
+			foreach ($this->tab_tri as $tab_col) {
+				echo '<div class="col'.$no_col.'"><ul class="product-list">'.chr(13);
+				foreach ($tab_col as $idservice) {
+					if ($idservice != '') { // Y a t-il un identifiant service ? (cas du param se terminant par ',' ou |
+						$service = $this->ServicesList[$idservice];
+						//Zend_Debug::dump($service);
+						if ($service->getActiv()){
+							echo '<li class="'.$service->getName().'" id="'.$service->getName().'">'.chr(13);
+							echo '<a href="'.$this->url(array('controller' => $service->getLinkController(), 'action' => $service->getLinkAction(), 'module' => $service->getLinkModule()),null, true).'">'.chr(13);
+							echo '<hgroup>'.chr(13);
+							echo '<h3 class="'.$service->getName().'">'.$service->getTitle().'<span>'.$service->getSubtitle().'</span></h3>'.chr(13);
+							echo '</hgroup>'.chr(13);
+							echo '<p>'.$service->getDescription().'</p>'.chr(13);
+							echo '</a>'.chr(13).'</li>'.chr(13);
+						}
+					}
+				}
+				echo '</ul>'.chr(13).'</div>'.chr(13);
+				$no_col++;
+			}
+		}
+		else {
+			foreach ($this->ServicesList as $service)
+			{
+			
+				if ($i == 1) {echo '<div class="col1"><ul class="product-list">'.chr(13);}
+				//echo '<li class="'.$this->StyleList[$service->getId()].'" id="'.$this->StyleList[$service->getId()].'">'.chr(13);
+				if ($service->getActiv()){
+					echo '<li class="'.$service->getName().'" id="'.$service->getName().'">'.chr(13);
+					echo '<a href="'.$this->url(array('controller' => $service->getLinkController(), 'action' => $service->getLinkAction(), 'module' => $service->getLinkModule()),null, true).'">'.chr(13);
+					echo '<hgroup>'.chr(13);
+					echo '<h3 class="'.$service->getName().'">'.$service->getTitle().'<span>'.$service->getSubtitle().'</span></h3>'.chr(13);
+					echo '</hgroup>'.chr(13);
+					echo '<p>'.$service->getDescription().'</p>'.chr(13);
+					echo '</a>'.chr(13).'</li>'.chr(13);
+					$i++;
+				}
+				if (($i > $nb_services/2  ) AND ($i <= ($nb_services/2)+1 )) {echo '</ul>'.chr(13).'</div>'.chr(13).'<div class="col2">'.chr(13).'<ul class="product-list">'.chr(13);}
+				if ($i > $nb_services) { echo '</ul>'.chr(13).'</div>'.chr(13);}
+			}
+		}
+		
+		
+		echo '</span>'.chr(13);
+	}
+}
+
+else if ($this->page == 'iTopServices') {
+	$nb_services = $this->nbServices;
+	//Zend_Debug::dump(count($this->ServicesList));
+	//Zend_Debug::dump(count($this->tab_tri));
+	//Zend_Debug::dump($this->tab_tri);
+	echo '<h1>'.$this->translate('Catalogue de Services.').'</h1>';
+	
+	echo $this->ShowServices($this->ServicesList,$this->tab_tri,'Service');
+	/*if ($nb_services > 0)
+		{ $i = 1;
+		echo '<span id="AllServices">'.chr(13);
+		if (is_array($this->tab_tri)){ //Services positions are saved in database for the user, see parameter HOME_SERVICES in table portal_user_preference 
+			$no_col = 1;
+			foreach ($this->tab_tri as $tab_col) {
+				echo '<div class="col'.$no_col.'"><ul class="product-list-itop">'.chr(13);
+				foreach ($tab_col as $idservice) {
+					if ($idservice != '') // Y a t-il un identifiant service ? (cas du param se terminant par ',' ou |
+					{
+						$service = $this->ServicesList[$idservice];
+						//print_r($service);
+						//echo '<li class="'.$this->StyleList[$service->getId()].'" id="'.$service->getId().'">'.chr(13);
+						echo '<li class="'.$this->StyleService($this->StyleList,$service->getId()).'" id="'.$service->getId().'">'.chr(13);
+						echo '-'.$service->getId().'-<a href="'.$this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'home','service'=>$service->getId()),null, true).'">'.chr(13);
+						echo '<hgroup>'.chr(13);
+						echo '<h3 class="'.$this->StyleService($this->StyleList,$service->getId()).'">'.$service->getName().'<span>'.$service->getName().'</span></h3>'.chr(13);
+						echo '</hgroup>'.chr(13);
+						echo '<p>'.$service->getDescription().'</p>'.chr(13);
+		 				echo '</a>'.chr(13).'</li>'.chr(13);
+					}
+				}
+				echo '</ul>'.chr(13).'</div>'.chr(13);
+				$no_col++;
+			}
+		}
+		else { // No services position saved in preference table in database.
+			//Zend_Debug::dump(count($this->ServicesList));
+			foreach ($this->ServicesList as $service)
+				{
+					if ($i == 1) {echo '<div class="col1"><ul class="product-list-itop">'.chr(13);}
+					echo '<li class="'.$this->StyleList[$service->getId()].'" id="'.$service->getId().'">'.chr(13);
+					echo '-'.$service->getId().'-<a href="'.$this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'home','service'=>$service->getId()),null, true).'">'.chr(13);
+					echo '<hgroup>'.chr(13);
+					echo '<h3 class="'.$this->StyleList[$service->getId()].'">'.$service->getName().'<span>'.$service->getName().'</span></h3>'.chr(13);
+					echo '</hgroup>'.chr(13);
+					echo '<p>'.$service->getDescription().'</p>'.chr(13);
+	 				echo '</a>'.chr(13).'</li>'.chr(13);
+					$i++;
+					if (($i >= $nb_services/2  ) AND ($i < ($nb_services/2)+1 )) {echo '</ul>'.chr(13).'</div>'.chr(13).'<div class="col2">'.chr(13).'<ul class="product-list-itop">'.chr(13);}
+					if ($i > $nb_services) { echo '</ul>'.chr(13).'</div>'.chr(13);}
+				}
+		}
+		echo '</span>'.chr(13);
+		}*/
+
+}
+
+else if ($this->page == 'EltService') {
+	echo '<h1>'.$this->serviceName.'</h1>';
+	echo '<h2>'.$this->serviceDescription.'</h2>';
+	/*echo '<ul>';
+	foreach ($this->ServiceElementList as $serviceElement) {
+		echo '<li><a href="'.$this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'home','eltservice'=>$serviceElement->getId()),null, true).'">';	
+		echo $serviceElement->getName();
+		echo '</li>';
+	}	
+	echo '</ul>';*/
+	
+	echo $this->ShowServices($this->ServicesElementList,$this->tab_tri,'ServiceSubcategory');
+	
+	/*$nb_servicesElement = $this->NbServiceElement;
+	if ($nb_servicesElement > 0)
+	{ $i = 1;
+	echo '<span id="AllServicesElement">'.chr(13);
+	if (is_array($this->tab_tri)){
+		$no_col = 1;
+		foreach ($this->tab_tri as $tab_col) {
+			echo '<div class="col'.$no_col.'"><ul class="product-list-Elt-Srv-itop">'.chr(13);
+			foreach ($tab_col as $idserviceelement) {
+				if ($idserviceelement != '') // Y a t-il un identifiant service ? (cas du param se terminant par ',' ou |
+				{
+					$serviceElement = $this->ServicesElementList[$idserviceelement];
+					//print_r($service);
+					echo '<li class="'.$this->StyleServiceElement($this->StyleList,$serviceElement->getId()).'" id="'.$serviceElement->getId().'">'.chr(13);
+					echo '<a href="'.$this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'home','eltservice'=>$serviceElement->getId()),null, true).'">'.chr(13);
+					echo '<hgroup>'.chr(13);
+					echo '<h3 class="'.$this->StyleServiceElement($this->StyleList,$serviceElement->getId()).'">'.$serviceElement->getFriendlyname().'<span>'.$serviceElement->getName().'</span></h3>'.chr(13);
+					echo '</hgroup>'.chr(13);
+					echo '<p>'.$serviceElement->getDescription().'</p>'.chr(13);
+					echo '</a>'.chr(13).'</li>'.chr(13);
+				}
+			}
+			echo '</ul>'.chr(13).'</div>'.chr(13);
+			$no_col++;
+		}
+	}
+	else {
+		foreach ($this->ServicesElementList as $serviceElement)
+		{
+			if ($i == 1) {echo '<div class="col1"><ul class="product-list-Elt-Srv-itop">'.chr(13);}
+			//echo '<li class="'.$this->StyleList[$serviceElement->getId()].'" id="'.$serviceElement->getId().'">'.chr(13);
+			echo '<li class="'.$this->StyleServiceElement($this->StyleList,$serviceElement->getId()).'" id="'.$serviceElement->getId().'">'.chr(13);
+			echo '<a href="'.$this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'home','eltservice'=>$serviceElement->getId()),null, true).'">'.chr(13);
+			echo '<hgroup>'.chr(13);
+			echo '<h3 class="'.$this->StyleServiceElement($this->StyleList,$serviceElement->getId()).'">'.$serviceElement->getFriendlyname().'<span>'.$serviceElement->getName().'</span></h3>'.chr(13);
+			echo '</hgroup>'.chr(13);
+			echo '<p>'.$serviceElement->getDescription().'</p>'.chr(13);
+			echo '</a>'.chr(13).'</li>'.chr(13);
+			$i++;
+			if (($i >= $nb_servicesElement/2  ) AND ($i <= ($nb_servicesElement/2)+1 )) {echo '</ul>'.chr(13).'</div>'.chr(13).'<div class="col2">'.chr(13).'<ul class="product-list-Elt-Srv-itop">'.chr(13);}
+			if ($i > $nb_servicesElement) { echo '</ul>'.chr(13).'</div>'.chr(13);}
+		}
+	}
+	echo '</span>'.chr(13);
+	
+	}*/
+	
+	
+}
+else if ($this->page == 'FrmEltService') {
+	
+ 	if (isset($this->form))
+		{
+			if (strlen($this->serviceName) > 0) {
+				echo '<h1>'.$this->serviceName.'</h1>';
+				}
+			else {echo '<h1>'.$this->translate('Création d\'une nouvelle demande.').'</h1>';}
+			if (strlen($this->serviceDescription)>0) {
+				$this->placeholder('aside')->captureStart();
+				echo '<div id="SrvDesc"><img src= "'.$this->baseUrl().'/layouts/frontoffice/images/info_small.png"/></div>';
+				echo $this->serviceDescription;
+				$this->placeholder('aside')->captureEnd();
+			}
+			echo $this->form;
+		}
+	
+	else 
+		{
+		echo '<h1>'.$this->serviceElementName.'</h1>';
+		echo '<h2>'.$this->serviceElementDescription.'</h2>';
+		
+		$nb_servicesEltTpl = $this->NbServiceElementTemplate;
+		//echo'Nb Template :'.$nb_servicesEltTpl;
+		if ($nb_servicesEltTpl > 0)
+		{ 	$i = 1;
+			echo '<span id="AllServicesElementTemplate">'.chr(13);
+			if (is_array($this->tab_tri)){
+				//echo 'On a une config en base';
+				$no_col = 1;
+				foreach ($this->tab_tri as $tab_col) {
+					echo '<div class="col'.$no_col.'"><ul class="product-list-Frm-Elt-Srv-itop">'.chr(13);
+					foreach ($tab_col as $idserviceelementtemplate) {
+						if ($idserviceelementtemplate != '') // Y a t-il un identifiant service ? (cas du param se terminant par ',' ou |
+						{
+							$serviceElementTemplate = $this->ServiceElementTemplateList[$idserviceelementtemplate];
+							//Zend_Debug::dump($serviceElementTemplate);
+							echo '<li class="'.$this->StyleServiceElementTemplate($this->StyleList,$serviceElementTemplate->getId()).'" id="'.$serviceElementTemplate->getId().'">'.chr(13);
+							echo '<a href="'.$this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'home','tpleltservice'=>$serviceElementTemplate->getId()),null, true).'">'.chr(13);
+							echo '<hgroup>'.chr(13);
+							echo '<h3 class="'.$this->StyleServiceElementTemplate($this->StyleList,$serviceElementTemplate->getId()).'">'.$serviceElementTemplate->getName().'<span>'.$serviceElementTemplate->getDescription().'</span></h3>'.chr(13);
+							echo '</hgroup>'.chr(13);
+							echo '<p>--</p>'.chr(13);
+							echo '</a>'.chr(13).'</li>'.chr(13);
+						}
+					}
+					echo '</ul>'.chr(13).'</div>'.chr(13);
+					$no_col++;
+				}
+			}
+			else {
+				//echo 'On liste les éléments comme ils viennent, pas de cfg en base<br>';
+				foreach ($this->ServiceElementTemplateList as $serviceElementTemplate)
+				{
+					if ($i == 1) {echo '<div class="col1"><ul class="product-list-Frm-Elt-Srv-itop">'.chr(13);}
+					echo '<li class="'.$this->StyleServiceElementTemplate($this->StyleList,$serviceElementTemplate->getId()).'" id="'.$serviceElementTemplate->getId().'">'.chr(13);
+					echo '<a href="'.$this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'home','tpleltservice'=>$serviceElementTemplate->getId()),null, true).'">'.chr(13);
+					echo '<hgroup>'.chr(13);
+					echo '<h3 class="'.$this->StyleServiceElementTemplate($this->StyleList,$serviceElementTemplate->getId()).'">'.$serviceElementTemplate->getName().'<span> '.$serviceElementTemplate->getDescription().' </span></h3>'.chr(13);
+					echo '</hgroup>'.chr(13);
+					echo '<p>--</p>'.chr(13);
+					echo '</a>'.chr(13).'</li>'.chr(13);
+					$i++;
+					$a = $nb_servicesEltTpl/2;
+					$b = ($nb_servicesEltTpl/2)+1; 
+					if (($i >= $nb_servicesEltTpl/2  ) AND ($i <= ($nb_servicesEltTpl/2)+1 )) {echo '</ul>'.chr(13).'</div>'.chr(13).'<div class="col2">'.chr(13).'<ul class="product-list-Frm-Elt-Srv-syleps">'.chr(13);}
+					if ($i > $nb_servicesEltTpl) { echo '</ul>'.chr(13).'</div>'.chr(13);}
+					//echo 'i = '.$i.' >=(?) SrvEltTpl/2 = '.$a;
+					//echo 'AND i = '.$i.'  < (?) SrvEltTpl/2 + 1 = '.$b;
+						
+					
+				}
+			}
+		echo '</span>'.chr(13);
+		}
+		
+		
+		
+		
+		}
+}
+else if ($this->page == 'TplFrmEltService') {
+	//echo $this->message.'<br>';
+	foreach ($this->ServiceElementTemplateField as $field) {
+		//echo $field->getCode().' - '.$field->getFriendlyname().' - '.$field->getOrder().' - '.$field->getMandatory().' - '.$field->getInputType().'<br>';
+		
+	}
+	
+?>
+ <script>
+ $(function() {
+	 $( ".datetimepicker" ).datetimepicker({
+		 dateFormat: "dd-mm-yy",
+		 timeFormat: "HH:mm",
+		 hourText: "Heure",
+		 regional: "fr",
+		 showOn: "button",
+		 buttonImage: "<?php echo $this->baseUrl();?>/layouts/frontoffice/images/calendrier/cal.gif",
+		 buttonImageOnly: true
+		 });
+	 });
+
+ $(function() {
+	 $( ".datepicker" ).datepicker({
+	 dateFormat: "dd-mm-yy",
+	 regional: "fr",
+	 showOn: "button",
+	 buttonImage: "<?php echo $this->baseUrl();?>/layouts/frontoffice/images/calendrier/cal.gif",
+	 buttonImageOnly: true
+	 });
+	 
+	
+	 });
+</script>
+<?php //}
+	//echo '<h1>'.$this->serviceName.'</h1>';
+	//echo '<h2>'.$this->serviceDescription.'</h2>';
+	if (strlen($this->serviceName) > 0) {
+		echo '<h1>'.$this->serviceName.'</h1>';
+		}
+	else {echo '<h1>'.$this->translate('Création d\'une nouvelle demande.').'</h1>';}
+	if (strlen($this->serviceDescription)>0) {
+		$this->placeholder('aside')->captureStart();
+		echo '<div id="SrvDesc"><img src= "'.$this->baseUrl().'/layouts/frontoffice/images/info_small.png"/></div>';
+		echo $this->serviceDescription;
+		$this->placeholder('aside')->captureEnd();
+	}
+	//echo '<h2>'.$this->serviceElementName.'</h2>';
+	//echo '<h3>'.$this->serviceElementTemplateName.'</h3>';
+	echo $this->form;
+	
+?>
+
+<?php }
+
+else if ($this->page == 'ValidForm') { ?>
+ 	<p> Votre demande a bien été enregistrée sous la référence <b><?php echo $this->RefRequest;?></b></p>
+	<p>Vous recevrez très bientôt un mail vous rappelant la référence de l'incident.</p>
+	<p>L'équipe de support Syleps vous remercie.</p>
+	<p><a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'home','service'=>null,'eltservice'=>null,'tpleltservice'=>null,), 'default'); ?>">Retour aux Services</a>.</p>
+		
+<?php 
+
+} ?>
+
+<script type="text/javascript" >
+$(function(){ // wait for document to load 
+ $('#tab_files-0').MultiFile({ 
+  STRING: {
+   file: '<em title="Click to remove" onclick="$(this).parent().prev().click()">$file</em>',
+   remove: '<img src="/layouts/frontoffice/images/delete-icon.png" height="16" width="16" alt="x"/>'
+  }
+ }); 
+});
+</script>
+<?php
+/*
+$session = new Zend_Session_Namespace('Zend_Auth');
+	Zend_Debug::dump($session->ServiceCatalog);
+	if (isset($session->Service)) 
+		{
+		echo 'Service ID : '.$session->Service->_id;
+		echo '<br>';
+		}
+	if (isset($session->ServiceElement)) 
+		{
+		echo 'Service Elément ID : '.$session->ServiceElement->_id;
+		echo '<br>';
+		}
+	if (isset($session->ServiceElementTemplate)) 
+		{
+		echo 'Service Elément Template ID : '.$session->ServiceElementTemplate->_id;
+		echo '<br>';
+		}
+*/
+?>

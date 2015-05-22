@@ -1,0 +1,464 @@
+
+<?php
+echo '<h1>'.$this->translate($this->title).' '.$this->ref.'</h1>';
+
+if ($this->typ == 'view' OR $this->typ == 'maj') {
+	?>
+	<style type="text/css">
+	table.gridtable {
+		font-family: verdana,arial,sans-serif;
+		font-size:11px;
+		color:#333333;
+		border-width: 1px;
+		border-color: #808080;
+		border-collapse: collapse;
+		width:100%;
+	}
+	table.gridtable th {
+		border-width: 1px;
+		padding: 2px;
+		color:#28B4E6;
+		border-style: solid;
+		border-color: #808080;
+		background-color: #dedede;
+	}
+	table.gridtable td.title {
+		border-width: 0px;
+		width:10%;
+		padding: 5px;
+		border-style: solid;
+		border-color: #808080;
+		background-color: #ffffff;
+		text-align:right;
+	}
+	table.gridtable td.content {
+		border-width: 0px;
+		width:40%;
+		padding: 5px;
+		border-style: solid;
+		border-color: #808080;
+		background-color: #ffffff;
+	}
+	
+	table.gridtable td.half {
+		border-width: 0px;
+		width:50%;
+		padding: 5px;
+		border-style: solid;
+		border-color: #808080;
+		background-color: #ffffff;
+	}
+	
+	/* CSS for Collapsible content*/
+	.collapsible,
+	.page_collapsible {
+	    margin: 0;
+	    padding:10px;
+	    height:20px;
+	
+	    border-top:#f0f0f0 1px solid;
+	    background: #cccccc;
+	
+	    font-family: Verdana, Arial, Helvetica, sans-serif;
+	    text-decoration:none;
+	    text-transform:uppercase;
+	    color: #000;
+	    font-size:11px;
+	}
+	
+	.collapse-open {
+	    background:#D5D5D5;
+	    color: #7E7E7E;
+	}
+	
+	.collapse-open span {
+	    display:block;
+	    /*float:right;*/
+	    /*padding:10px;*/
+	}
+	
+	.collapse-open span {
+	    background:url(images/minus.png) center center no-repeat;
+	}
+	
+	.collapsible collapse-close span {
+	    display:block;
+	    float:right;
+	    background:url(images/plus.png) center center no-repeat;
+	    padding:10px;
+	}
+	    
+	    
+	#preview{
+	position:absolute;
+	border:0px solid #ccc;
+	background:#000;
+	padding:5px;
+	display:none;
+	color:#fff;
+	
+	}
+	
+
+	
+	.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active
+	{
+	background: #e6e6e6 url("images/ui-bg_glass_75_dadada_1x400.png") 50% 50% repeat-x;
+	}
+	</style>
+	
+ 
+
+ 
+ 
+ 
+	<?php
+	if (is_array($this->request))
+	{
+		$data = $this->request;
+		echo '<TABLE class="gridtable">';
+		echo '<tr>';
+		echo '<td class="half">';
+			echo '<TABLE class="gridtable">';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Référence').'</b></td>';
+			echo '<td class="content">'.$data['ref'].'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Caller').'</b></td>';
+			echo '<td class="content">'.$data['caller_id_friendlyname'].'</td>';
+			echo '</tr>';
+			//echo '<tr>';
+			//echo '<td class="title"><b>'.$this->translate('Location').'</b></td>';
+			//echo '<td class="content">'.$data['site_name'].'</td>';
+			//echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Service').'</b></td>';
+			echo '<td class="content">'.$data['service_name'].'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Title').'</b></td>';
+			echo '<td class="content">'.$data['title'].'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Description').'</b></td>';
+			echo '<td class="content">'.$data['description'].'</td>';				
+			echo '</tr>';
+			
+			//Selon l'état du ticket, on affichera des informations complémentaires
+			// ticket résolu ? => On affichera le code de résolution et la solution
+			if ($data['status'] == 'resolved') 
+				{
+				echo '<tr>';
+				echo '<td class="title"><b>'.$this->translate('Resolution Code').'</b></td>';
+				echo '<td class="content">'.$this->translate($data['resolution_code']).'</td>';
+				echo '</tr>';
+				echo '<tr>';
+				echo '<td class="title"><b>'.$this->translate('Solution').'</b></td>';
+				echo '<td class="content">'.$data['solution'].'</td>';
+				echo '</tr>';
+				}
+			else if ($data['status'] == 'pending') {
+				echo '<tr>';
+				echo '<td class="title"><b>'.$this->translate('Pending Reason').'</b></td>';
+				echo '<td class="content">'.$data['pending_reason'].'</td>';
+				echo '</tr>';
+				}
+			echo '</TABLE>';
+		echo '</td>';
+		
+		echo '<td class="half">';
+			echo '<TABLE class="gridtable">';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Status').'</b></td>';
+			echo '<td class="content">'.$this->translate($data['status']).'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Priority').'</b></td>';
+			echo '<td class="content">'.$this->translate($data['priority']).'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Request Type').'</b></td>';
+			echo '<td class="content">'.$this->translate($data['request_type']).'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Hot Flag').'</b></td>';
+			echo '<td class="content">-</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Start Date').'</b></td>';
+			echo '<td class="content">'.$data['start_date'].'</td>';
+			echo '</tr>';
+			if ($data['status'] == 'resolved') {
+				echo '<tr>';
+				echo '<td class="title"><b>'.$this->translate('Resolution Date').'</b></td>';
+				echo '<td class="content">'.$data['resolution_date'].'</td>';
+				echo '</tr>';
+			}
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Last Update').'</b></td>';
+			echo '<td class="content">'.$data['last_update'].'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Agent').'</b></td>';
+			echo '<td class="content">'.$data['agent_id_friendlyname'].'</td>';
+			echo '</tr>';
+			echo '</TABLE>';
+		echo '</td>';
+		echo '</tr>';
+		echo '</table>';
+		
+		// Raison de suspension sous le menu.
+		$this->placeholder('aside')->captureStart();
+		
+		/*$helperUrl = new Zend_View_Helper_Url ( );
+		$ContinuerLink = $helperUrl->url ( array ('action' => 'validation') );
+		$impression_link = $helperUrl->url ( array ('controller'=>'pdf','action'=>'imprimer'));
+				
+		echo '<a href="'.$impression_link.'" target="_black" class="DTTT_button DTTT_button_print" style="z-index:3000;"><span>'.$this->translate('Imprimer').'</span></a>';
+		*/
+		$this->placeholder('aside')->captureEnd();
+		
+		
+	
+		//echo $this->translate('Public Log');
+		if (is_array($this->attached_files))
+			{if (count($this->attached_files)> 0)
+				{
+					echo '<h4>Pièces attachées au Ticket</h4>';
+					echo '<ul class="attachment">';
+					foreach ($this->attached_files as $key => $attach)
+					{
+						/*$mimetype = $attach['contents']['mimetype']; 
+						$filetype = explode('/',$mimetype);
+						if ($filetype[0]=='image') { $preview_class = 'preview';}
+						else {$preview_class = '';}
+											
+						echo '<li><a class="'.$preview_class.'" href="'. 
+							$this->url(array('controller' => 'openedrequest', 'action' => 'download', 'module' => 'atelys','attachedfile_index'=>$key,'file'=>$attach['contents']['filename']), 'default') .'" target="_blank">'.
+							$attach['contents']['filename'].
+							' - '.$attach['id'].
+							'</a>.</li>';*/
+						$mimetype = $attach->_mimetype;
+						if ($attach->_filetype=='image') { $preview_class = 'preview';}
+						else {$preview_class = '';}
+						echo '<li class="attachment"><a class="'.$preview_class.'" href="'.
+								$this->url(array('controller' => 'openedrequest', 'action' => 'download', 'module' => 'request','attachedfile_index'=>$key,'attach_id'=>$attach->_id), 'default') .'"target="_blank">'.
+								$attach->_filename.
+								' - '.$attach->_id.
+								'</a>.</li>';
+					}
+					echo '</ul>';
+					echo '<br>';
+				}
+			}	
+			
+	
+		echo $this->updateRequestForm;
+		
+		/*$tab = array('pomme', 'poire', 'fraise');
+		
+		$tab_serialiser = serialize($tab);
+		echo ''.$tab_serialiser.'<br />';
+		//Affiche: a:3:{i:0;s:5:"pomme";i:1;s:5:"poire";i:2;s:6:"fraise";}
+		
+		
+		$tab_deserialiser = unserialize($tab_serialiser);
+		while( list($i,$j) = each($tab_deserialiser))
+			echo 'case ['.$i.'] = '.$j.'<br />';
+		// Affiche:
+		// case [0] = pomme
+		// case [1] = poire
+		// case [2] = fraise
+		*/
+		
+	
+		/*echo '<div style="width:50%;float:left;padding:1px;"><fieldset id="fieldset-request"><legend>Pièces jointes</legend>';
+		echo 'On liste ici les différentes pièces jointes au ticket.';
+		echo '</fieldset></div>';
+		echo '</div>';
+		echo '<div style="clear:both"></div>';*/
+			?>
+			<script type="text/javascript" >
+			jQuery(function(){ // wait for document to load 
+					jQuery('#tab_files-0').MultiFile({ 
+				  STRING: {
+				   file: '<em title="Click to remove" onclick="$(this).parent().prev().click()">$file</em>',
+				   remove: '<img src="/layouts/frontoffice/images/delete-icon.png" height="16" width="16" alt="x"/>'
+				  }
+				 });
+
+				/*Config */
+				xOffset = 10;
+				yOffset = 30;
+				
+				// these 2 variable determine popup's distance from the cursor
+				// you might want to adjust to get the right result
+					
+				/* END CONFIG */
+				jQuery("a.preview").hover(function(e){
+					this.t = this.title;
+					this.title = "";	
+					var c = (this.t != "") ? "<br/>" + this.t : "";
+					jQuery("body").append("<p id='preview'><img style='max-height:300px;' src='"+ this.href +"' alt='Prévisualisation' />"+ c +"</p>");	
+					//$("body").append("<p id='preview'><iframe src='"+ this.href +"' alt='Prévisualisation' /></iframe>"+ c +"</p>");
+												 
+					jQuery("#preview")
+						.css("top",(e.pageY - xOffset) + "px")
+						.css("left",(e.pageX + yOffset) + "px")
+						.fadeIn("fast");						
+			    },
+				function(){
+					this.title = this.t;	
+					jQuery("#preview").remove();
+			    });	
+				jQuery("a.preview").mousemove(function(e){
+					jQuery("#preview")
+						.css("top",(e.pageY - xOffset) + "px")
+						.css("left",(e.pageX + yOffset) + "px");
+				});		
+
+					  
+			});
+		</script>
+		
+	 	<script type="text/javascript">
+	 	jQuery(document).ready( function() {
+	 		jQuery('#accordion').accordion({
+			        collapsible:true,
+			        heightStyle: "content",
+			        beforeActivate: function(event, ui) {
+			             // The accordion believes a panel is being opened
+			            if (ui.newHeader[0]) {
+			                var currHeader  = ui.newHeader;
+			                var currContent = currHeader.next('.ui-accordion-content');
+			             // The accordion believes a panel is being closed
+			            } else {
+			                var currHeader  = ui.oldHeader;
+			                var currContent = currHeader.next('.ui-accordion-content');
+			            }
+			             // Since we've changed the default behavior, this detects the actual status
+			            var isPanelSelected = currHeader.attr('aria-selected') == 'true';
+			            
+			             // Toggle the panel's header ( ui-state-active devient  ui-state pour ne pas mettre en blanc et ne pas toucher au css
+			            currHeader.toggleClass('ui-corner-all',isPanelSelected).toggleClass('accordion-header-active ui-state-active ui-corner-top',!isPanelSelected).attr('aria-selected',((!isPanelSelected).toString()));
+			            
+			            // Toggle the panel's icon
+			            currHeader.children('.ui-icon').toggleClass('ui-icon-triangle-1-e',isPanelSelected).toggleClass('ui-icon-triangle-1-s',!isPanelSelected);
+			            
+			             // Toggle the panel's content
+			            currContent.toggleClass('accordion-content-active',!isPanelSelected)    
+			            if (isPanelSelected) { currContent.slideUp(); }  else { currContent.slideDown(); }
+		
+			            return false; // Cancels the default action
+			        }
+			    });
+			});
+	</script>
+		
+		<?php 
+		echo $this->form;
+		echo '</div>';
+		
+		echo '<div id="accordion">';
+		arsort($data['public_log']['entries']);
+		foreach ($data['public_log']['entries'] as $log)
+		{ 
+			echo '<h2>'.$log['user_login'].' a écrit le '.$log['date'].':</h2>';
+			$order   = array("\r\n", "\n", "\r");
+			$replace = '<br />';
+			echo '<p>'.str_replace($order, $replace,$log['message']). '</p>';
+			//echo '<p>'.$log['message']. '</p>';
+		}
+		echo '</div>';		
+	}
+	
+}
+
+else {
+	
+	$this->placeholder('undermenu')->captureStart();
+	?>
+ 		<script type="text/javascript">
+ 		jQuery(document).ready(function() {
+ 			jQuery(".USER_LOCATION").dropdownchecklist( { icon: {}, width: 150 ,firstItemChecksAll: true } );
+ 			jQuery(".USER_YEAR").dropdownchecklist( { icon: {}, width: 150 ,firstItemChecksAll: true } );
+
+ 			jQuery( '#<?php echo $this->OPref->_ParamName_UserFilter?>' ).change(function() {
+				var isChecked = $('#<?php echo $this->OPref->_ParamName_UserFilter?>').is(':checked');
+				launchAjax('<?php echo $this->OPref->_ParamName_UserFilter?>',isChecked);
+			  });
+
+ 			jQuery( '#<?php echo $this->OPref->_ParamName_UserLocation?>' ).change(function() {
+				//alert($('#<?php echo $this->OPref->_ParamName_UserLocation?>').val());
+				launchAjax('<?php echo $this->OPref->_ParamName_UserLocation?>',jQuery('#<?php echo $this->OPref->_ParamName_UserLocation?>').val());
+		  	});
+
+ 			jQuery( '#<?php echo $this->OPref->_ParamName_UserYear?>' ).change(function() {
+				//alert($('#<?php echo $this->OPref->_ParamName_UserYear?>').val());
+				launchAjax('<?php echo $this->OPref->_ParamName_UserYear?>',jQuery('#<?php echo $this->OPref->_ParamName_UserYear?>').val());
+		  	});
+		
+			 function launchAjax(param,value){
+				 jQuery.ajax({
+						//url       : '/user/preference/changepref',
+						url       : '/request/openedrequest/index/language/<?php echo $this->OPref->_language;?>',
+						type      : 'post',
+						dataType : 'html',
+						data      :{
+							'user_id' : '<?php  echo $this->OPref->_user_id;?>',
+							'param' : param,
+							'value' : value
+							},
+						success : function(data){
+							//alert(data);
+							//$('#grille').dataTable().fnDestroy();
+							jQuery('#grille').empty();
+							jQuery('#grille').append(data);
+							//$('#grille').dataTable();
+														
+							},
+						error :function(xhr, ajaxOptions, thrownError){
+							alert(xhr.status);
+							alert(thrownError);
+						},
+						complete : function(data){
+						}		
+					});
+				}
+
+
+		});
+		
+		</script>	
+
+ 		
+ 	<style type="text/css">
+		/*pour eviter que les filtres dépassent en bas*/
+		section .content{
+			min-height:420px; 
+			}
+			
+		table {
+		    table-layout:fixed;
+		}
+		td{
+		    overflow:hidden;
+		    text-overflow: ellipsis;
+		}
+	</style>
+	<?php 
+	echo $this->form;
+	$this->placeholder('undermenu')->captureEnd();
+	
+	echo '<div id="datagrid">';
+	echo '<script type="text/javascript">'.$this->script.'</script>';
+	echo $this->tableau;
+	echo '</div>';
+	
+} 
+
+
+?>
+
+

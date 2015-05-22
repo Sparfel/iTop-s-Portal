@@ -1,0 +1,17 @@
+#MODIFICATIONS OF THE CENTURION LIBRARY 0.4
+
+
+1) Add Class to manage Breadcrumbs 
+	=>  adding class Centurion_View_Helper_Navigation_Breadcrumbs
+	
+	
+2) Modification of the class Media_Model_DbTable_File to add depents Table. New table in the database which uses images.
+  	at line 66 : + 'services'		=>  'Portal_Model_DbTable_AdminStyleServices' // $MOD Emmanuel Lozachmeur
+  
+3) Modification to manage redirection if parameter 'NEXT'
+	Class Admin_LoginController at line 39 :  $form = new Authentification_Form_Login
+	
+	Class Centurion_Controller_Action_Helper_AuthCheck at lines 43 and 65 to modify the redirection modules.
+	WARNING => redirection are made to a Module of the application and not to a Module from Library ...
+	TODO : change this.
+	
