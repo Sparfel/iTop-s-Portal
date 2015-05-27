@@ -18,6 +18,7 @@
 	DocumentRoot 'path_to_portal_directory/public/'
 	DirectoryIndex index.php
 	&lt;Directory 'path_to_portal_directory'&gt;
+	Options Indexes FollowSymLinks -MultiViews
 		AllowOverride All
                 Order allow,deny
 		Allow from all
