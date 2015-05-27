@@ -43,7 +43,7 @@ we need the **curl_init** module too (to use the iTop's webservices) :
 reload Apache :
 ``` service apache2 reload```
 
-It may be necessary to define the adress of the server with his name in your host file.
 ---
 
 That's all, the configuration will be done through the website **[http://your_vhost_name](http://your_vhost_name)**.
+It may be necessary to define the adress of the server with his name in your host file.
