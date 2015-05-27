@@ -46,4 +46,5 @@ reload Apache :
 ---
 
 That's all, the configuration will be done through the website **[http://your_vhost_name](http://your_vhost_name)**.
+
 It may be necessary to define the adress of the server with his name in your host file.
