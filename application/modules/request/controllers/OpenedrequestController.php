@@ -214,6 +214,7 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 				}
 				
 				if (!($WSrequest['status']=='closed')) {
+					$options['id'] = $WSrequest['id'];
 					$updateRequestForm = new Portal_Form_updateRequest($options);
 				}
 			}
