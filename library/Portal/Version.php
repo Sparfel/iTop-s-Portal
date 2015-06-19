@@ -22,5 +22,5 @@
 
 final class Portal_Version
 {
-	const VERSION = '1.0b';
+	const VERSION = '1.0';
 }
