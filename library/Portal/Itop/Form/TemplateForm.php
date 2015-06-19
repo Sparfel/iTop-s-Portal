@@ -62,7 +62,7 @@ class Portal_Itop_Form_TemplateForm extends Centurion_Form
 				$this->setName($FormName);
 			}
 		}
-		else {
+		else if (is_array($template->_field_list)){
 			$FormName = $template->getParentName();
 			$this->setName($FormName);
 
@@ -195,6 +195,9 @@ class Portal_Itop_Form_TemplateForm extends Centurion_Form
 						break;
 				}
 			}
+		}
+		else {
+			$FormName = null;
 		}
 		 
 		// Attachment (plusieurs pièces jointes)

@@ -1157,9 +1157,10 @@ ul.product-list-itop li a:hover > hgroup h3.buy, ul.list li h4.title.buy, .twoco
 ul.product-list-itop li a:hover > hgroup h3.undefined, ul.list li h4.title.undefined, .twocolumns .right-col .product-menu h2.title.undefined { color:#5f99f8; }
 
 ul.product-list-itop li a:hover > hgroup h3, ul.list li h4.title, h2.title { color:#1C94C4; }
+*/
 
 /* Liste Eléments de Services internes itop */
-/*
+
 .product-list-Elt-Srv-itop {
   padding:7px 0 28px;
   margin:0;
@@ -1228,6 +1229,15 @@ section .content .col  ul{  list-style-type:none ;   }
   width:90px;
   background:url(./images/icons_itop_EltSrv.png) no-repeat;
 }
+/*Style if undefined*/
+.product-list-Elt-Srv-itop .undefined a:after {
+  background:url(./images/undefined_inactiv.png) no-repeat;
+  top:20px;
+  right:-60px;}
+.product-list-Elt-Srv-itop .undefined a:hover:after { background:url(./images/undefined.png) no-repeat; right:-60px; }
+ul.product-list-Elt-Srv-itop li a:hover > hgroup h3.undefined, ul.list li h4.title.undefined, .twocolumns .right-col .product-menu h2.title.undefined { color:#5f99f8; }
+
+/*
 .product-list-Elt-Srv-itop .pc_demo_phenix a:after {
   background-position:0 0;
   top:22px;}
@@ -1396,6 +1406,16 @@ section .content .col  ul{  list-style-type:none ;   }
   width:90px;
   background:url(./images/icons_itop_FrmEltSrv.png) no-repeat;
 }
+/*Style if undefined*/
+.product-list-Frm-Elt-Srv-itop .undefined a:after {
+  background:url(./images/undefined_inactiv.png) no-repeat;
+  top:20px;
+  right:-60px;}
+.product-list-Frm-Elt-Srv-itop .undefined a:hover:after { background:url(./images/undefined.png) no-repeat; right:-60px; }
+ul.product-list-Frm-Elt-Srv-itop li a:hover > hgroup h3.undefined, ul.list li h4.title.undefined, .twocolumns .right-col .product-menu h2.title.undefined { color:#5f99f8; }
+
+
+/*
 .product-list-Frm-Elt-Srv-itop .new_user a:after {
   background-position:0 0;
   top:22px;}
