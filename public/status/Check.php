@@ -738,7 +738,7 @@ class Check {
 		$url .= '?step=-1';
 		 
 		//Zend_Debug::dump($url);
-		$fp = @file_get_contents(urlencode($url));
+		$fp = @file_get_contents($url);
 		//Zend_Debug::dump(@file_get_contents($url));
 		if ($fp === 'Mod_Rewrite works!') {
 			$this->_checklist[] = array(
