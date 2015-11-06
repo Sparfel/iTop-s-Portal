@@ -892,7 +892,7 @@ class Check {
 					'canBeBetter' => true,
 					'isNotSecure' => true,
 					'text' => 'Your mod_rewrite seems to not worked. <a href="' . $url . '" target="_blank">Click here</a> to check',
-					'alt' => 'Click on the link above. If it\'s not worked check mod_rewrite is enabled, or that the directive AllowOverride All is set to the application root.',
+					'alt' => 'Click on the link above. If it\'s not worked check mod_rewrite is enabled, or that the directive AllowOverride All is set to the application root. Add this site to the hosts file on the server.',
 			);
 		}
 	}
