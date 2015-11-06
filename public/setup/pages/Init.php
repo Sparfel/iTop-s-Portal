@@ -1,34 +1,40 @@
-<section>
-	<div class="left">
+<?php 
+//$session = new Zend_Session_Namespace('Installation');
+//$install = $session->installation;
 
-		<p>Before to enjoy this portal, we have to verify and to configure few
-			things. The server needs some modules and some specifications to
-			work, take a look on the check List on the right.</p>
-		<h2>Prerequisites :</h2>
-		<ul class="module-list">
-			<li><h3>Virtual Host</h3>
-				<p>This portal uses virtual hosting. It must be declared in your
-					Apache configuration file. It may look like :
-				
-				<p>
-				
-				<pre>
+//Zend_Debug::dump($install);
+?>
+<section>
+<div class="left">
+
+<p>Before to enjoy this portal, we have to verify and to configure few
+things. The server needs some modules and some specifications to
+work, take a look on the check List on the right.</p>
+<h2>Prerequisites :</h2>
+<ul class="module-list">
+<li><h3>Virtual Host</h3>
+<p>This portal uses virtual hosting. It must be declared in your
+Apache configuration file. It may look like :
+
+<p>
+
+<pre>
 &lt;VirtualHost *:80&gt;
-	ServerName itop.portal.local
-	DocumentRoot 'path_to_portal_directory/public/'
-	DirectoryIndex index.php
-	&lt;Directory 'path_to_portal_directory'&gt;
+ServerName itop.portal.local
+DocumentRoot 'path_to_portal_directory/public/'
+		DirectoryIndex index.php
+		&lt;Directory 'path_to_portal_directory'&gt;
 		Options Indexes FollowSymLinks -MultiViews
 		AllowOverride All
-        Order allow,deny
+		Order allow,deny
 		Allow from all
-    &lt;/Directory&gt;
-&lt;/VirtualHost&gt;
+		&lt;/Directory&gt;
+		&lt;/VirtualHost&gt;
 		</pre></li>
 
-			<li>
-				<h3>A MySQL Database</h3>
-				<p>The iTop's Portal needs a Database. Please create a MySQL
+		<li>
+		<h3>A MySQL Database</h3>
+		<p>The iTop's Portal needs a Database. Please create a MySQL
 					Database first on your Server, the Portal needs it to store
 					informations. We will ask you the credentials to connect to it.</p>
 			</li>
@@ -82,14 +88,31 @@
 		<h3>Next Step : the database configuration file.</h3>
 		<p>We will create the configuration files to connect to the database
 			and we will populate it. Let's go ...</p>
-		<a class="ui-button ui-button-text-only ui-button-bg-white"
-			href="?step=1" onclick="document.forms['database'].submit();"> <span
-			class="ui-button-text">Next</span>
-		</a>
-	</div>
+			<a class="ui-button ui-button-text-only ui-button-bg-white"
+					href="" onclick="navigate('next');"> <span class="ui-button-text">Next</span>
+					</a>
+					</div>
 
-	<div class="bottom">
+					<div class="bottom">
 
 
-		<div class="clear"></div>
-	</div>
+					<div class="clear"></div>
+					</div>
+
+					
+					
+<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+<!-- //
+function navigate($value) {
+	
+	$.ajax({
+                  url: './scripts/navigate.php',
+                  type      : 'post',
+  				  dataType : 'html',
+                  data: { 'action' :  $value },
+                  success: function(data) {
+                	  //$('.bottom').append('<PRE>'+data+'</PRE>')
+                  }
+                 });
+}
+</SCRIPT>

@@ -1,3 +1,21 @@
+<script type="text/javascript">
+
+	function navigate($value){
+		window.location.href='';
+		$.ajax({
+            url: './scripts/navigate.php',
+            type      : 'post',
+			  dataType : 'html',
+            data: { 'action' :  $value },
+            success: function(data) {
+          	  //$('.bottom').append('<PRE>'+data+'</PRE>')
+            }
+           });
+	} 
+
+	</script>
+
+
 <section>
 	<div class="left">
 
@@ -106,32 +124,25 @@
 	<div class="clear"></div>
 	<?php
 
-	//Get the previous step :
-	if (isset($_GET['step'])) {
-$prev_step = $_GET['step'] - 1;
-}
-else {$prev_step = 0;
-}
-
-            if (!$check->hasError()): ?>
-	<div class="middle">
-		<h3>Your iTop's Portal installation seems to be good</h3>
-
-		<p>Next step is to remove all this installation page.</p>
-		<a class="ui-button ui-button-text-only ui-button-bg-white"
-			href="?step=<?php echo $prev_step;?>"> <span class="ui-button-text">Go
-				back</span>
-		</a> <a class="ui-button ui-button-text-only ui-button-bg-white"
-			href="?removeMe=true"> <span class="ui-button-text">Remove
-				installation file.</span>
-		</a>
-	</div>
+	if (!$check->hasError()): ?>
+		<div class="middle">
+			<h3>Your iTop's Portal installation seems to be good</h3>
+	
+			<p>Next step is to remove all this installation page.</p>
+			<a class="ui-button ui-button-text-only ui-button-bg-white"
+				href="" onclick="navigate('prev')"> <span class="ui-button-text">Go
+					back</span>
+			</a> <a class="ui-button ui-button-text-only ui-button-bg-white"
+				href="?removeMe=true"> <span class="ui-button-text">Remove
+					installation file.</span>
+			</a>
+		</div>
 	<?php else: ?>
 	<div class="middle">
 		<h3>Your iTop's Portal installation is not good</h3>
 		<p>What sould you do ?</p>
 		<a class="ui-button ui-button-text-only ui-button-bg-white"
-			href="?step=<?php echo $prev_step;?>"> <span class="ui-button-text">Go
+			href="" onclick="navigate('prev')"> <span class="ui-button-text">Go
 				back</span>
 		</a>
 		<!-- <a class="ui-button ui-button-text-only ui-button-bg-white" href="http://wiki.centurion-project.org/">

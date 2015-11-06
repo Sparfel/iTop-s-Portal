@@ -2,7 +2,8 @@
 
 class Check {
 
-	protected $_checklist = array();
+	//protected 
+	public $_checklist = array();
 
 	protected $_phpVersion = null;
 	protected $_apacheVersion = null;
@@ -18,8 +19,8 @@ class Check {
 	/*configuration Setup*/
 	protected $_config_application_file_default    = "application.default";
 	protected $_config_db_file_default    = "db.default";
-	protected $_config_file_default_directory = "./ini/";
-	protected $_config_file_directory  = "../../application/configs/";
+	protected $_config_file_default_directory = "./../ini/";
+	protected $_config_file_directory  = "./../../application/configs/"; // ../
 
 	protected $_config_application_file_name  = "application.ini";
 	protected $_config_db_file_name = "db.ini";
@@ -47,6 +48,7 @@ class Check {
 	protected $_dbRessource = null;
 	//Interesting to Drop Table befor import ? case
 	protected $_DbTable_drop = false;
+	protected $_DbTable_install = true;
 
 	public function __construct()
 	{
@@ -58,8 +60,9 @@ class Check {
 		$this->_config_default_application_file_path = $this->_config_file_default_directory . $this->_config_application_file_default;
 		$this->_config_default_db_file_path = $this->_config_file_default_directory . $this->_config_db_file_default;
 
-		$this->_DbTable_drop = false;
+		$this->_DbTable_drop = true;
 
+		
 	}
 
 
@@ -142,10 +145,10 @@ class Check {
 
 	protected function _checkLibraryZend()
 	{
-		$this->_hasZend = file_exists(__DIR__ . '/../../library/Zend');
+		$this->_hasZend = file_exists(__DIR__ . '/../../../library/Zend');
 
 		if ($this->_hasZend) {
-			include_once __DIR__ . '/../../library/Zend/Version.php';
+			include_once __DIR__ . '/../../../library/Zend/Version.php';
 			$zendVersion = Zend_Version::VERSION;
 
 			$this->_checklist[] = array(
@@ -170,10 +173,10 @@ class Check {
 
 	protected function _checkLibraryCenturion()
 	{
-		$this->_hasCenturion = file_exists(__DIR__ . '/../../library/Centurion');
+		$this->_hasCenturion = file_exists(__DIR__ . '/../../../library/Centurion');
 
 		if ($this->_hasCenturion) {
-			include_once __DIR__ . '/../../library/Centurion/Version.php';
+			include_once __DIR__ . '/../../../library/Centurion/Version.php';
 			$centurionVersion = Centurion_Version::VERSION;
 
 			$this->_checklist[] = array(
@@ -198,10 +201,10 @@ class Check {
 
 	protected function _checkLibraryPortal()
 	{
-		$this->_hasPortal = file_exists(__DIR__ . '/../../library/Portal');
+		$this->_hasPortal = file_exists(__DIR__ . '/../../../library/Portal');
 
 		if ($this->_hasPortal) {
-			include_once __DIR__ . '/../../library/Portal/Version.php';
+			include_once __DIR__ . '/../../../library/Portal/Version.php';
 			$portalVersion = Portal_Version::VERSION;
 
 			$this->_checklist[] = array(
@@ -227,57 +230,41 @@ class Check {
 
 
 	public function genDbFile($options) {
+		// called by ajax, we add prefix to the directories
+		$prefixDir = './../';
+		
 		$database_host = $options['database_host'];
 		$database_name = $options['database_name'];
 		$database_username = $options['database_username'];
 		$database_password = $options['database_password'];
-		//echo $database_name.'<br>'.$database_username.'<br>'.$database_password.'<br>';
-		copy($this->_config_default_db_file_path, $this->_config_db_file_path);
-		 
-		$config_file = file_get_contents($this->_config_db_file_path);
+	
+		copy($this->_config_default_db_file_path,$prefixDir.$this->_config_db_file_path);
+		$config_file = file_get_contents($prefixDir.$this->_config_db_file_path);
 		$config_file = str_replace("_DB_HOST_", $database_host, $config_file);
 		$config_file = str_replace("_DB_NAME_", $database_name, $config_file);
 		$config_file = str_replace("_DB_USER_", $database_username, $config_file);
 		$config_file = str_replace("_DB_PASSWORD_", $database_password, $config_file);
-		 
-		$f = @fopen($this->_config_db_file_path, "w+");
+		$f = @fopen($prefixDir.$this->_config_db_file_path, "w+");
 		//print_r($config_file);
 		if(@fwrite($f, $config_file) > 0){
-			//echo 'Completed !';
+			//error_log('Completed !');
 			$completed = true;
+			return true;
 		}
-	}
-
-	public function genApplicationFile($options) {
-		$webservice_protocol = $options['webservice_protocol'];
-		$webservice_adress = $options['webservice_adress'];
-		$webservice_username = $options['webservice_username'];
-		$webservice_password = $options['webservice_password'];
-		 
-		copy($this->_config_default_application_file_path,$this->_config_application_file_path);
-		 
-		$config_file = file_get_contents($this->_config_application_file_path);
-		$config_file = str_replace("_WS_PROTOCOL_", $webservice_protocol, $config_file);
-		$config_file = str_replace("_WS_ADRESS_", $webservice_adress, $config_file);
-		$config_file = str_replace("_WS_USER_", $webservice_username, $config_file);
-		$config_file = str_replace("_WS_PASSWORD_", $webservice_password, $config_file);
-		 
-		$f = @fopen($this->_config_application_file_path, "w+");
-		if(@fwrite($f, $config_file) > 0){
-			 
-			$completed = true;
+		else {
+			//error_log('Incomplete !');
+			return false;
 		}
+	
 	}
-
-
-	public function getDbParameters(){
+	
+	public function getDbParameters($caller = null){
 		$options = array();
 		if (file_exists($this->_config_db_file_path)) {
-
-			include_once __DIR__ . '/../../library/Centurion/Config/Directory.php';
-			include_once __DIR__ . '/../../library/Centurion/Iterator/Directory.php';
-			include_once __DIR__ . '/../../library/Zend/Config/Ini.php';
-			$config = Centurion_Config_Directory::loadConfig(__DIR__ . '/../../application/configs', $this->_currentEnv);
+			include_once __DIR__ . '/../../../library/Centurion/Config/Directory.php';
+			include_once __DIR__ . '/../../../library/Centurion/Iterator/Directory.php';
+			include_once __DIR__ . '/../../../library/Zend/Config/Ini.php';
+			$config = Centurion_Config_Directory::loadConfig(__DIR__ . '/../../../application/configs', $this->_currentEnv);
 			$options['database_host'] = $config['resources']['db']['params']['host'];
 			$options['database_name'] = $config['resources']['db']['params']['dbname'];
 			$options['database_username'] =  $config['resources']['db']['params']['username'];
@@ -292,16 +279,41 @@ class Check {
 		}
 		return $options;
 	}
-
+	
+	public function genApplicationFile($options) {
+		// called by ajax, we add prefix to the directories
+		$prefixDir = './../';
+		
+		$webservice_protocol = $options['webservice_protocol'];
+		$webservice_adress = $options['webservice_adress'];
+		$webservice_username = $options['webservice_username'];
+		$webservice_password = $options['webservice_password'];
+		 
+		copy($this->_config_default_application_file_path,$prefixDir.$this->_config_application_file_path);
+		 
+		$config_file = file_get_contents($prefixDir.$this->_config_application_file_path);
+		$config_file = str_replace("_WS_PROTOCOL_", $webservice_protocol, $config_file);
+		$config_file = str_replace("_WS_ADRESS_", $webservice_adress, $config_file);
+		$config_file = str_replace("_WS_USER_", $webservice_username, $config_file);
+		$config_file = str_replace("_WS_PASSWORD_", $webservice_password, $config_file);
+		 
+		$f = @fopen($prefixDir.$this->_config_application_file_path, "w+");
+		if(@fwrite($f, $config_file) > 0){
+			$completed = true;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 	public function getApplicationParameters(){
 		$options = array();
 		if (file_exists($this->_config_application_file_path)) {
-
-			include_once __DIR__ . '/../../library/Centurion/Config/Directory.php';
-			include_once __DIR__ . '/../../library/Centurion/Iterator/Directory.php';
-			include_once __DIR__ . '/../../library/Zend/Config/Ini.php';
-			$config = Centurion_Config_Directory::loadConfig(__DIR__ . '/../../application/configs', $this->_currentEnv);
+			include_once __DIR__ . '/../../../library/Centurion/Config/Directory.php';
+			include_once __DIR__ . '/../../../library/Centurion/Iterator/Directory.php';
+			include_once __DIR__ . '/../../../library/Zend/Config/Ini.php';
+			$config = Centurion_Config_Directory::loadConfig(__DIR__ . '/../../../application/configs', $this->_currentEnv);
 			$options['webservice_protocol'] = $config['itop1']['url']['protocol'];
 			$options['webservice_adress'] = $config['itop1']['url']['adress'];
 			$options['webservice_username'] = $config['itop1']['webservice']['user'];
@@ -388,8 +400,11 @@ class Check {
 		}
 	}
 
-	protected function _checkDbConnect()
+	protected function _checkDbConnect($caller = null)
 	{
+		if ($caller == 'ajax') {$prefixDir = './../';}
+		else {$prefixDir = '';} 
+		
 		if (!$this->_hasCenturion || !$this->_hasZend) {
 			$this->_checklist[] = array(
 					'code' => -1,
@@ -399,7 +414,7 @@ class Check {
 					'alt' => '',
 			);
 		}
-		else if ((!file_exists($this->_config_db_file_path))) {
+		else if ((!file_exists($prefixDir.$this->_config_db_file_path))) {
 			$this->_checklist[] = array(
 					'code' => -1,
 					'canBeBetter' => true,
@@ -409,14 +424,14 @@ class Check {
 			);
 		}
 		else {
-			include_once __DIR__ . '/../../library/Centurion/Config/Directory.php';
-			include_once __DIR__ . '/../../library/Centurion/Iterator/Directory.php';
-			include_once __DIR__ . '/../../library/Zend/Config/Ini.php';
+			include_once __DIR__ . '/../../../library/Centurion/Config/Directory.php';
+			include_once __DIR__ . '/../../../library/Centurion/Iterator/Directory.php';
+			include_once __DIR__ . '/../../../library/Zend/Config/Ini.php';
 
-			$config = Centurion_Config_Directory::loadConfig(__DIR__ . '/../../application/configs', $this->_currentEnv);
+			$config = Centurion_Config_Directory::loadConfig(__DIR__ . '/../../../application/configs', $this->_currentEnv);
 			//Zend_Debug::dump($config);
-			include_once __DIR__ . '/../../library/Zend/Application/Resource/Db.php';
-			include_once __DIR__ . '/../../library/Zend/Db.php';
+			include_once __DIR__ . '/../../../library/Zend/Application/Resource/Db.php';
+			include_once __DIR__ . '/../../../library/Zend/Db.php';
 			$this->_dbRessource = new Zend_Application_Resource_Db();
 			$this->_dbRessource->setParams($config['resources']['db']['params']);
 			$this->_dbRessource->setAdapter($config['resources']['db']['adapter']);
@@ -473,17 +488,24 @@ class Check {
 					);
 				} else {
 					null;
+					//error_log('Exception '.$e);
 					//throw $e;
 				}
+				
 			}
+			//error_log(print_r($this->_checklist));
 		}
 	}
 
-	protected function _checkItopWebservice($noItop)
+	protected function _checkItopWebservice($noItop,$caller = null)
 	{
-		if ($this->_WebserviceCanBeTested && (file_exists($this->_config_application_file_path)))  {
+		if ($caller == 'ajax') {$prefixDir = './../';}
+		else {$prefixDir = '';}
+		
+		if ($this->_WebserviceCanBeTested && (file_exists($prefixDir.$this->_config_application_file_path)))  {
 			 
-			$config = Centurion_Config_Directory::loadConfig(__DIR__ . '/../../application/configs', $this->_currentEnv);
+			$config = Centurion_Config_Directory::loadConfig(__DIR__ . '/../../../application/configs', $this->_currentEnv);
+			
 			// We can confiugure 2 iTop : production and Test
 			// Primary iTop will be for Production
 			// Secondary will be for Test
@@ -495,61 +517,161 @@ class Check {
 			$url = $protocol.'://'.$adress.'/webservices/rest.php?version=1.0';
 
 			$aData = array('operation' => 'list_operations');
+			//$aData = json_encode(null);
 
 			$aPostData = array(
 					'auth_user' => $username,
 					'auth_pwd' => $password,
 					'json_data' => json_encode($aData),
 			);
-			 
-			$curl = curl_init();
-			curl_setopt($curl, CURLOPT_POST, true);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($aPostData));
-			curl_setopt($curl, CURLOPT_URL, $url);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+			try	{ 
+				$curl = curl_init();
+				curl_setopt($curl, CURLOPT_POST, true);
+				curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($aPostData));
+				curl_setopt($curl, CURLOPT_URL, $url);
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+	
+				curl_setopt($curl, CURLOPT_VERBOSE, true);
 
-			curl_setopt($curl, CURLOPT_VERBOSE, true);
-
-			$sResult = curl_exec($curl);
-			$aResult = @json_decode($sResult, true /* bAssoc */);
-			 
-			if ($aResult == null)
-			{
-				$aResult = null;
+			
+				$sResult = curl_exec($curl);
+			
+			
+				$aResult = @json_decode($sResult, true /* bAssoc */);
+				
+				if ($aResult == null)
+				{
+					$aResult = null;
+					$this->_checklist[] = array(
+							'code' => -1,
+							'canBeBetter' => true,
+							'isNotSecure' => false,
+							'text' => 'Error: the return value from the web service could not be decoded.',
+							'alt' => 'The url may be bad : '.$url,
+					);
+				}
+				else //File exists, we test the parameters 
+				{
+					if ($protocol == 'https') {
+						$canBeBetter = false;
+						$text = 'iTop\'s Webservices <strong>n°'.$noItop.'</strong> access.';
+						$alt = $url;
+					}
+					else {
+						$canBeBetter = true;
+						$text = 'iTop\'s Webservices <strong>n°'.$noItop.'</strong> access but the protocol is unsecure.';
+						$alt = 'Prefer the protocol <strong>HTTPS</strong>, url = '.$url;
+					};
+					
+					// Get the result :
+					// From the iTop documentation
+					switch ($aResult['code']) {
+						case 0 :
+							$this->_checklist[] = array(
+									'code' => 1,
+									'canBeBetter' => $canBeBetter,
+									'isNotSecure' => false,
+									'text' => $text,
+									'alt' => $alt,
+							);
+							break;
+						case 1 :
+							$this->_checklist[] = array(
+									'code' => -1,
+									'canBeBetter' => true,
+									'isNotSecure' => true,
+									'text' => 'Missing/wrong credentials or the user does not have enough rights to perform the requested operation',
+									'alt' => $aResult['message'].'. Error Code '.$aResult['code'],
+									);
+							break;
+						case 2 :	
+							$this->_checklist[] = array(
+									'code' => -1,
+									'canBeBetter' => true,
+									'isNotSecure' => true,
+									'text' => 'The parameter \'version\' is missing',
+									'alt' => $aResult['message'].'. Error Code '.$aResult['code'],
+							);
+							break;
+						case 3 :
+								$this->_checklist[] = array(
+								'code' => -1,
+								'canBeBetter' => true,
+								'isNotSecure' => true,
+								'text' => 'The parameter \'json_data\' is missing',
+								'alt' => $aResult['message'].'. Error Code '.$aResult['code'],
+								);
+								break;
+						case 4 :
+							$this->_checklist[] = array(
+							'code' => -1,
+							'canBeBetter' => true,
+							'isNotSecure' => true,
+							'text' => 'The input structure is not a valid JSON string',
+							'alt' => $aResult['message'].'. Error Code '.$aResult['code'],
+							);
+							break;
+						case 10 :
+							$this->_checklist[] = array(
+							'code' => -1,
+							'canBeBetter' => true,
+							'isNotSecure' => true,
+							'text' => 'No operation is available for the specified version',
+							'alt' => $aResult['message'].'. Error Code '.$aResult['code'],
+							);
+							break;
+						case 11 :
+							$this->_checklist[] = array(
+							'code' => -1,
+							'canBeBetter' => true,
+							'isNotSecure' => true,
+							'text' => 'The requested operation is not valid for the specified version',
+							'alt' => $aResult['message'].'. Error Code '.$aResult['code'],
+							);
+							break;
+						case 12 :
+							$this->_checklist[] = array(
+							'code' => -1,
+							'canBeBetter' => true,
+							'isNotSecure' => true,
+							'text' => 'The requested operation cannot be performed because it can cause data (integrity) loss',
+							'alt' => $aResult['message'].'. Error Code '.$aResult['code'],
+							);
+							break;
+						case 100 :
+							$this->_checklist[] = array(
+							'code' => -1,
+							'canBeBetter' => true,
+							'isNotSecure' => true,
+							'text' => 'The operation could not be performed, see the message for troubleshooting',
+							'alt' => $aResult['message'].'. Error Code '.$aResult['code'],
+							);
+							break;
+						default :
+							$this->_checklist[] = array(
+									'code' => -1,
+									'canBeBetter' => true,
+									'isNotSecure' => true,
+									'text' => $aResult['message'],
+									'alt' => 'Error Code '.$aResult['code'],
+							);
+					};
+				}
+			}
+			catch  (Exception $e) {
 				$this->_checklist[] = array(
 						'code' => -1,
 						'canBeBetter' => true,
-						'isNotSecure' => false,
-						'text' => 'Error: the return value from the web service could not be decoded.',
-						'alt' => 'Result : '.$sResult,
+						'isNotSecure' => true,
+						'text' => 'url is incorrect',
+						'alt' => 'Bad url',
 				);
 			}
-			else
-			{
-				if ($protocol == 'https') {
-					$canBeBetter = false;
-					$text = 'iTop\'s Webservices <strong>n°'.$noItop.'</strong> access.';
-					$alt = $url;
-				}
-				else {
-					$canBeBetter = true;
-					$text = 'iTop\'s Webservices <strong>n°'.$noItop.'</strong> access but the protocol is unsecure.';
-					$alt = 'Prefer the protocol <strong>HTTPS</strong>, url = '.$url;
-				};
-				if ($aResult['code'] == 0) {
-					$this->_checklist[] = array(
-							'code' => 1,
-							'canBeBetter' => $canBeBetter,
-							'isNotSecure' => false,
-							'text' => $text,
-							'alt' => $alt,
-					);
-				}
-			}
 		}
+		
 		else {
-			if (file_exists($this->_config_db_file_path))
+			if (file_exists($prefixDir.$this->_config_db_file_path))
 			{
 				$text = 'Error, it\'s not possible to test the Webservice <strong>n°'.$noItop.'</strong>.';
 				$alt =  'Verify if <strong>curl</strong> Php extension is installed.';
@@ -635,6 +757,9 @@ class Check {
 							'alt' => 'Have you forget a "zf db install" ?',
 					);
 					$this->_DbTable_drop = false;
+					//All is missing, we create tables anyway
+					$this->_DbTable_install = true; 
+					error_log('on bascule le flag _DbTable_install à true');
 				} else {
 					$this->_checklist[] = array(
 							'code' => 0,
@@ -643,7 +768,8 @@ class Check {
 							'text' => 'Some table are missing',
 							'alt' => 'Some table are missing: <br /> - ' . implode('<br />- ', $tablesNotFound),
 					);
-					$this->_DbTable_drop = 'true';
+					$this->_DbTable_drop = true;
+					$this->_DbTable_install = true;
 				}
 			}
 			else
@@ -656,6 +782,7 @@ class Check {
 						'alt' => count($tablesToCheck).' tables are into the Database',
 				);
 				$this->_DbTable_drop = true;
+				$this->_DbTable_install = false;
 			}
 
 		} else {
@@ -667,11 +794,21 @@ class Check {
 					'alt' => '',
 			);
 			$this->_DbTable_drop = false;
+			$this->_DbTable_install = false;
 		}
 	}
 
 	public function canDropTable(){
+		$this->_checkDbTable();
+		//if ($this->_DbTable_drop) {error_log('canDropTable() return true');}
+		//else error_log('canDropTable() return false');
 		return  $this->_DbTable_drop;
+	}
+	
+	public function dbInstall(){
+		//$this->_checkDbTable();
+		if ($this->_DbTable_install) { return 'true';}
+		else { return 'false';}
 	}
 
 	protected function _checkPermission()
@@ -692,12 +829,13 @@ class Check {
 				'/data/cache/tags',
 				'/public/files',
 				'/public/cached',
-				'/public/status',
+				//'/public/status',
+				'/public/setup',
 				'/public/index.php',
 		);
 
 		$notWritable = array();
-		$prefixDir = realpath(dirname(__FILE__) . '/../..');
+		$prefixDir = realpath(dirname(__FILE__) . '/../../..');
 
 		foreach ($dirs as $dir) {
 			$fullPath = $prefixDir . $dir;
@@ -727,13 +865,13 @@ class Check {
 
 		if (isset($_GET['step']) ) {
 			$uri = str_replace('index.php', '',$_SERVER['REQUEST_URI']);
-			$url .= str_replace('/status/?step='.$_GET['step'], '/test_redirect/', $uri);
+			$url .= str_replace('/setup/?step='.$_GET['step'], '/test_redirect/', $uri);
 		}
 		else {
 			//usefull when called by chkCfg.php
-			$uri = str_replace('chkCfg.php', '',$_SERVER['REQUEST_URI']);
+			$uri = str_replace('scripts/chkCfg.php', '',$_SERVER['REQUEST_URI']);
 			//$url .= str_replace('/status', '/test_redirect', $_SERVER['REQUEST_URI']);
-			$url .= str_replace('/status', '/test_redirect', $uri);
+			$url .= str_replace('/setup', '/test_redirect', $uri);
 		}
 		$url .= '?step=-1';
 		 
@@ -781,20 +919,19 @@ class Check {
 	}
 
 	public function check() {
-
 		set_include_path(implode(PATH_SEPARATOR, array(
-		realpath(__DIR__ . '/../../library/'),
+		realpath(__DIR__ . '/../../../library/'),
 		get_include_path(),
 		)));
-
+		
 		$this->_checkPhp();
 		$this->_checkApache();
 		$this->_checkLibraryZend();
 		$this->_checkLibraryCenturion();
 		$this->_checkLibraryPortal();
-
+		
 		if ($this->_hasCenturion || $this->_hasZend) {
-			require_once 'Zend/Loader/Autoloader.php';
+			require_once __DIR__ . '/../../../library/Zend/Loader/Autoloader.php';
 			$autoloader = Zend_Loader_Autoloader::getInstance()
 			->setDefaultAutoloader(create_function('$class',
 					"include str_replace('_', '/', \$class) . '.php';"
@@ -813,20 +950,20 @@ class Check {
 
 
 	/* Check according to the step*/
-	public function checkCfg($step) {
+	public function checkCfg($step,$caller = null) {
 
+		//error_log('$step = '.$step.' et $caller = '.$caller); 
 		 
-		 
-		//if ($step >1)
+		if ($step >=1)
 		{
-			$this->_checkDbConnect();
+			$this->_checkDbConnect($caller);
 			$this->_checkDbTable();
 		}
 
-		//if ($step >2)
+		if ($step >=2)
 		{
-			$this->_checkItopWebservice(1);
-			$this->_checkItopWebservice(2);
+			$this->_checkItopWebservice(1,$caller);
+			$this->_checkItopWebservice(2,$caller);
 		}
 	}
 
@@ -903,12 +1040,12 @@ class Check {
 				'/data/cache/output/',
 				'/data/cache/page/',
 				'/data/cache/tags/',
-				'/public/status/*',
+				'/public/setup/*',
 				'/public/index.php',
 				'/public/index.php_next',
 				'/public/files/',
 				'/public/cached/',
-				'/public/status/',
+				'/public/setup/',
 				//'/public/status',
 		);
 	

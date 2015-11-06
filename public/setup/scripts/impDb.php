@@ -2,31 +2,27 @@
 defined('__DIR__') || define('__DIR__', dirname(__FILE__));
 
 defined('APPLICATION_PATH')
-|| define('APPLICATION_PATH', realpath(__DIR__ . '/../../application'));
+|| define('APPLICATION_PATH', realpath(__DIR__ . '/../../../application'));
 
 $checklist = array();
 
-include_once __DIR__ . '/Check.php';
+include_once __DIR__ . '/../class/Check.php';
 
 $check = new Check();
 $check->check();
 $check->checkCfg(1);
 
-
-
-
-
 //http_response_code(404);
 //echo '<p>Database import in progress ...';
 echo '<div id="progress"style="width:300px;border:1px solid #ccc;"></div>';
 echo '<div id="informationdb" style="width"></div>';
-include_once __DIR__ . '/../../library/Centurion/Config/Directory.php';
-include_once __DIR__ . '/../../library/Centurion/Iterator/Directory.php';
-include_once __DIR__ . '/../../library/Zend/Config/Ini.php';
+include_once __DIR__ . '/../../../library/Centurion/Config/Directory.php';
+include_once __DIR__ . '/../../../library/Centurion/Iterator/Directory.php';
+include_once __DIR__ . '/../../../library/Zend/Config/Ini.php';
 
-$config = Centurion_Config_Directory::loadConfig(__DIR__ . '/../../application/configs', getenv('APPLICATION_ENV'));
-include_once __DIR__ . '/../../library/Zend/Application/Resource/Db.php';
-include_once __DIR__ . '/../../library/Zend/Db.php';
+$config = Centurion_Config_Directory::loadConfig(__DIR__ . '/../../../application/configs', getenv('APPLICATION_ENV'));
+include_once __DIR__ . '/../../../library/Zend/Application/Resource/Db.php';
+include_once __DIR__ . '/../../../library/Zend/Db.php';
 
 
 try {
@@ -88,10 +84,15 @@ if ($_POST['drop'] == 'true') {
 	}
 }
 
-
+//error_log ($_POST['drop'].' ou '.$check->canDropTable().' ou '.$check->dbInstall());
+//if ($check->dbInstall()) {error_log('install Tables !');}
+//	else {error_log('dbInstall return false :(');}
 //We import the Database only if necessary, to not erase some existing production database ...
-if ($_POST['drop'] == 'true' || !($check->canDropTable())) {
-	//error_log ($_POST['drop'].' et '.$check->canDropTable());
+if ($_POST['drop'] == 'true' 
+		|| ($check->canDropTable())
+		|| ($_POST['installSQL']== 'true'  )
+		) {
+	
 	foreach($sql as $query){
 		try {
 			$result = $db->query($query);

@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>It works!</title>
+<title>iTop's Portal Installation</title>
 <link type="text/css" media="all" rel="stylesheet"
-	href="../layouts/backoffice/styles.css" />
+	href="../../layouts/backoffice/styles.css" />
 <link type="text/css" media="all" rel="stylesheet"
-	href="../layouts/frontoffice/css/intro.css" />
+	href="../../layouts/frontoffice/css/intro.css" />
 <link type="text/css" media="all" rel="stylesheet"
-	href="../layouts/frontoffice/css/form.css" />
+	href="../../layouts/frontoffice/css/form.css" />
 <link type="text/css" media="all" rel="stylesheet"
-	href="../cui/theme/css/tipsy.css" />
-<script type="text/javascript" src="../cui/libs/jquery.js"></script>
-<script type="text/javascript" src="../layouts/backoffice/js/all.js"></script>
+	href="../../cui/theme/css/tipsy.css" />
+<script type="text/javascript" src="../../cui/libs2/jquery.js"></script>
+<script type="text/javascript" src="../../layouts/backoffice/js/all.js"></script>
 <script type="text/javascript"
-	src="../cui/plugins/utils/jquery.tipsy.js"></script>
+	src="../../cui/plugins/utils/jquery.tipsy.js"></script>
 <!--[if IE]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->

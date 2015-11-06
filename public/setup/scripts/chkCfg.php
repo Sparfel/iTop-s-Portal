@@ -2,15 +2,17 @@
 defined('__DIR__') || define('__DIR__', dirname(__FILE__));
 
 defined('APPLICATION_PATH')
-|| define('APPLICATION_PATH', realpath(__DIR__ . '/../../application'));
+|| define('APPLICATION_PATH', realpath(__DIR__ . '/../../../application'));
 
 $checklist = array();
 
-include_once __DIR__ . '/Check.php';
+include_once __DIR__ . '/../class/Check.php';
 
 $check = new Check();
 $check->check();
-$check->checkCfg(1);
+$check->checkCfg($_POST['step'], 'ajax');
+
+//error_log($check->canDropTable());
 
 $script = '';
 
