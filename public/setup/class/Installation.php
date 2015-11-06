@@ -30,10 +30,9 @@ Class Installation {
 	
 	public function __construct()
 	{
-		$this->setState(new InitState($this));
 		$session = new Zend_Session_Namespace('Installation');
 		$session->installation = $this;
-		
+		$this->setState(new InitState($this));
 	}
 	
 	/**

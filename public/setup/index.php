@@ -38,6 +38,7 @@ $session = new Zend_Session_Namespace('Installation');
 if (is_null($session->installation)) {
 	//New Install, we initialize it
 	$install = new Installation();
+	$install->check($check);
 	//$install = Installation::getInstance();
 	//error_log('Initialization');
 	

@@ -177,7 +177,7 @@ $(document).ready(function() {
 	    //$("#step_button").hide(500);
         $("#step_button").empty();
         $("#step_button").delay(500).append('<input type="button" class="ui-button ui-button-bg-white" name="btn_cancel" value="Back" onclick="navigate(\'prev\')">');
-		$("#step_button").delay(500).append('<input type="submit" class="ui-button ui-button-bg-white" name="btn_next" id="btn_next"  value="Next" onclick="navigate(\'next\')">');
+		$("#step_button").delay(500).append('<input type="button" class="ui-button ui-button-bg-white" name="btn_next" id="btn_next"  value="Next" onclick="navigate(\'next\')">');
         $("#step_button").show(500);
 	}
 
@@ -212,6 +212,7 @@ $(document).ready(function() {
 	
 
 	function navigate($value){
+		//alert('action '+$value);
 		window.location.href='';
 		$.ajax({
             url: './scripts/navigate.php',
