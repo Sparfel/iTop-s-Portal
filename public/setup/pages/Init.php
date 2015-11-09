@@ -88,9 +88,7 @@ DocumentRoot 'path_to_portal_directory/public/'
 		<h3>Next Step : the database configuration file.</h3>
 		<p>We will create the configuration files to connect to the database
 			and we will populate it. Let's go ...</p>
-			<a class="ui-button ui-button-text-only ui-button-bg-white"
-					href="" onclick="navigate('next');"> <span class="ui-button-text">Next</span>
-					</a>
+			<input type="button" class="ui-button ui-button-text-only ui-button-bg-white" value="Next" name="btn_next" id="btn_next" onclick="navigate('next');">
 					</div>
 
 					<div class="bottom">
@@ -104,7 +102,7 @@ DocumentRoot 'path_to_portal_directory/public/'
 <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
 <!-- //
 function navigate($value) {
-	
+	window.location.href='';
 	$.ajax({
                   url: './scripts/navigate.php',
                   type      : 'post',
