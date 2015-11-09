@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta http-equiv="Pragma" content="no-cache" /> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />  
+<meta http-equiv="Expires" content="0" />
 <meta charset="UTF-8">
 <title>iTop's Portal Installation</title>
 <link type="text/css" media="all" rel="stylesheet"
