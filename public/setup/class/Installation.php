@@ -65,15 +65,20 @@ Class Installation {
 	}
 	
 	public function next(){
-		$this->currentState->next();
+		$this->currentState->next($this);
+		
+	}
+	
+	public function traceState(){
+		Zend_Debug::dump($this->currentState);
 	}
 	
 	public function prev(){
-		$this->currentState->prev();
+		$this->currentState->prev($this);
 	}
 	
 	public function checkParam() {
-		$this->currentState->checkParam($this->_check);
+		$this->currentState->checkParam($this->_check,$this);
 	}
 	
 	public function genParamFile($options){

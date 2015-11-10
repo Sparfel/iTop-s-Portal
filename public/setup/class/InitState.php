@@ -13,7 +13,7 @@ class InitState implements InstallState {
 	public $test;
 	
 	public function __construct($installation){
-		$this->installation = $installation;
+		//$this->installation = $installation;
 	
 	}
 	
@@ -36,13 +36,13 @@ class InitState implements InstallState {
 		return $this->page;
 	}
 	
-	public function next(){
+	public function next($installation){
 		if ($this->doTheJob() == 'OK'){
-			$this->installation->setState(new ConfigDBState($this->installation));
+			$installation->setState(new ConfigDBState($this->installation));
 		}
 	}
 	
-	public function prev(){
+	public function prev($installation){
 		null;		
 	}
 	
@@ -58,7 +58,7 @@ class InitState implements InstallState {
 		return FALSE;
 	}
 	
-	public function checkParam($check){
+	public function checkParam($check,$installation){
 	}
 	
 	public function validState(){

@@ -228,17 +228,6 @@ $(document).ready(function() {
 	   	document.forms["websrv"].elements["webservice_adress"].focus();
 	}
 
-	function navigate($value){
-		window.location.href='';
-		$.ajax({
-            url: './scripts/navigate.php',
-            type      : 'post',
-			  dataType : 'html',
-            data: { 'action' :  $value },
-            success: function(data) {
-          	}
-           });
-	}
 	</script>
 
 <section>
@@ -326,13 +315,10 @@ $(document).ready(function() {
 					class="main_text">
 					<tr>
 						
-						<td colspan=2 align='left' id="step_button"><input type="button"
-								class="ui-button ui-button-bg-white" name="btn_cancel"
-								value="Back"
-								onclick="navigate('prev')">
-	
-								<input type="button" class="ui-button ui-button-bg-white"
-								name="btn_submit" id="btn_submit" value="Continue">
+						<td colspan=2 align='left' id="step_button">
+						<input type="button" class="ui-button ui-button-bg-white" name="btn_cancel"	value="Back" onclick="navigate('prev')">
+						<!--<input type="button" class="ui-button ui-button-text-only ui-button-bg-white" value="Cancel" name="btn_cancel" id="btn_cancel" onclick="cancel();">-->
+						<input type="button" class="ui-button ui-button-bg-white" name="btn_submit" id="btn_submit" value="Continue">
 				
 							<!-- <input type="button" class="ui-button ui-button-bg-white" name="btn_check" id="btn_check"  value="test">-->
 							

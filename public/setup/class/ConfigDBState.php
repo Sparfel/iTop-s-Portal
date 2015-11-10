@@ -12,7 +12,7 @@ class ConfigDBState implements InstallState {
 	
 	
 	public function __construct($installation){
-		$this->installation = $installation;
+		//$this->installation = $installation;
 	}
 	
 	public static function getInstance($installation) {
@@ -26,14 +26,14 @@ class ConfigDBState implements InstallState {
 		return $this->page;
 	}
 	
-	public function next(){
+	public function next($installation){
 		if ($this->doTheJob(null) == 'OK'){
-			$this->installation->setState(new ConfigWebSrvState($this->installation));
+			$installation->setState(new ConfigWebSrvState($this->installation));
 		}
 	}
 	
-	public function prev(){
-		$this->installation->setState(new InitState($this->installation));
+	public function prev($installation){
+		$installation->setState(new InitState($this->installation));
 	}
 	
 	public function cancel(){
@@ -44,12 +44,12 @@ class ConfigDBState implements InstallState {
 		return $this;
 	}
 		
-	public function checkParam($check) {
+	public function checkParam($check,$installation) {
 		$param = $check->getDbParameters('ajax');
-		$this->installation->DbHost = $param['database_host'];
-		$this->installation->DbName = $param['database_name'];
-		$this->installation->DbUser = $param['database_username'];
-		$this->installation->DbPwd = $param['database_password'];
+		$installation->DbHost = $param['database_host'];
+		$installation->DbName = $param['database_name'];
+		$installation->DbUser = $param['database_username'];
+		$installation->DbPwd = $param['database_password'];
 	}
 	
 	public function genParamFile($check,$options){

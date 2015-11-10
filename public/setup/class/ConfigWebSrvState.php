@@ -26,14 +26,14 @@ class ConfigWebSrvState implements InstallState {
 		return $this->page;
 	}
 	
-	public function next(){
+	public function next($installation){
 		if ($this->doTheJob() == 'OK'){
-			$this->installation->setState(new FinalState($this->installation));
+			$installation->setState(new FinalState($this->installation));
 		}
 	}
 	
-	public function prev(){
-		$this->installation->setState(new ConfigDBState($this->installation));
+	public function prev($installation){
+		$installation->setState(new ConfigDBState($this->installation));
 	}
 	
 	public function cancel(){
@@ -45,12 +45,12 @@ class ConfigWebSrvState implements InstallState {
 	
 	}
 	
-	public function checkParam($check) {
+	public function checkParam($check,$installation) {
 		$param = $check->getApplicationParameters('ajax');
-		$this->installation->webservice_protocol = $param['webservice_protocol'];
-		$this->installation->webservice_adress = $param['webservice_adress'];
-		$this->installation->webservice_username = $param['webservice_username'];
-		$this->installation->webservice_password = $param['webservice_password'];
+		$installation->webservice_protocol = $param['webservice_protocol'];
+		$installation->webservice_adress = $param['webservice_adress'];
+		$installation->webservice_username = $param['webservice_username'];
+		$installation->webservice_password = $param['webservice_password'];
 
 	}
 	

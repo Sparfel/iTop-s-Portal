@@ -25,12 +25,12 @@ class FinalState implements InstallState {
 		return $this->page;
 	}
 	
-	public function next(){
+	public function next($installation){
 		
 	}
 	
-	public function prev(){
-		$this->installation->setState(new configWebSrvState($this->installation));
+	public function prev($installation){
+		$installation->setState(new configWebSrvState($this->installation));
 	}
 	
 	public function cancel(){
@@ -50,7 +50,7 @@ class FinalState implements InstallState {
 	
 	}
 	
-	public function checkParam($check){
+	public function checkParam($chec,$installation){
 		
 	}
 	

@@ -59,4 +59,5 @@ include './pages/'.$install->getPage();
 //Zend_Debug::dump($check);
 include './pages/_footer.php';
 
+
 ?>

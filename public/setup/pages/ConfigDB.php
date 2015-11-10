@@ -209,22 +209,6 @@ $(document).ready(function() {
 		});
 	}
 	
-	
-
-	function navigate($value){
-		//alert('action '+$value);
-		window.location.href='';
-		$.ajax({
-            url: './scripts/navigate.php',
-            type      : 'post',
-			  dataType : 'html',
-            data: { 'action' :  $value },
-            success: function(data) {
-          	  //$('.bottom').append('<PRE>'+data+'</PRE>')
-            }
-           });
-	} 
-
 	</script>
 
 
@@ -352,13 +336,10 @@ mysql>CREATE DATABASE my_database_name;
 				<table width="100%" border="0" cellspacing="0" cellpadding="2"
 					class="main_text">
 					<tr>
-						<td colspan=2 align='left' id="step_button"><input type="button"
-							class="ui-button ui-button-bg-white" name="btn_cancel"
-							value="Back"
-							onclick="navigate('prev')">
-
-							<input type="button" class="ui-button ui-button-bg-white"
-							name="btn_submit" id="btn_submit" value="Continue">
+						<td colspan=2 align='left' id="step_button">
+						<input type="button" class="ui-button ui-button-bg-white" name="btn_cancel"	value="Back" onclick="navigate('prev')">
+						<!--<input type="button" class="ui-button ui-button-text-only ui-button-bg-white" value="Cancel" name="btn_cancel" id="btn_cancel" onclick="cancel();">-->
+						<input type="button" class="ui-button ui-button-bg-white" name="btn_submit" id="btn_submit" value="Continue">
 							<!--
 							 <input type="button" class="ui-button ui-button-bg-white" name="btn_check" id="btn_check"  value="test">
 							-->
@@ -387,7 +368,7 @@ mysql>CREATE DATABASE my_database_name;
 			manually change it in the <strong>db.ini</strong> file in <em>application/configs</em>
 			directory.
 		</p>
-		<div class="clear"></div>
+			<div class="clear"></div>
 	</div>
 
 	<div style="margin: 10px 10px 10px 10px; width: 150px; height: 20px;">

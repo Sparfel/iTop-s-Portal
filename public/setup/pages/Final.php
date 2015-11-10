@@ -1,19 +1,3 @@
-<script type="text/javascript">
-
-	function navigate($value){
-		window.location.href='';
-		$.ajax({
-            url: './scripts/navigate.php',
-            type      : 'post',
-			  dataType : 'html',
-            data: { 'action' :  $value },
-            success: function(data) {
-          	  //$('.bottom').append('<PRE>'+data+'</PRE>')
-            }
-           });
-	} 
-
-	</script>
 
 
 <section>
@@ -129,9 +113,9 @@
 			<h3>Your iTop's Portal installation seems to be good</h3>
 	
 			<p>Next step is to remove all this installation page.</p>
-			<a class="ui-button ui-button-text-only ui-button-bg-white"
-				href="" onclick="navigate('prev')"> <span class="ui-button-text">Go
-					back</span>
+			<input type="button" class="ui-button ui-button-bg-white" name="btn_cancel"	value="Back" onclick="navigate('prev')">
+			<!--<input type="button" class="ui-button ui-button-text-only ui-button-bg-white" value="Cancel" name="btn_cancel" id="btn_cancel" onclick="cancel();">-->
+		
 			</a> <a class="ui-button ui-button-text-only ui-button-bg-white"
 				href="?removeMe=true"> <span class="ui-button-text">Remove
 					installation file.</span>

@@ -4,11 +4,11 @@
 interface InstallState {
 	
 	public function __construct($installation);
-	public function next();
-	public function prev();
+	public function next($installation);
+	public function prev($installation);
 	public function cancel();
 	public function getState();
-	public function checkParam($check);
+	public function checkParam($check,$installation);
 	public function validState();
 	
 	
