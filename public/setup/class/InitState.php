@@ -36,13 +36,13 @@ class InitState implements InstallState {
 		return $this->page;
 	}
 	
-	public function next($installation){
+	public function next($installation,$param){
 		if ($this->doTheJob() == 'OK'){
 			$installation->setState(new ConfigDBState($this->installation));
 		}
 	}
 	
-	public function prev($installation){
+	public function prev($installation,$param){
 		null;		
 	}
 	

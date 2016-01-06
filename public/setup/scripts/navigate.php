@@ -34,7 +34,9 @@ echo $_POST['action'];
 if (isset($_POST['action'])) {
 	switch ($_POST['action']) {
 	case 'next' :
-		$install->next();
+		$param ='';
+		if ((isset($_POST['param'])))  {$param = $_POST['param'];}
+		$install->next($param);
 		//echo '<hr>';
 		break;
 	case 'prev' :

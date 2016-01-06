@@ -63,15 +63,16 @@ class Portal_Preference_Preference {
 	            $this->_email =  $email;
 	            
 	            // No location in request with iTop original version
-	            //$this->_AyearList = $this->getYearList();
 	            //$this->_AlocationList = $this->getLocationList();
+	            // $this->_AlocationFilter = $this->getLocationFilter();
+	            
 	           
 	            $this->_language = $this->getUserLanguage();
 	            //Gestion des filtres d'afichage des tickets.
 	            $this->_userFilter = $this->getUserFilter();
-	            
+	            $this->_AyearList = $this->getYearList();
 	            $this->_AyearFilter = $this->getYearFilter();
-	           // $this->_AlocationFilter = $this->getLocationFilter();
+	          
 	            
 	            $this->_AhomeServicesPosition = $this->getHomeServices();
 	            

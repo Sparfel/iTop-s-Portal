@@ -64,8 +64,8 @@ Class Installation {
 		return $this->currentState->getPage();
 	}
 	
-	public function next(){
-		$this->currentState->next($this);
+	public function next($param){
+		$this->currentState->next($this,$param);
 		
 	}
 	
@@ -74,7 +74,7 @@ Class Installation {
 	}
 	
 	public function prev(){
-		$this->currentState->prev($this);
+		$this->currentState->prev($this,null);
 	}
 	
 	public function checkParam() {

@@ -26,14 +26,20 @@ class ConfigWebSrvState implements InstallState {
 		return $this->page;
 	}
 	
-	public function next($installation){
+	public function next($installation,$param){
 		if ($this->doTheJob() == 'OK'){
-			$installation->setState(new FinalState($this->installation));
+			
+			//if ($param =='test') {
+				//$installation->setState(new ConfigDBState($this->installation));
+			//}
+			//else {
+				$installation->setState(new FinalState($this->installation));
+			//}
 		}
 	}
 	
-	public function prev($installation){
-		$installation->setState(new ConfigDBState($this->installation));
+	public function prev($installation,$param){
+			$installation->setState(new ConfigDBState($this->installation));
 	}
 	
 	public function cancel(){

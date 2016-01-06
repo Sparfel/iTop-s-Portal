@@ -26,13 +26,13 @@ class ConfigDBState implements InstallState {
 		return $this->page;
 	}
 	
-	public function next($installation){
+	public function next($installation,$param){
 		if ($this->doTheJob(null) == 'OK'){
 			$installation->setState(new ConfigWebSrvState($this->installation));
 		}
 	}
 	
-	public function prev($installation){
+	public function prev($installation,$param){
 		$installation->setState(new InitState($this->installation));
 	}
 	

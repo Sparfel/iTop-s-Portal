@@ -1,10 +1,11 @@
-function navigate($value){
+function navigate($value, $param ){
 		//window.location.href='';
 		$.ajax({
             url: './scripts/navigate.php',
             type      : 'post',
 			  dataType : 'html',
-            data: { 'action' :  $value },
+            data: { 'action' :  $value,
+            		'param' : $param},
             success: function(data) {
           	  //$('.bottom').append('<PRE>'+data+'</PRE>')
             },

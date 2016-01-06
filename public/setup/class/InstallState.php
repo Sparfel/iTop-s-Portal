@@ -4,8 +4,8 @@
 interface InstallState {
 	
 	public function __construct($installation);
-	public function next($installation);
-	public function prev($installation);
+	public function next($installation,$param);
+	public function prev($installation,$param);
 	public function cancel();
 	public function getState();
 	public function checkParam($check,$installation);

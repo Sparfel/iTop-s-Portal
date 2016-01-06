@@ -671,7 +671,7 @@ class Check {
 		}
 		
 		else {
-			if (file_exists($prefixDir.$this->_config_db_file_path))
+			if (file_exists($prefixDir.$this->_config_application_file_path))
 			{
 				$text = 'Error, it\'s not possible to test the Webservice <strong>n°'.$noItop.'</strong>.';
 				$alt =  'Verify if <strong>curl</strong> Php extension is installed.';
