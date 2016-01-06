@@ -42,6 +42,8 @@ class Portal_Preference_Preference {
 	public $_ParamName_UserLocation = 'USER_LOCATION';
 	public $_ParamName_UserYear = 'USER_YEAR';
 	public $_ParamName_UserHomeServices = 'HOME_SERVICES';
+	
+	private $_start_date = 2012; // Start Date
 		
 	public function __construct($id,$email,$first_name,$last_name) {
 		$webservice = Zend_Controller_Action_HelperBroker::getStaticHelper('ItopWebservice');
@@ -112,10 +114,19 @@ class Portal_Preference_Preference {
 	// On récupère les différentes années pour lesquelles on a des tickets (dans iTop)
 	public function getYearList() {
 		//on liste les années (ici pour ne le faire q'une seule fois)
-		$webservice = Zend_Controller_Action_HelperBroker::getStaticHelper('ItopWebservice');
+		/*$webservice = Zend_Controller_Action_HelperBroker::getStaticHelper('ItopWebservice');
 		$tab_yearList = $webservice->getPerYearRequest($this->_org_id,"fr_FR");
 		//On trie le tableau :
-		asort($tab_yearList);
+		asort($tab_yearList);*/
+		
+		$tab_yearList = array();
+		$current_date = new Zend_Date();
+		$start_year = $this->_start_date;
+		$delta_year = $current_date->get(Zend_Date::YEAR) - $start_year;
+		for ($i = 0; $i <= $delta_year ; $i++) {
+			$tab_yearList[$i] = $start_year + $i;
+		}
+		//error_log(print_r($tab_yearList));
 		return $tab_yearList;
 	}
 	
