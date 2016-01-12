@@ -18,13 +18,10 @@
                                                 $currentTotalItemCount + $this->currentItemCount,
                                                 $this->totalItemCount);?></span>
     <?php if ($this->next):?>
-        <a class="next" href="<?php echo $this->url(array('page' => $this->next)) . '?' . http_build_query($this->filter->getValues(), '', '&amp;');?>"><?php echo $this->translate('Next')?></a>
+        <a class="next" href="<?php echo $this->url(array('page' => $this->next)) . '?' . http_build_query($this->filter->getValues(), '', '&amp;');?>"><?php echo $this->translate('Next');?></a>
         <a class="last" href="<?php echo $this->url(array('page' => $this->pageCount)). '?' . http_build_query($this->filter->getValues(), '', '&amp;');?>"><?php echo $this->translate('Last'); ?></a>  
     <?php else:?>
         <a class="next" href="#"></a>
         <a class="last" href="#"></a>  
     <?php endif;?>
 </div>
-
-
-<?php //Zend_Debug::dump($this->url(array('page' => $this->next)));?>

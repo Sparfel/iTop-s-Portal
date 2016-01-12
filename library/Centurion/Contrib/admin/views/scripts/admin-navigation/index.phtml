@@ -39,6 +39,7 @@ $urls = array();
 
 $(function(){
     $("#highlightCreate").live('click', function(){
+    /*$("#highlightCreate").on('click', function(){ */
         $(this).attr('href', url[$('#highlight-model').val()]);
         return true;
     });

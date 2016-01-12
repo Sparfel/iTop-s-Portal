@@ -9,7 +9,8 @@ zfdebug = false
 
 resources.frontController.params.disableOutputBuffering = true
 resources.frontController.baseurl = "/"
-; fout la merde dans le jtree : resources.frontController.baseurl = "http://itop.portaltest.debian" 
+; fout la merde dans le jtree : 
+;resources.frontController.baseurl = "http://itop.portal.debian" 
 
 bootstrap.path = APPLICATION_PATH "/Bootstrap.php"
 bootstrap.class = "Bootstrap"
