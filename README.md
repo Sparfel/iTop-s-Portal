@@ -49,6 +49,8 @@ That's all, the configuration will be done through the website **[http://your_vh
 
 It may be necessary to define the adress of the server with his name in your host file.
 
+---
+
 A demo is now available at this adress : http://itop-portal.no-ip.org/
 * Admin user : admin / admin1234
 * Normal user : dali@demo.com / Salvador1234
