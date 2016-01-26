@@ -69,9 +69,32 @@ class Bootstrap extends Centurion_Application_Bootstrap_Bootstrap
             $request = new Zend_Controller_Request_Http();
             $front->setRequest($request);
         }
+        Zend_Session::rememberMe();
         return $request;
     }
 
+    
+    protected function _initRememberMe(){
+    	// User checked remember me on authetification
+    	if (isset($_COOKIE["iTop_Auth_RememberMe"])) {
+    		Zend_Session::rememberMe($appConfig->sessions->rememberMe);
+    		unset($_COOKIE["iTop_Auth_RememberMe"]);
+    	}
+    	 
+    	// set options with multi domain cookie @see : http://www.z-f.fr/forum/viewtopic.php?id=502
+    	// activate session garbage collector disabled by default on Debian gc_probability, gc_divisor @see http://oscarm.org/news/detail/666-debian_php5_and_session_garbage_collection
+    	// @see http://www.nabble.com/Zend_Session::rememberMe()-td19975066.html
+    	/*$sessionOptions = array(
+    	 'cookie_path' => '/' ,
+    			'cookie_domain' => '.' . $appConfig->url->domain ,
+    			'save_path' => self::$_rootPath . '/' . $appConfig->sessions->savePath ,
+    			'gc_probability' => 1 ,
+    			'gc_divisor' => 100 ,
+    			'gc_maxlifetime' => $appConfig->sessions->gc_maxlifetime);
+    	Zend_Session::setOptions($sessionOptions);*/
+       
+    }
+    
     protected function _initZFDebug()
     {
         if (Centurion_Config_Manager::get('zfdebug')) {

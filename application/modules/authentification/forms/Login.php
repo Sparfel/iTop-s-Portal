@@ -116,8 +116,8 @@ class Authentification_Form_Login extends Centurion_Form
         if ($valid) {
             $session = new Zend_Session_Namespace('Zend_Auth');
             if (((bool) $this->getValue('remember_me'))) {
-            	null;
-            	Zend_Session::rememberMe();
+            	//Zend_Session::rememberMe();
+				$_COOKIE["iTop_Auth_RememberMe"] = true;
             } else {
                 $session->setExpirationSeconds($this->_loginLifetime);
             }
