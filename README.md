@@ -54,7 +54,8 @@ It may be necessary to define the adress of the server with his name in your hos
 A demo is now available at this adress : http://itop-portal.no-ip.org/
 * Admin user : admin / admin1234
 * Normal user : dali@demo.com / Salvador1234
-(backoffice adress : http://itop-portal.no-ip.org/admin/)
+
+(backoffice address : http://itop-portal.no-ip.org/admin/)
 
 This portal is working with an iTop demo : http://services.sydel.fr/itop-test-web/
 * Admin user : admin / admin1234
