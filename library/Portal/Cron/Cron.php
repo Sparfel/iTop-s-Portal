@@ -20,7 +20,7 @@ Class Portal_Cron_Cron {
 		$saltingMechanism = $config->ticket->salt;
 		
 		$dbAdapter = Zend_Db_Table_Abstract::getDefaultAdapter();
-		$adapter = new Syleps_Auth_Adapter_DbTable($dbAdapter,
+		$adapter = new Portal_Auth_Adapter_DbTable($dbAdapter,
 				'auth_user',
 				'username',
 				'password',
@@ -33,8 +33,6 @@ Class Portal_Cron_Cron {
 		if ($result->isValid()) {
 			//print 'On effectue le getStorage\n';
 			Centurion_Signal::factory('pre_login')->send(null, $adapter);
-				
-			//Ici que cela prend le plus de temps.
 			$result = $adapter->getResultRowObject(null);
 			Centurion_Auth::getInstance()->clearIdentity();
 			Centurion_Auth::getInstance()->getStorage()->write($result);
