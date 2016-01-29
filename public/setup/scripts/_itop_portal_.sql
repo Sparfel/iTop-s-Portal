@@ -533,7 +533,7 @@ CREATE TABLE IF NOT EXISTS `cron_task` (
 --
 
 INSERT INTO `cron_task` (`id`, `name`, `class_name`, `function_name`, `is_active`, `frequency`, `last_execution`) VALUES
-(2, 'Synchronisation des utilisateurs avec iTop', 'Portal_iTop_UserLocal', 'synchronize', '0', 3600, '2015-03-09 11:36:24'),
+(2, 'Synchronisation des utilisateurs avec iTop', 'Portal_Itop_UserLocal', 'synchronize', '0', 3600, '2015-03-09 11:36:24'),
 (3, 'Synchronisation des utilisateurs avec Ldap', 'Portal_Ldap_ldap ?', 'synchronize', '0', 3600, '2015-03-06 12:02:00');
 
 -- --------------------------------------------------------
