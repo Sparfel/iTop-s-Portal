@@ -1,5 +1,5 @@
 <?php
-class Portal_iTop_UserLocal {
+class Portal_Itop_UserLocal {
 
 	protected $_restWS;
 	//Gestion des User iTop => user autre que Syleps car les users Syleps sont gérés via le Ldap
@@ -16,7 +16,7 @@ class Portal_iTop_UserLocal {
 	}
 	
 	public function importAll(){
-		$itopuser = new Portal_iTop_Model_DbTable_ItopUser();
+		$itopuser = new Portal_Itop_Model_DbTable_ItopUser();
 		//On vide la table et on va la recharger
 		$itopuser->truncate();
 		
@@ -56,7 +56,7 @@ class Portal_iTop_UserLocal {
 	}	
 	
 	public function deleteAll(){
-		$itopuser = new Portal_iTop_Model_DbTable_ItopUser();
+		$itopuser = new Portal_Itop_Model_DbTable_ItopUser();
 		//On vide complètement la table (on va la recharger avec un import)
 		$itopuser->truncate();
 	}
