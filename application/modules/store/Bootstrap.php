@@ -1,6 +1,6 @@
 <?php
 
-class Storsys_Bootstrap extends Centurion_Application_Module_Bootstrap
+class Store_Bootstrap extends Centurion_Application_Module_Bootstrap
 {
 
 	 /* Initialize session
@@ -14,7 +14,7 @@ class Storsys_Bootstrap extends Centurion_Application_Module_Bootstrap
 		// S'il n'existe pas, on crée l'objet panier
     	//$session = Zend_Registry::get('session');
     	if (!(isset($session->panier)))
-    		{$session->panier = new Syleps_Ecommerce_Panier_Panier();}
+    		{$session->panier = new Portal_Ecommerce_Panier_Panier();}
 		
 		return $session;
 	}

@@ -680,7 +680,7 @@ section.tpl-form section { /* margin-right:0;
 							
 							 }
 
-section aside {             margin:0; padding:20px 15px 0 15px; float:right; width:230px; z-index: 1; }
+section aside {             margin:0; padding:20px 15px 0 10px; float:right; width:230px; z-index: 1; }
 
 
 

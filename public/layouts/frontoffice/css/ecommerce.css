@@ -2,11 +2,11 @@
     display: table;
     border-spacing: 0;
     -moz-border-radius: 12px;
-    -moz-box-shadow: #646496 5px 5px 6px;
+    -moz-box-shadow: #1C94C4 5px 5px 6px;
     -webkit-border-radius: 12px;
-    -webkit-box-shadow: #646496 5px 5px 6px;
+    -webkit-box-shadow: #1C94C4 5px 5px 6px;
     border-radius: 12px;
-    box-shadow: #646496 5px 5px 6px;
+    box-shadow: #1C94C4 5px 5px 6px;
 	width:100%;
 }
 

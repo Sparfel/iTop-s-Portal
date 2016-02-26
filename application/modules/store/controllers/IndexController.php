@@ -1,5 +1,5 @@
 <?php
-class Storsys_IndexController extends Centurion_Controller_Action {
+class Store_IndexController extends Centurion_Controller_Action {
 
     public function init() {
     }
@@ -15,7 +15,7 @@ class Storsys_IndexController extends Centurion_Controller_Action {
     }
 
     public function fillprodAction() {
-        $prod = new Syleps_Ecommerce_Models_DbTable_Produits();
+        $prod = new Portal_Ecommerce_Models_DbTable_Produits();
         $prod->fillTable(50);
         $this->render('index');
 

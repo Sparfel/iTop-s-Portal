@@ -1,7 +1,7 @@
 <?php
-class Storsys_ProductController extends Centurion_Controller_CRUD {
+class Store_ProductController extends Centurion_Controller_CRUD {
 
-    protected $_model = 'storsys/Produits';
+    protected $_model = 'store/Produits';
     
     public function preDispatch()
     {
@@ -18,7 +18,7 @@ class Storsys_ProductController extends Centurion_Controller_CRUD {
 
     public function indexAction() {
         $this->view->headLink()->appendStylesheet('/layouts/frontoffice/css/ecommerce.css');
-        $produits = new Syleps_Ecommerce_Models_DbTable_Produits();
+        $produits = new Portal_Ecommerce_Models_DbTable_Produits();
 		$produitsAll = $produits->listProducts()->toArray();
         $this->view->produitsAll = $produitsAll;
         

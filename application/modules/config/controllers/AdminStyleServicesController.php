@@ -21,6 +21,8 @@ class Config_AdminStyleServicesController extends  Centurion_Controller_CRUD
         $this->view->placeholder('headling_1_content')->set($this->view->translate('Manage Services Styles'));
         $this->view->placeholder('headling_1_add_button')->set($this->view->translate('Services Styles'));
 
+       
+        
         parent::init();
     }
 

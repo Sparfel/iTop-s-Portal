@@ -1,5 +1,5 @@
 <?php
-class Storsys_PanierController extends Centurion_Controller_Action {
+class Store_PanierController extends Centurion_Controller_Action {
 
     public function init() {
     	
@@ -11,7 +11,7 @@ class Storsys_PanierController extends Centurion_Controller_Action {
     	
     	$this->_helper->authCheck();
         $this->_helper->aclCheck();
-        Zend_Layout::getMvcInstance()->assign('titre', 'Votre Store Syleps');
+        Zend_Layout::getMvcInstance()->assign('titre', 'Votre Store');
         $session_principal = new Zend_Session_Namespace('Zend_Auth');
     	$this->_org_id = $session_principal->org_id;
     	
@@ -28,7 +28,7 @@ class Storsys_PanierController extends Centurion_Controller_Action {
     }
 
     public function indexAction() {
-		$form = new Storsys_Form_Panier();
+		$form = new Store_Form_Panier();
         $this->view->form = $form;
         
         $this->view->panier = $this->getPanier();
@@ -44,7 +44,7 @@ class Storsys_PanierController extends Centurion_Controller_Action {
 
     public function updateAction() {
         $panier = $this->getPanier();
-        $form = new Storsys_Form_Panier();
+        $form = new Store_Form_Panier();
         $this->view->form = $form;
         if ($this->_request->isPost ()) {
             $formData = $this->_request->getPost ();
@@ -57,7 +57,9 @@ class Storsys_PanierController extends Centurion_Controller_Action {
                 }
             }
         }
-        $this->_helper->redirector('index');
+		else Zend_Debug::dump($panier);
+        //$this->_helper->redirector('index');
+		Zend_Debug::dump($panier);
     }
 
 

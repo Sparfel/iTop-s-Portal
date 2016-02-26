@@ -1,5 +1,5 @@
 <?php
-class Storsys_Form_Panier extends Centurion_Form {
+class Store_Form_Panier extends Centurion_Form {
 
     public function init() {
         $this->setAction('panier/update');

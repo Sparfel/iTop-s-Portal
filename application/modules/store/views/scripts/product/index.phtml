@@ -1,4 +1,6 @@
-<h1>Catalogue Produits Syleps</h1>
+<?php
+echo '<h1>'.$this->translate('Catalogue produits').'</h1>';
+?>
 <div class="ecommerce" style="width:100%px;margin-right:200px; ">
 <?php
 if (isset ( $this->produitsAll ) && sizeof ( $this->produitsAll ) > 0) {?>
@@ -6,9 +8,9 @@ if (isset ( $this->produitsAll ) && sizeof ( $this->produitsAll ) > 0) {?>
     <thead>
 		<tr >
 			<th> </th>
-			<th>Nom</th>
-			<th>Description</th>
-			<th>Prix</th>
+			<th><?php echo $this->translate('Nom');?></th>
+			<th><?php echo $this->translate('Description');?></th>
+			<th><?php echo $this->translate('Prix');?></th>
 			<th> </th>
 		</tr>
 	</thead>
@@ -19,13 +21,13 @@ if (isset ( $this->produitsAll ) && sizeof ( $this->produitsAll ) > 0) {?>
 		$urlAjouter = $this->url(array('controller'=>'panier', 'action'=>'ajouter','id'=>$produit['produitId']));
 		?>
     	<tr  >
-			<td><img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/<?php echo $produit ['image'] ?>"></td>
+			<td><img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/store/<?php echo $produit ['image'] ?>"></td>
 			<td> <?php echo $produit ['nom'] ?></td>
 			<td> <?php echo $produit ['description'] ?></td>
 			<td class="Price" > <?php echo $produit ['prix']?> €</td>
 			<td class="ajouterPanier">
 				<a href="<?php echo $urlAjouter ?>">
-				<img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/panier.png" alt="Panier">
+				<img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/store/panier.png" alt="Panier">
 				</a>
 			</td>
 		</tr>
@@ -41,11 +43,11 @@ if (isset ( $this->produitsAll ) && sizeof ( $this->produitsAll ) > 0) {?>
 <?php
 $this->placeholder('aside')->captureStart();
 ?>
-<div class="box grid-filter" style="margin-top :85px; background-color:rgb(213, 213, 213);box-shadow: 5px 5px 6px rgb(100, 100, 150);" >
+<div class="box grid-filter" style="margin-top :85px; background-color:rgb(213, 213, 213);box-shadow: 5px 5px 6px rgb(70, 173, 226);" >
 <div style="float:left;position:relative; margin:-3px 0 0 -10px;">
-	<img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/cart.png" alt="Panier">
+	<img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/store/cart.png" alt="Panier">
 </div>
-<h2>Panier en cours</h2>
+<h2><?php echo $this->translate('Panier en cours');?></h2>
 <?php 
 
 $panier = $this->panier;

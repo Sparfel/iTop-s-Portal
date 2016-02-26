@@ -1,6 +1,6 @@
 <?php
 
-class Storsys_UserController extends Zend_Controller_Action {
+class Store_UserController extends Zend_Controller_Action {
 
     public function init() {
     }
@@ -27,7 +27,7 @@ class Storsys_UserController extends Zend_Controller_Action {
                     $storage = Zend_Auth::getInstance()->getStorage();
                     $storage->write($authAdapter->getResultRowObject(null, 'password'));
                     $session = Zend_Registry::get('session');
-                    $session->panier =  new Syleps_Ecommerce_Panier_Panier();
+                    $session->panier =  new Portal_Ecommerce_Panier_Panier();
                     if ($this->addToCartTemp()) {
                         return $this->_helper->redirector('index','panier');
                     }

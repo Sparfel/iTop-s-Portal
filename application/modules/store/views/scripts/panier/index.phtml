@@ -30,7 +30,7 @@ if (isset($panier) && sizeof($panier->getLignes()) > 0) {
                         $deleteUrl = $helperUrl->url(array('controller'=>'panier','action'=>'delete','id'=>$produit['produitId']));
                         ?>
                 <a href="<?php echo $deleteUrl ?>">
-                <img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/storsys/delete.png" alt="supprimer" title="supprimer"/></a>
+                <img src="<?php echo $this->baseUrl();?>/layouts/frontoffice/images/store/delete.png" alt="supprimer" title="supprimer"/></a>
             </td>
             <td><?php echo $produit['prix']*$ligne->getNbProduit() ?> €</td>
         </tr>

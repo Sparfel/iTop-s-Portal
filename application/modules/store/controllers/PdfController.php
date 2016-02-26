@@ -1,5 +1,5 @@
 <?php
-class Storsys_PdfController extends Zend_Controller_Action
+class Store_PdfController extends Zend_Controller_Action
 {
 	public function preDispatch()
 	{
@@ -20,7 +20,7 @@ class Storsys_PdfController extends Zend_Controller_Action
  		$Panier = $data->getLignes();
  		
  		// Création du document Pdf
- 		$pdf = new Syleps_Ecommerce_Pdf_Panier();
+ 		$pdf = new Portal_Ecommerce_Pdf_Panier();
  
  		//cr�ation d document PDF
 		//$pdf = new My_Pdf_Users();       
@@ -28,7 +28,7 @@ class Storsys_PdfController extends Zend_Controller_Action
 		//céation d'une nouvelle page au format A4
 		//la page est ajoutée au document pdf
 		//enregistrement de la page courante dans la variable $currentPage
-		$pdf->pages[] = $currentPage = new Syleps_Ecommerce_Pdf_Page_Panier(Zend_Pdf_Page::SIZE_A4);
+		$pdf->pages[] = $currentPage = new Portal_Ecommerce_Pdf_Page_Panier(Zend_Pdf_Page::SIZE_A4);
  
 		$currentPage->setPageTitle();
  
