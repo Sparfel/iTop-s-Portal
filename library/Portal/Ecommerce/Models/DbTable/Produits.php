@@ -2,13 +2,13 @@
  class Portal_Ecommerce_Models_DbTable_Produits extends Centurion_Db_Table_Abstract
 
 {
-	protected $_database = 'ecommerce';
+	//protected $_database = 'ecommerce';
     /**
      * The table name
      * 
      * @var string
      */
-    protected $_name = 'produits';
+    protected $_name = 'ecom_products';
 
     /**
      * The primary key column or columns
@@ -34,7 +34,7 @@
      */
     //protected $_dependentTables = array('posts' => 'Blog_Model_DbTable_Post');
     
-    public function __construct() {
+   /* public function __construct() {
 	  //on determine la base de donn�es dans laquelle se trouve l'objet.
 	  $base = $this->_database;
 	  $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/db.ini', APPLICATION_ENV);
@@ -62,7 +62,7 @@
 		catch ( Zend_Db_Adapter_Exception $e) {
 	  			echo 'DB Cnx => '.$e->getMessage ();
 			}
-	}
+	}*/
 	
 	public function listProducts() {
 		$select = $this->select ();

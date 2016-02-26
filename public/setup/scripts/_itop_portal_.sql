@@ -400,9 +400,9 @@ INSERT INTO `centurion_navigation` (`id`, `label`, `module`, `controller`, `acti
 (132, 'Nouveau ticket', 'request', 'newrequest', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 107, 108, 2, 18, 129, NULL, NULL, 1, NULL, 2),
 (133, 'Tickets en cours', 'request', 'openedrequest', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 109, 110, 2, 18, 129, NULL, NULL, 1, NULL, 2),
 (134, 'Tickets fermés', 'request', 'closedrequest', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 111, 112, 2, 18, 129, NULL, NULL, 1, NULL, 2),
-(149, 'Store', 'storsys', 'product', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 114, 119, 1, 18, 16, NULL, NULL, 1, NULL, 2),
-(167, 'Produits', 'storsys', 'product', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 115, 116, 2, 18, 149, NULL, NULL, 1, NULL, 2),
-(168, 'Panier', 'storsys', 'panier', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 117, 118, 2, 18, 149, NULL, NULL, 1, NULL, 2),
+(149, 'Store', 'store', 'product', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 114, 119, 1, 18, 16, NULL, NULL, 1, NULL, 2),
+(167, 'Produits', 'store', 'product', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 115, 116, 2, 18, 149, NULL, NULL, 1, NULL, 2),
+(168, 'Panier', 'store', 'panier', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 117, 118, 2, 18, 149, NULL, NULL, 1, NULL, 2),
 (169, 'Liste des Chat', 'chat', 'index', 'viewallchats', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 96, 97, 3, 18, 128, NULL, NULL, 1, NULL, 1),
 (170, 'Nouveau Chat', 'chat', 'index', 'index', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 98, 99, 3, 18, 128, NULL, NULL, 1, NULL, 1),
 (172, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 101, 102, 2, 18, 125, 2, 1, 1, NULL, 1),
@@ -834,7 +834,7 @@ INSERT INTO `portal_service_config` (`id`, `name`, `title`, `subtitle`, `descrip
 (5, 'prevys', 'Prevys', 'Dépanner', 'Lot de maintenance, réparation, remplacement ...', 'prevys', 'index', 'index', '2014-07-08', '2014-07-08', 1),
 (6, 'migsys', 'Migsys', 'Migrer', 'Migration des données de votre ancien système verts votre nouvelle solution', 'migsys', 'index', 'index', '2014-07-08', '2014-07-08', 0),
 (7, 'ulys', 'Ulys', 'Syleps', 'Catalogue de corrections et évolutions.', 'ulys', 'index', 'index', '2014-07-08', '2014-07-08', 1),
-(8, 'storsys', 'Magasin en ligne', 'Syleps', 'Commander vos pièces et fournitures en ligne.', 'storsys', 'index', 'product', '2014-07-08', '2014-07-08', 1);
+(8, 'store', 'Magasin en ligne', 'Syleps', 'Commander vos pièces et fournitures en ligne.', 'store', 'index', 'product', '2014-07-08', '2014-07-08', 1);
 
 -- --------------------------------------------------------
 
