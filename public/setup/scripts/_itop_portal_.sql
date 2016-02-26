@@ -1727,10 +1727,37 @@ INSERT INTO `user_profile` (`id`, `user_id`, `nickname`, `about`, `website`, `cr
 (16, 15, 'pablo@demo.com', NULL, NULL, '2015-03-30 08:51:25', '2015-03-30 08:58:03', NULL),
 (17, 16, 'admin', NULL, NULL, '2015-04-07 13:06:55', '2015-04-07 13:06:55', NULL);
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ecom_products`
+--
+
+CREATE TABLE IF NOT EXISTS `ecom_products` (
+  `produitId` int(20) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(20) NOT NULL,
+  `description` text NOT NULL,
+  `prix` decimal(9,2) NOT NULL,
+  `image` varchar(255) NOT NULL COMMENT 'nom de l''image',
+  PRIMARY KEY (`produitId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=57 ;
+
+--
+-- Contenu de la table `ecom_products`
+--
+
+INSERT INTO `ecom_products` (`produitId`, `nom`, `description`, `prix`, `image`) VALUES
+(56, 'Chromecast Audio', 'Chromecast is a media streaming device that plugs into the HDMI port on your TV. Simply use your mobile device and the TV you already own to cast your favourite TV shows, films, music, sport, games and more.', '40.00', 'google_chromecast_audio.png'),
+(52, 'Google Glass', 'Google Glass is a headset, or optical head-mounted display, that is worn like a pair of eyeglasses.', '1500.00', 'google_glass.png'),
+(53, 'Nexus 9', 'Designed for work and play, the Nexus 9 features a just-right 8.9â€ screen with front-facing speakers for rich music and audio. 64-bit processor drives productivity and play to new levels, with intuitive voice commands and automatic Android updates that keep you on the cutting edge.', '450.00', 'nexus9.png'),
+(54, 'Nexus 5', 'Nexus 5 has a 8 MP OIS camera that incorporates advanced technology to shoot vivid imagery with a wide range of color and light intake. And while youâ€™re holding the camera, Optical Image Stabilization will steady the shot even with shaky hands, so your photos and videos will come out sharp and clear. ', '350.00', 'nexus5.png'),
+(55, 'Chromecast', 'Chromecast is a media streaming device that plugs into the HDMI port on your TV. Simply use your mobile device and the TV you already own to cast your favourite TV shows, films, music, sport, games and more.', '30.00', 'google_chromecast.jpg');
+
+
+
 --
 -- Contraintes pour les tables exportées
 --
-
 --
 -- Contraintes pour la table `auth_belong`
 --
