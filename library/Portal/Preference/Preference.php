@@ -173,7 +173,7 @@ class Portal_Preference_Preference {
 	public function getUserFilter() {
 		$userPref = new Portal_Model_DbTable_UserPref();
 		$result = $userPref->getPref($this->_user_id,$this->_ParamName_UserFilter);
-		if ($result == null) {return 'false';}
+		if ($result == null) {return 'true';}
 		else {return $result;}		
 	}
 	

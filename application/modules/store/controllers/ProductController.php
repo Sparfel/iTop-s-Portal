@@ -7,7 +7,7 @@ class Store_ProductController extends Centurion_Controller_CRUD {
     {
         $this->_helper->authCheck();
         $this->_helper->aclCheck();
-        Zend_Layout::getMvcInstance()->assign('titre', 'Votre Store Syleps');
+        Zend_Layout::getMvcInstance()->assign('titre', 'Votre Store');
         $session = new Zend_Session_Namespace('Zend_Auth');
     	$this->_org_id = $session->org_id;
     }

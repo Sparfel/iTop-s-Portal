@@ -69,13 +69,12 @@ class Portal_Itop_UserLocal {
 		if (null===$rowset) {
 			return;
 		}
-		
 		foreach ($rowset as $key => $row) {
-			//On ne crée les comptes que pour ls user qui n'en ont pas !
+			//We create an account only for users without account.
 			if ($row->is_local == 0){
-				// On crée ensuite l'enregistrement le user local (table auth_user)
+				// We create the record for the local user (AUTH_USER table)
 				$user = new Auth_Model_DbTable_User();
-				//Détermination du password par défaut
+				//We determine a default password !
 				$username = $row->login;
 				$salt = $this->getSalt($username);
 				$password =  $this->setPassword($username,$salt,$row->first_name.'1234','sha1');
