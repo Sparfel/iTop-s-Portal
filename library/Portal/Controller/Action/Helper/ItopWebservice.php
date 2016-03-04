@@ -277,6 +277,29 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 		return $tab_result;
 	}
 	
+	// Get the Id with the Ref, usefull to make link to the portal into the iTop's notifications.
+	public function getTicketId($ref,$org_id){
+		$aData = array(
+				'operation'=> 'core/get',
+				'class' => 'UserRequest',
+				'key' => 'SELECT UserRequest WHERE ref = "'.$ref.'" AND org_id = "'.$org_id.'"', /*pour éviter au petits malins de modifier l\'url et de voir les ticket des voisins*/
+				'output_fields' => 'id'
+		);
+		//Zend_Debug::dump($aData);
+		$results = $this->CallWebService($aData);
+		//Zend_Debug::dump($results);
+		// Un seul ticket à chaque fois, donc pas besoin de retorner un tableau à plusieurs dimensions.
+		if (count($results['objects'])>0)
+		{foreach ($results['objects'] as $result) {
+			$tab_result = $result['fields'];
+		}
+		}
+		else $tab_result = array();
+		//Zend_Debug::dump($tab_result);
+		return $tab_result;
+	}
+	
+	
 	// Récupération des pièces jointes d'un ticket
 	// Attention ici $id est l'ID et non Ref, 1234 au lieu de R-001234
 	public function getAttachment($id,$org_id){

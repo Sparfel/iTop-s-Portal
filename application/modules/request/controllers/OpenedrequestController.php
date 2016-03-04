@@ -104,7 +104,13 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
     public function indexAction() {
     	$session = new Zend_Session_Namespace('Zend_Auth');
     	
-    	$id = $this->_request->getParam('id',null);
+    	$ref = $this->_request->getParam('ref',null);
+    	if (isset($ref)) {
+    		$id = $this->refToId($ref);
+    	}
+    	else {
+    		$id = $this->_request->getParam('id',null);
+    	}
     	$this->view->title = 'Détails de la requête';
     	$this->view->headTitle()->prepend('Détails de la requête'); 
     	/*
@@ -127,60 +133,7 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 								'reopen' => false,
 								'id' => $id);
 			
-			//If update then POST was sent
-			/* traitment in majAction()
-			 * if ($this->_request->isPost()) {
-				$updateRequestForm = new Portal_Form_updateRequest($options);
-				$formData = $this->_request->getPost();
-				if ($updateRequestForm->isValid($formData)) {
-					if (isset($_POST['submit'])) {
-						try {
-							if (strlen($updateRequestForm->getValue('Log'))> 0) {
-								$content = $webservice->UpdateRequest($id, //$request['ref'],
-																	$session->pref,
-																	$updateRequestForm->getValue('Log'));
-							}
-							$this->view->typ='maj';
-							$this->view->title = 'Ticket mis à jour';
-							}
-						catch(Zend_Exception $e) {
-							echo '*'.$e->getMessage();
-						}
-					}
-					if (isset($_POST['resolved'])) { // the Request became 'Resolved'
-						$content =$webservice->resolveRequest($id,$session->pref,$updateRequestForm->getValue('Log'));
-					}
-					if (isset($_POST['close'])) { // the Request became 'Closed'
-						$content =$webservice->closeRequest($id,$session->pref,$updateRequestForm->getValue('Log'));
-					}
-					if (isset($_POST['reopen'])) { // the Request is 'ReOpen'
-						$content =$webservice->reopenRequest($id,$session->pref,$updateRequestForm->getValue('Log'));
-					}
-					
-					//Attachment
-					if (!(is_null($_FILES)))
-					{
-						$this->view->files = $_FILES['tab_files'];
-						for ($i=0;$i < count($_FILES['tab_files']['name']); $i++)
-							{
-								$name = $_FILES['tab_files']['name'][$i];
-								$type = $_FILES['tab_files']['type'][$i];
-								$item_class = 'UserRequest';
-								$item_id = $id;
-								if (!(empty($_FILES['tab_files']['tmp_name'][$i])))
-									{
-								$fileData =file_get_contents($_FILES['tab_files']['tmp_name'][$i]);
-								$fileData = base64_encode($fileData);
-								$attachment = $webservice->AddAttachment($name,$fileData,$item_class,$item_id,$type,$session->pref->_org_id);
-								}
-							}
-					}
-				}
-			}*/
-			
-			
 			$WSrequest = array();
-			
 			$WSrequest = $webservice->getInfoTicket($id,$this->_org_id);
 			
 			//The Request's Reference is sent to the view
@@ -433,6 +386,17 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 		echo $this->getRequest()->getParam('controller');
 		echo '<br>';
 		
+	}
+	
+	private function refToId($ref){
+		// = $this->_request->getParam('ref',null);
+		$id = '';
+		if (isset($ref)) {
+			$webservice = $this->_helper->getHelper('ItopWebservice');
+			$result = $webservice->getTicketId($ref,$this->_org_id);
+			$id = $result['id'];
+		}
+		return $id;
 	}
 		
 }
