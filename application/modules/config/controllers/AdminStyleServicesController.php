@@ -21,7 +21,8 @@ class Config_AdminStyleServicesController extends  Centurion_Controller_CRUD
         $this->view->placeholder('headling_1_content')->set($this->view->translate('Manage Services Styles'));
         $this->view->placeholder('headling_1_add_button')->set($this->view->translate('Services Styles'));
 
-       
+        //Nécessaire pour la compatibilité entre les versions de jquery
+        //$this->view->headScript()->prependFile('/cui/libs/jquery-migrate-1.2.1.js');
         
         parent::init();
     }

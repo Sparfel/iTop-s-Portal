@@ -235,7 +235,7 @@ $(document).ready(function() {
 	<form method="post" id="webservice" name="websrv"
 		action="">
 		<div class="left custom">
-			<h2>Database Parameters</h2>
+			<h2>Webservice Parameters</h2>
 			<p>Please fill the iTop's Webservices informations.</p>
 			<input type="hidden" name="submit" value="2" />
 			<table class="central text" width="100%" border="0" cellspacing="0"
