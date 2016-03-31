@@ -52,7 +52,9 @@ class Auth_Form_Model_User extends Centurion_Form_Model_Abstract
             'email'             =>  $this->_translate('Email'),
             'user_parent_id'    =>  $this->_translate('User parent'),
             'can_be_deleted'    =>  $this->_translate('Can be deleted'),
-            'is_staff'          =>  $this->_translate('Is staff'),
+            //'is_staff'          =>  $this->_translate('Is staff'),
+        	// $MOD Emmanuel Lozachmeur, Switch between the 2 iTop
+        	'is_staff'          =>  $this->_translate('iTop Production'),
             'is_active'         =>  $this->_translate('Is active'),
             'is_super_admin'    =>  $this->_translate('Is super admin'),
             'groups'            =>  $this->_translate('Groups'),
@@ -72,10 +74,11 @@ class Auth_Form_Model_User extends Centurion_Form_Model_Abstract
         parent::init();
 
         $this->getElement('username')->addValidators(array(
-            array('Regex',
-                  false,
+       		//$MOD Emmanuel Lozachmeur, We allow special characters
+            /*array('Regex',
+                  false, 
                   array('/^[a-z][a-z0-9._]{2,}$/i',
-                        'messages' => array('regexNotMatch' => $this->_translate('Special characters are not allowed')))),
+                        'messages' => array('regexNotMatch' => $this->_translate('Special characters are not allowed')))),*/
             array(new Centurion_Form_Model_Validator_AlreadyTaken('auth/user', 'username')),
         ));
 
