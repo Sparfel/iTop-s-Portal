@@ -1,5 +1,9 @@
+<?php 
+$session = new Zend_Session_Namespace('Zend_Auth');
+$lang = $session->pref->_language;
+?>
 <script type="text/javascript">
-  	var link ='/home/index/';
+  	var link ='/home/index/<?php echo 'index/language/'.$lang;?>';
   	//console.log(parent.document.location.href);
 	var lien = parent.document.location.href.split("?"); 
 	//console.log('Taille de lien : '+lien.length);
