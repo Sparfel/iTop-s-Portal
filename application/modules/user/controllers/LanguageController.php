@@ -23,10 +23,15 @@ class User_LanguageController extends Centurion_Controller_Action
 		$tab_url = $this->_request->getParam('url');
 		//$tab_url = explode('/',$url);
 		$i = 0;
+		$Opref = $session->pref;
 		foreach ($tab_url as $content)
 			{
-				if ($content =='en') { $tab_url[$i] = 'fr';}
-				elseif ($content =='fr') { $tab_url[$i] = 'en';}
+				if ($content =='en') { $tab_url[$i] = 'fr';
+										$Opref->changePref('USER_LANGUAGE',$tab_url[$i]);
+									}
+				elseif ($content =='fr') { $tab_url[$i] = 'en';
+										$Opref->changePref('USER_LANGUAGE',$tab_url[$i]);
+									}
 				$i++;
 			}
 		$url = implode('/',$tab_url);

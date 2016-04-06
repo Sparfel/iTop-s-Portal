@@ -106,6 +106,9 @@ class Portal_Preference_Preference {
 			case $this->_ParamName_UserYear :
 					$this->setUserYearFilter($value);
 					break;
+			case $this->_ParamName_UserLanguage :
+				$this->setUserLanguage($value);
+				break;
 			default :
 				break;
 		}
