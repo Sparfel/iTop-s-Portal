@@ -1,70 +1,57 @@
-
-
 <section>
 	<div class="left">
 
 		<h2>Modules list</h2>
 		<ul class="module-list">
 			<li>
-				<h3>Auth</h3> <?php 
-				//Zend_Debug::dump($_POST['database_host']);
-				/*
-				 <p>Proin tempor congue tellus, nec fringilla felis ornare sed. Proin vel ligula nibh.
-				Nulla in ligula velit. Suspendisse rutrum blandit pretium.</p>
-                    <p><a href="#">Docs</a></p>*/ ?>
-			</li>
-			<li>
-				<h3>Media</h3> <?php /*
-                    <p>Proin tempor congue tellus, nec fringilla felis ornare sed. Proin vel ligula nibh.
-                    Nulla in ligula velit. Suspendisse rutrum blandit pretium.</p>
-                    <p><a href="#">Docs</a></p>*/ ?>
-			</li>
-			<li>
-				<h3>Translation</h3>
-				<p>Translation module allows you to have 2 languages on the portal :
-					English and French.</p>
-				<p>
-					<a href="#">Docs</a>
+				<h3>Home</h3>
+				<p>This module lists all Services you offer to your clients with
+					iTop. You can manage their icons on the dashbord panel. Some
+					statistics and an organisational chart to explain the services are
+					present too.
+					<a href="http://doc-portal.no-ip.org/configuration/" target="_blank">Docs</a>
 				</p>
 			</li>
 			<li>
+				<h3>Requests</h3>
+				<p>Create, consult and update your services and incidents requests. You can filter you requests (all or only yours),
+				see Requests per years or filter the result per a string ... 
+				
+					<a href="http://doc-portal.no-ip.org/configuration/" target='_blank'>Docs</a>
+				</p>
+			</li>
+				
+			<li>
+				<h3>Translation</h3>
+				<p>Translation module allows you to have 2 languages on the portal :
+					English and French are actually configured.
+					<a href="http://doc-portal.no-ip.org/configuration/translation/" target='_blank'>Docs</a>
+				</p>
+			</li>
+			<!-- <li>
 				<h3>Cms</h3>
 				<p>Creating and editing your own pages with the CMS module.</p>
 				<p>
 					<a href="#">Docs</a>
 				</p>
-			</li>
+			</li> -->
 			<li>
 				<h3>Users</h3>
 				<p>Managing users, groups and their access on the portal. Importing
-					iTop's users through the Webservice.</p>
-				<p>
-					<a href="#">Docs</a>
+					iTop's users through the Webservice.
+					<a href="http://doc-portal.no-ip.org/configuration/users-and-usergroups/" target='_blank'>Docs</a>
 				</p>
 			</li>
 			<li>
-				<h3>Home</h3>
-				<p>This module lists all Services you offer to your clients with
-					iTop. You can manage their icons on the admin panel. Some
-					statistics and an organisational chart to explain the services are
-					present too.</p>
-				<p>
-					<a href="#">Docs</a>
-				</p>
-			</li>
-			<li>
-				<h3>Request</h3>
-				<p>Create, consult and update your services and incidents requests.</p>
-				<p>
-					<a href="#">Docs</a>
-				</p>
+				<h3>Permission</h3> 
+				<p>Manage User's or group user's permissions. Add permission to a specific user of a group. A your user can have a specific profile
+				to access to the portal. <a href="http://doc-portal.no-ip.org/configuration/permissions/"  target='_blank'>Docs</a></p>
 			</li>
 			<li>
 				<h3>Cron</h3>
 				<p>You can launch cyclic commands through the cron on your
-					application (synchronization with iTop for example).</p>
-				<p>
-					<a href="#">Docs</a>
+					application (synchronization with iTop for example).
+					<a href="http://doc-portal.no-ip.org/configuration/cron/" target='_blank'>Docs</a>
 				</p>
 			</li>
 		</ul>
@@ -143,31 +130,30 @@
 		<ul class="doc-list">
 			<li class="doc-list-1">
 				<ul>
-					<li class="doc-list-2"><a href="">Configure this portal to work
+					<li class="doc-list-2"><a href="http://doc-portal.no-ip.org/configuration/ldap/" target='_blank'>Configure this portal to work
 							with Ldap</a>
-						<p>Coming soon.</p></li>
-					<li class="doc-list-2"><a href="">The Services Interface
+						<p>Add a Ldap authentication before Portal's authentication. The both can work together.</p></li>
+					<li class="doc-list-2"><a href="http://doc-portal.no-ip.org/configuration/services-import/" target='_blank'>The Services Interface
 							Configuration</a>
-						<p>Coming soon.</p></li>
+						<p>You can customize the Services Catalog with pictures and color.</p></li>
 				</ul>
 			</li>
 			<li class="doc-list-1">
 				<ul>
-					<li class="doc-list-2"><a href="">Cron</a>
-						<p>Synchronize some datas from iTop, coming soon.</p></li>
-					<li class="doc-list-2"><a href="">Auth</a>
-						<p>Centurion provides by default an authentication API that helps
-							you manage users. in fact this is a built-in module that you can
-							find in library/Centurion/Contrib/auth folder.</p></li>
+					<li class="doc-list-2"><a href="http://doc-portal.no-ip.org/configuration/users-import/" target='_blank'>Cron</a>
+						<p>Synchronize some datas from iTop, like users or services.</p></li>
+					<li class="doc-list-2"><a href="http://doc-portal.no-ip.org/configuration/permissions/" target='_blank'>Permissions</a>
+						<p>The Portal provides by default an authentication API that helps
+							you manage users. </p></li>
 				</ul>
 			</li>
 			<li class="doc-list-1">
 				<ul>
-					<li class="doc-list-2"><a href="">Translation trait</a>
+					<li class="doc-list-2"><a href="http://doc-portal.no-ip.org/configuration/translation/" target='_blank'>Translation</a>
 						<p>A little "How To" to implement the translation module in your
 							module</p></li>
-					<li class="doc-list-2"><a href="">Other Questions</a>
-						<p>Coming soon.</p></li>
+					<li class="doc-list-2"><a href="http://doc-portal.no-ip.org/about/contact/" target='_blank'>Other Questions</a>
+						<p>For Questions or suggestion, you can contact me.</p></li>
 				</ul>
 			</li>
 		</ul>
