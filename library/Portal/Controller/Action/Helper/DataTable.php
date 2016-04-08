@@ -17,7 +17,8 @@ class Portal_Controller_Action_Helper_DataTable extends Zend_Controller_Action_H
 	protected $_controller;
 	protected $_language;
 	
-	protected $_AsearchCriteria; // tableau contenant les critères de recherche issu du formulaire de recherche
+	protected $_AsearchCriteria; // Array with the search criterias from the search form
+	protected $Alabel; // An array wityh all translated labels 
 	
 	/**
 	 * Pour fonctionner, il faut passer en paramètre à datatableHeader un tableau contenant les champs que l'on souhaite 
@@ -73,12 +74,15 @@ class Portal_Controller_Action_Helper_DataTable extends Zend_Controller_Action_H
 		$this->_nb_display = $config->pagination->par;
 		
 		$session = new Zend_Session_Namespace('Zend_Auth');
-		//utile pour les lien => ne pas changer de langue si on suit le lien, code langue étant dans l'url 
+		// usefull for the links => do not change the language if we follow the link, the language is in the url
 		$this->_language = $session->pref->_language;
+		
+		//We initialize the Array of Label's translation
+		$this->LabelTranslate();
 		
 	}
 	
-	//On change le path car on va ajouter aux filtres des crotères de sélections
+	// We change the path because we add some filters in the selections criterias
 	public function IsSearchMode(){
 		$this->_json_path = $this->_baseurl.'/'.$this->_module.'/'.$this->_controller.'/getdataSearchMode/format/json';
 		
@@ -87,21 +91,19 @@ class Portal_Controller_Action_Helper_DataTable extends Zend_Controller_Action_H
     public function datatableHeader($fields)
     {
 		$this->_fields = $fields;
-    	
-		//echo '<a href="'.$this->url(array('module'=>'atelys','controller'=>'atelys','action'=>'edit','id'=>12)).'">';
-		$Columns = '';
-		// le tri reste moyen car il trie dans l'ordre des colonnes ... un peu moyen ...
+    	$Columns = '';
+		// The sort is not perfect because we sort in the order of the colomun
 		$sort = '';
 		$no_col = 0;
      	foreach ($this->_fields as $field) {
      		
-     		//on vire la target ! mais quelles sont les conséquences ?
+     		//We delete the target ! but what are the consequences ?
      		if ($field['link']) {
-     			//Ici on vérifie la cible de l'éventuel lien
+     			//We check here the target of a hypothetic link
      			if (is_Array($field['target'])) {
      				if (is_null($field['target']['action']))
-     					{	// si l'acion n'est pas renseignée, on enlève le '/'
-     						// si le controller n'est pas non plus renseigné, alors on ne met rien.
+     					{	// If no action, we delete '/'
+     						// If controller is not defined too, we put nothing here
      						$ctrl_act = $field['target']['controller'];}
      				 
      				else 
@@ -170,8 +172,6 @@ class Portal_Controller_Action_Helper_DataTable extends Zend_Controller_Action_H
        		$no_col++;
        	}
     	
-    		
-       	
         $script = "jQuery(document).ready(function() {
 				
         		 jQuery('#grille').dataTable( {
@@ -187,26 +187,26 @@ class Portal_Controller_Action_Helper_DataTable extends Zend_Controller_Action_H
 					'aoColumns': [".$Columns."],
 					'sPaginationType': 'full_numbers',
 					'oLanguage': 
-						{ 'sProcessing':     'Traitement en cours...',
-							'sSearch':         'Rechercher :',
-							'sLengthMenu':     '_MENU_ éléments',
-							'sInfo':           'Affichage de l\'élément _START_ &agrave; _END_ sur _TOTAL_ éléments',
-							'sInfoEmpty':      'Affichage de l\'élément 0 à 0 sur 0 éléments',
-							'sInfoFiltered':   '(filtré de _MAX_ éléments au total)',
+						{ 'sProcessing':     '".$this->Alabel['sProcessing']."',
+							'sSearch':         '".$this->Alabel['sSearch']."',
+							'sLengthMenu':     '".$this->Alabel['sLengthMenu']."',
+							'sInfo':           '".$this->Alabel['sInfo']."',
+							'sInfoEmpty':      '".$this->Alabel['sInfoEmpty']."',
+							'sInfoFiltered':   '".$this->Alabel['sInfoFiltered']."',
 							'sInfoPostFix':    '',
-							'sLoadingRecords': 'Chargement en cours...',
-							'sZeroRecords':    'Aucun élément à afficher',
-							'sEmptyTable':     'Aucune donnée disponible dans le tableau',
+							'sLoadingRecords': '".$this->Alabel['sLoadingRecords']."',
+							'sZeroRecords':    '".$this->Alabel['sZeroRecords']."',
+							'sEmptyTable':     '".$this->Alabel['sEmptyTable']."',
 							'oPaginate': {
-								'sFirst':      'Premier',
-								'sPrevious':   'Précédent',
-								'sNext':       'Suivant',
-								'sLast':       'Dernier'
+								'sFirst':      '".$this->Alabel['sFirst']."',
+								'sPrevious':   '".$this->Alabel['sPrevious']."',
+								'sNext':       '".$this->Alabel['sNext']."',
+								'sLast':       '".$this->Alabel['sLast']."'
 								},
 						'oAria': 
 							{
-							'sSortAscending':  ': activer pour trier la colonne par ordre croissant',
-							'sSortDescending': ': activer pour trier la colonne par ordre décroissant'
+							'sSortAscending':  '".$this->Alabel['sSortAscending']."',
+							'sSortDescending': '".$this->Alabel['sSortDescending']."'
 							}
 						},
 					 'sDom': '<\'top\'T><\"top\"ip<\"clear\">lf>rt>',
@@ -215,23 +215,23 @@ class Portal_Controller_Action_Helper_DataTable extends Zend_Controller_Action_H
     				 				'aButtons': [
 						                 {
 						                    'sExtends': 'collection',
-						                    'sButtonText': 'Export',
+						                    'sButtonText': '".$this->Alabel['sButtonText1']."',
 											'aButtons': [
 													{
 									                    'sExtends': 'copy',
-									                    'sButtonText': 'Copier'
+									                    'sButtonText': '".$this->Alabel['sButtonText2']."'
 									                },
 									                'csv',
 									                'xls',
 									                {
 									                    'sExtends': 'pdf',
 									                    'sPdfOrientation': 'landscape',
-									                    'sPdfMessage': 'Listes des tickets.'
+									                    'sPdfMessage': '".$this->Alabel['sPdfMessage']."'
 									                },
 									                 {
 									                    'sExtends': 'print',
-									                    'sButtonText': 'Imprimer',
-														'sInfo': '<h1>Visualisation en mode édition</h1><p>Utiliser les fonction d\'édition du navigateur. Presser \'Echappe\' pour revenir à la page</p>'
+									                    'sButtonText': '".$this->Alabel['sButtonText3']."',
+														'sInfo': '".$this->Alabel['sInfo5']."'
 									                }
 													]
 						                }
@@ -243,9 +243,7 @@ class Portal_Controller_Action_Helper_DataTable extends Zend_Controller_Action_H
 							
 				
 				});";
-        
-        
-        
+   
 		return $script;
     }
 
@@ -270,5 +268,44 @@ class Portal_Controller_Action_Helper_DataTable extends Zend_Controller_Action_H
 				</table>";
    		return $table;
    }
+   
+   private function LabelTranslate(){
+	   	$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
+	   	if (null === $viewRenderer->view) {
+	   		$viewRenderer->initView();
+	   	}
+	   	$view = $viewRenderer->view;
+	   	//We use " and not ' in the translation string to be able to use \' in the string.
+	   	$this->Alabel['sProcessing'] =  $view->translate("Traitement en cours...");
+	   	$this->Alabel['sSearch'] =      $view->translate("Rechercher :");
+	   	$this->Alabel['sLengthMenu'] =  $view->translate("_MENU_ éléments");
+	   	$this->Alabel['sInfo'] = 		$view->translate("Affichage de l\\'élément _START_ &agrave; _END_ sur _TOTAL_ éléments");
+	   	$this->Alabel['sInfo1'] =       $view->translate("Affichage de l\\'élément");
+	   	$this->Alabel['sInfo2'] = 		$view->translate("à");
+	   	$this->Alabel['sInfo3'] =		$view->translate("sur");
+	   	$this->Alabel['sInfo4'] =		$view->translate("éléments");
+	   	$this->Alabel['sInfoEmpty'] =   $view->translate("Affichage de l\\'élément 0 à 0 sur 0 éléments");
+	   	$this->Alabel['sInfoFiltered'] =$view->translate("(filtré de _MAX_ éléments au total)");
+	   	$this->Alabel['sInfoPostFix'] = $view->translate("");
+	   	$this->Alabel['sLoadingRecords']=$view->translate("Chargement en cours...");
+	   	$this->Alabel['sZeroRecords'] = $view->translate("Aucun élément à afficher");
+	   	$this->Alabel['sEmptyTable'] =  $view->translate("Aucune donnée disponible dans le tableau");
+	   	$this->Alabel['sFirst'] =      	$view->translate("Premier");
+   		$this->Alabel['sPrevious'] =   	$view->translate("Précédent");
+   		$this->Alabel['sNext'] =       	$view->translate("Suivant");
+   		$this->Alabel['sLast'] =       	$view->translate("Dernier");
+   		$this->Alabel['sSortAscending']=$view->translate("activer pour trier la colonne par ordre croissant");
+   		$this->Alabel['sSortDescending']=$view->translate("activer pour trier la colonne par ordre décroissant");
+   		$this->Alabel['sExtends'] = 	$view->translate("collection");
+   		$this->Alabel['sButtonText1'] = 	$view->translate("Export");
+   		$this->Alabel['sButtonText2'] = 	$view->translate("Copier");
+   		$this->Alabel['sPdfMessage'] =	$view->translate("Listes des tickets.");
+   		$this->Alabel['sButtonText3'] = 	$view->translate("Imprimer");
+   		$this->Alabel['sInfo5'] = 		$view->translate("<h1>Visualisation en mode édition</h1><p>Utiliser les fonction d\\'édition du navigateur. Presser \\'Echappe\\' pour revenir à la page</p>");
+	  	
+
+   }
+   
+   
    
   }
