@@ -281,9 +281,9 @@ class Portal_Controller_Action_Helper_DataTable extends Zend_Controller_Action_H
 	   	$this->Alabel['sLengthMenu'] =  $view->translate("_MENU_ éléments");
 	   	$this->Alabel['sInfo'] = 		$view->translate("Affichage de l\\'élément _START_ &agrave; _END_ sur _TOTAL_ éléments");
 	   	$this->Alabel['sInfo1'] =       $view->translate("Affichage de l\\'élément");
-	   	$this->Alabel['sInfo2'] = 		$view->translate("à");
+	   	/*$this->Alabel['sInfo2'] = 		$view->translate("à");
 	   	$this->Alabel['sInfo3'] =		$view->translate("sur");
-	   	$this->Alabel['sInfo4'] =		$view->translate("éléments");
+	   	$this->Alabel['sInfo4'] =		$view->translate("éléments");*/
 	   	$this->Alabel['sInfoEmpty'] =   $view->translate("Affichage de l\\'élément 0 à 0 sur 0 éléments");
 	   	$this->Alabel['sInfoFiltered'] =$view->translate("(filtré de _MAX_ éléments au total)");
 	   	$this->Alabel['sInfoPostFix'] = $view->translate("");
