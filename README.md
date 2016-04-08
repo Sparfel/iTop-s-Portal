@@ -59,3 +59,5 @@ A demo is now available at this adress : http://itop-portal.no-ip.org/
 
 This portal is working with an iTop demo : http://services.sydel.fr/itop-test-web/
 * Admin user : admin / admin1234
+
+See the documentation online at : http://doc-portal.no-ip.org/
