@@ -8,7 +8,7 @@ class Home_ContractController extends Centurion_Controller_Action
     {
         $this->_helper->authCheck();
         $this->_helper->aclCheck();
-	 	Zend_Layout::getMvcInstance()->assign('titre', 'Contrats Fournisseur');
+	 	Zend_Layout::getMvcInstance()->assign('titre', $this->view->translate('Contrats Fournisseur'));
         $session = new Zend_Session_Namespace('Zend_Auth');
     	$this->_org_id = $session->pref->_org_id;
     	$this->view->headTitle()->prepend('iTop');

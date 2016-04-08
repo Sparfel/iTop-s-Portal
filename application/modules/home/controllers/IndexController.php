@@ -8,7 +8,7 @@ class Home_IndexController extends Centurion_Controller_Action
 	{
 		$this->_helper->authCheck();
 		$this->_helper->aclCheck();
-		Zend_Layout::getMvcInstance()->assign('titre', 'Votre espace Services');
+		Zend_Layout::getMvcInstance()->assign('titre', $this->view->translate('Votre espace Services'));
 		$this->view->headTitle()->prepend('iTop');
 	}
 

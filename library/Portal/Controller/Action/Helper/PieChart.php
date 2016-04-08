@@ -15,12 +15,13 @@ class Portal_Controller_Action_Helper_PieChart extends Zend_Controller_Action_He
 	protected $_data; // tableau de données
 	protected $_radio_name;
 	protected $_action;
-	protected $_title; // Le titre
-	protected $_var1; // les variables : code résolution
-	protected $_var2;// selon leur nombre de tickets
-	protected $_chart_div; // Le Div contenant le graphique
-	protected $_count_attribute; //attribut sur lequel on effectue les cumuls
+	protected $_title; // Title
+	protected $_var1; // Var : Resolution
+	protected $_var2;// Per nb tickets
+	protected $_chart_div; // The Div of the content
+	protected $_count_attribute; //Count attribute
 	
+	protected $Alabel; // An array wityh all translated labels
 	
 	
 	public function __construct() {
@@ -36,6 +37,8 @@ class Portal_Controller_Action_Helper_PieChart extends Zend_Controller_Action_He
     	$this->_user_id = $session->pref->_user_id;
     	$this->_user_filter = $session->pref->_userFilter;
     	
+    	//We initialize the Array of Label's translation
+    	$this->LabelTranslate();
     	
     }
 	
@@ -126,8 +129,8 @@ class Portal_Controller_Action_Helper_PieChart extends Zend_Controller_Action_He
 							})
 	   				</script>
 					<div class='choice' style='width:100%; text-align:center;margin-top:-50px; margin-bottom:10px;position:relative;' >
-	   						<input type='radio' name='".$this->_radio_name."' value='user' ".$chkUser.">Utilisateur
-							<input type='radio' name='".$this->_radio_name."' value='organization' ".$chkOrg.">Organisation
+	   						<input type='radio' name='".$this->_radio_name."' value='user' ".$chkUser.">".$this->Alabel['user']."
+							<input type='radio' name='".$this->_radio_name."' value='organization' ".$chkOrg.">".$this->Alabel['organization']."
 					</div>
 					";
    		return $script;
@@ -222,6 +225,15 @@ class Portal_Controller_Action_Helper_PieChart extends Zend_Controller_Action_He
     	return $script;
     }
     
-   
+    private function LabelTranslate(){
+    	$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
+    	if (null === $viewRenderer->view) {
+    		$viewRenderer->initView();
+    	}
+    	$view = $viewRenderer->view;
+    	//We use " and not ' in the translation string to be able to use \' in the string.
+    	$this->Alabel['user'] =  $view->translate("Utilisateur");
+    	$this->Alabel['organization'] =      $view->translate("Organisation");
+    }
 
   }

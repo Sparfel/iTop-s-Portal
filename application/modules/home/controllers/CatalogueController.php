@@ -14,7 +14,7 @@ class Home_CatalogueController extends Centurion_Controller_Action
     }
  	
 	public function init() {
-    	Zend_Layout::getMvcInstance()->assign('titre', 'Services - Le catalogue');
+    	Zend_Layout::getMvcInstance()->assign('titre', $this->view->translate('Services - Le catalogue'));
     	$session = new Zend_Session_Namespace('Zend_Auth');
     	$this->_org_id = $session->pref->_org_id;
     	

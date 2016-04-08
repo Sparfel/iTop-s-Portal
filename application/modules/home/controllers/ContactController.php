@@ -8,7 +8,7 @@ class Home_ContactController extends Centurion_Controller_Action
     {
         $this->_helper->authCheck();
         $this->_helper->aclCheck();
-	 	Zend_Layout::getMvcInstance()->assign('titre', 'Contacts Services');
+	 	Zend_Layout::getMvcInstance()->assign('titre', $this->view->translate('Contacts Services'));
         $session = new Zend_Session_Namespace('Zend_Auth');
     	$this->_org_id = $session->pref->_org_id;
     	$this->view->headTitle()->prepend('iTop');

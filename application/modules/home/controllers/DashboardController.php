@@ -10,7 +10,7 @@ class Home_DashboardController extends Centurion_Controller_Action
     {
         $this->_helper->authCheck();
         $this->_helper->aclCheck();
-        Zend_Layout::getMvcInstance()->assign('titre', 'Votre espace Services');
+        Zend_Layout::getMvcInstance()->assign('titre', $this->view->translate('Votre espace Services'));
         $session = new Zend_Session_Namespace('Zend_Auth');
     	$this->_org_id = $session->pref->_org_id;
     	$this->_user_id = $session->pref->_user_id;
@@ -44,9 +44,9 @@ class Home_DashboardController extends Centurion_Controller_Action
     	$drawChart1->initialize($data1, // tableau de données
 			    			'choice1', // id du div contenant les radio button
 			    			'recherche', // l'action appelé par ajax
-			    			'Ticket par code résolution', // Le titre
-			    			'Code résolution', // les variables : code résolution
-			    			'Nbre de tickets',// selon leur nombre de tickets
+			    			$this->view->translate('Ticket par code résolution'), // Le titre
+			    			$this->view->translate('Code résolution'), // les variables : code résolution
+			    			$this->view->translate('Nbre de tickets'),// selon leur nombre de tickets
 			    			'chart_div1', // Le nom du Div contenant le diagramme
 			    			'resolution_code');// attribut sur lequel on effectue les cumuls
 			    		
@@ -75,9 +75,9 @@ class Home_DashboardController extends Centurion_Controller_Action
     	$drawChart2->initialize($data2,
 		    			'choice2',
 		    			'recherche',
-		    			'Ticket par Service', // Le titre
-		    			'Service', // les variables : code résolution
-		    			'Nbre de tickets',// selon leur nombre de tickets
+		    			$this->view->translate('Ticket par Service'), // Le titre
+		    			$this->view->translate('Service'), // les variables : code résolution
+		    			$this->view->translate('Nbre de tickets'),// selon leur nombre de tickets
 		    			'chart_div2', // Le nom du Div contenant le diagramme
 		    			'service_name');
 		    					

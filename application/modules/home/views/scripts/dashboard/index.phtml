@@ -1,13 +1,14 @@
 <?php
 echo '<h1>'.$this->translate('Tableau de bord global').'</h1>';
-?>
-<h2>Répartition des tickets selon leur code de résolution </h2>
- 	<?php echo $this->scriptPie;?>
- 	<?php echo $this->scriptRB;?>
+echo '<h2>'.$this->translate('Répartition des tickets selon leur code de résolution').'</h2>';
+echo $this->scriptPie;
+echo $this->scriptRB;?>
 <br>
-<h2>Répartition des tickets selon les services</h2>
-	<?php echo $this->scriptPie2;?>
-	<?php echo $this->scriptRB2;?>
+<?php 
+echo '<h2>'.$this->translate('Répartition des tickets selon les services').'</h2>';
+echo $this->scriptPie2;
+echo $this->scriptRB2;
+?>
 
  
 

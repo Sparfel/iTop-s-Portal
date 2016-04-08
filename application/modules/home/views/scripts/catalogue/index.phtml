@@ -1,6 +1,6 @@
 <?php
 
-echo '<h1>Consulter notre catalogue de service</h1>';
+echo '<h1>'.$this->view->translate('Consulter notre catalogue de service').'</h1>';
 
 ?>
 <br>
@@ -9,7 +9,9 @@ echo '<h1>Consulter notre catalogue de service</h1>';
 	echo $this->tableau;
 ?>
 <br>
-<h2>Hiérarchie des Services.</h2>
+<?php 
+echo '<h1>'.$this->view->translate('Hiérarchie des Services').'</h2>';
+?>
  
  <style>
  /* Pour corriger le bug d'afficahge sous Chrome*/
