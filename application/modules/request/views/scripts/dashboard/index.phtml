@@ -1,10 +1,10 @@
 <?php
 
-echo '<h1>Tableau de bord.</h1>';
-?>
-<h2>Les incidents ouverts sur l'année écoulée </h2>
+echo '<h1>'.$this->translate('Tableau de bord').'</h1>';
+echo '<h2>'.$this->translate('Les incidents ouverts sur l\'année écoulée').'</h2>';
 
-<?php //Zend_Debug::dump($this->tableau); ?>
+ //Zend_Debug::dump($this->tableau);
+  ?>
 
  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
@@ -12,7 +12,7 @@ echo '<h1>Tableau de bord.</h1>';
       google.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-		['Mois - Année','Nbre de tickets'],
+		[<?php echo $this->translate("'Mois - Année'").','. $this->translate("'Nbre de tickets'");?>],
          <?php
     	$i=0;
 		foreach($this->tableau as $key => $value) {
@@ -26,9 +26,9 @@ echo '<h1>Tableau de bord.</h1>';
         ]);
 
        var options = {
-          title: 'Tickets par mois',
+          title: <?php echo $this->translate("'Tickets par mois'");?>,
 		  titleTextStyle:{color: '#1C94C4', fontName: 'Calibri', fontSize:16},
-          hAxis: {title: 'Mois - Année',  colors: 'red',
+          hAxis: {title: <?php echo $this->translate("'Mois - Année'")?>,  colors: 'red',
 					fontName: 'Arial', 
 					fontSize: 10,
 					titleTextStyle: {color: '#1C94C4'}},
@@ -46,8 +46,8 @@ echo '<h1>Tableau de bord.</h1>';
   <body>
     <div id="chart_div" style="width: 700px; height: 300px;"></div>
 <br>
-<p>Le graphique ci-dessus donne la répartition des tickets incidents déclarés les mois passés.</p>
-<p>Une application nouvellement installée devrait voir ce nombre décroitre au fur et à mesure que le temps passe?.</p>
+<p><?php echo $this->translate('Le graphique ci-dessus donne la répartition des tickets incidents déclarés les mois passés.');?></p>
+
 
 
      

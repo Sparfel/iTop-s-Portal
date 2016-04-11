@@ -71,7 +71,7 @@ class Portal_Form_NewRequest extends Centurion_Form
 	        		),
 	        		'request',
 	        		array(
-	        			'legend' => $this->_translate('Veuillez renseigner les informations suivantes :')
+	        			'legend' => $this->_translate('Please fill the informations below :')
 	        			)
         		);
         $request = $this->getDisplayGroup('request');
@@ -84,9 +84,7 @@ class Portal_Form_NewRequest extends Centurion_Form
 		        			)
 		        		)
         			);
-        
-        
-        
+     
     }
 
 }

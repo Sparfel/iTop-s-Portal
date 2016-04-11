@@ -13,7 +13,7 @@ class Request_ClosedrequestController extends Centurion_Controller_Action
     }
  	
 	public function init() {
-    	Zend_Layout::getMvcInstance()->assign('titre', 'Vos incidents fermés');
+    	Zend_Layout::getMvcInstance()->assign('titre', $this->view->translate('Vos incidents fermés'));
     	$session = new Zend_Session_Namespace('Zend_Auth');
     	$this->_org_id = $session->pref->_org_id;
     	
@@ -95,7 +95,7 @@ class Request_ClosedrequestController extends Centurion_Controller_Action
        		//$this->view->headScript()->appendFile('/layouts/frontoffice/js/jquery-ui-1.9.1.custom.min.js');
        		$this->view->headScript()->appendFile('/layouts/frontoffice/js/jquery.MultiFile.js');
        		// On sépare le titre du nuémro sinon on enrichit sans cesse le dictionnaire des traductions.
-       		$this->view->title = 'Détails de la requête';
+       		$this->view->title = $this->view->translate('Détails de la requête');
        		$this->view->id = $id;
        		$this->view->typ = 'view';
        		
@@ -147,7 +147,7 @@ class Request_ClosedrequestController extends Centurion_Controller_Action
 		        //Pour les listes de checkbox
 		        //$this->view->headScript()->appendFile('/layouts/frontoffice/js/jquery-ui-1.9.1.custom.min.js');
 		        //On affiche la grille de résultats.
-		        $this->view->title = 'Mes requêtes ouvertes';
+		        $this->view->title = $this->view->translate('Mes requêtes fermées');
 		    	// Grâce au Helper d'action, on injecte le bon header pour la grille.
 		    	$datatable = $this->_helper->getHelper('DataTable');
 		    	//$this->_helper->getHelper('DataTable')->test();

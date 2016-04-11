@@ -7,13 +7,13 @@ class Request_NewrequestController extends Centurion_Controller_Action
     {
         $this->_helper->authCheck();
         $this->_helper->aclCheck();
-        Zend_Layout::getMvcInstance()->assign('titre', 'iTop - Déclarer un incident');
+        Zend_Layout::getMvcInstance()->assign('titre', $this->view->translate('Déclarer un incident'));
         $session = new Zend_Session_Namespace('Zend_Auth');
     	$this->_org_id = $session->pref->_org_id;
     }
 	
 	public function indexAction() {
-		$this->view->title = 'Nouvelle requête utilisateur.';
+		$this->view->title = $this->view->translate('Nouvelle requête utilisateur.');
 		$id = $this->_request->getParam('ref_request',null);
 		if (is_null($id))
 				{
