@@ -640,8 +640,9 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 	// on effectue un cumul des tickets par mois écoulés sur les 12 derniers mois.
 	public function getPerMonthRequest($org_id,$local,$nb_month){
 		$lastyear = Zend_Date::now($local);
-		$lastyear->sub($nb_month,Zend_Date::MONTH);
-		$start_date = $lastyear->toString('YYYY-MM-DD');
+		$lastyear->setDay(1); // first day of the month
+		$lastyear->sub($nb_month -1,Zend_Date::MONTH);
+		$start_date = $lastyear->toString('Y-M-d');
 		$aData = array(
 				'operation'=> 'core/get',
 				'class' => 'UserRequest',

@@ -10,9 +10,13 @@ class Request_DashboardController extends Centurion_Controller_Action
         $this->_helper->authCheck();
         $this->_helper->aclCheck();
         Zend_Layout::getMvcInstance()->assign('titre', $this->view->translate('Tableaux de bord'));
+        $this->view->headTitle()->prepend($this->view->translate('Gestion des incidents'));
         $session = new Zend_Session_Namespace('Zend_Auth');
     	$this->_org_id = $session->pref->_org_id;
-    	$this->view->headTitle()->prepend($this->view->translate('Gestion des incidents'));
+    	If ($session->pref->_language == 'fr') {
+    		$this->_locale = "fr_FR";
+    	} 
+    	else {$this->_locale = "en_US";} 
         
     }
    
@@ -24,7 +28,7 @@ class Request_DashboardController extends Centurion_Controller_Action
     	$date_tab  = Array();
     	$date_array = Array();
     	// Nb Months we want to show
-    	$nb_month = 12;
+    	$nb_month = 13;
     	// We build an Array like this : Array([0] => array(month => m, year => y), // 1 year ago
 		// 									....
 		//							 [11] => array(month=> m+12, year = y+1) // now
@@ -32,7 +36,7 @@ class Request_DashboardController extends Centurion_Controller_Action
     	$month_tab = (Zend_Locale::getTranslationList('Month', $this->_locale));
     	// we start 12 months ago
     	$curr_month = Zend_Date::now($this->_locale)->sub($nb_month,Zend_Date::MONTH);
-    	for($i=0;$i<12;$i++) {
+    	for($i=0;$i<$nb_month;$i++) {
     		$curr_month = Zend_Date::now($this->_locale)->sub($nb_month - $i - 1,Zend_Date::MONTH);
     		$curr_month_array = $curr_month->toArray();
     		$month[$i]['month'] = $month_tab[$curr_month_array['month']]; // pour avoir le libellé du mois en clair
@@ -50,6 +54,7 @@ class Request_DashboardController extends Centurion_Controller_Action
     	// We use the Webservice to get the datas
     	$webservice = $this->_helper->getHelper('ItopWebservice');
     	$tab_result = $webservice->getPerMonthRequest($this->_org_id,$this->_locale,$nb_month);
+    	//Zend_Debug::dump($month_tab);
     	if (count($tab_result)>0){
     		//$date_list = array();
 	    	//$i=0;
@@ -65,11 +70,12 @@ class Request_DashboardController extends Centurion_Controller_Action
 	    		//													total => 7)
 				//											)
 	    		$date_tab[$result_month] = $date_tab[$result_month]  + 1; 
-	    		//date_list[$i] =  $result_month;
+	    		//$date_list[$i] =  $result_month;
 	    		//$i++;
 	    	}
 	    	//$date_list = array_count_values($date_list);
     	}
+    	//Zend_Debug::dump($date_tab);
     	//Zend_Debug::dump($date_list);
     	return $date_tab;
     }
