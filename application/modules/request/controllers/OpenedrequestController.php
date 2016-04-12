@@ -26,7 +26,6 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 	public function init() {
     	Zend_Layout::getMvcInstance()->assign('titre', 'Vos incidents en cours');
     	$session = new Zend_Session_Namespace('Zend_Auth');
-    	
     	$this->_org_id = $session->pref->_org_id;
     	
     	$this->_fields = array ( 

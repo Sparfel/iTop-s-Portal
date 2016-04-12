@@ -43,7 +43,7 @@ class Portal_Preference_Preference {
 	public $_ParamName_UserYear = 'USER_YEAR';
 	public $_ParamName_UserHomeServices = 'HOME_SERVICES';
 	
-	private $_start_date = 2012; // Start Date
+	private $_start_date = 2015; // Start Date
 		
 	public function __construct($id,$email,$first_name,$last_name) {
 		$webservice = Zend_Controller_Action_HelperBroker::getStaticHelper('ItopWebservice');

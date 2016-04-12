@@ -69,7 +69,7 @@ class Bootstrap extends Centurion_Application_Bootstrap_Bootstrap
             $request = new Zend_Controller_Request_Http();
             $front->setRequest($request);
         }
-        Zend_Session::rememberMe();
+       if (!(Zend_Session::sessionExists())) { Zend_Session::rememberMe();}
         return $request;
     }
 

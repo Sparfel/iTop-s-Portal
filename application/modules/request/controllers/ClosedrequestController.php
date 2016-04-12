@@ -14,7 +14,12 @@ class Request_ClosedrequestController extends Centurion_Controller_Action
  	
 	public function init() {
     	Zend_Layout::getMvcInstance()->assign('titre', $this->view->translate('Vos incidents fermés'));
+    	
+    	
+    	
+    	 
     	$session = new Zend_Session_Namespace('Zend_Auth');
+    	
     	$this->_org_id = $session->pref->_org_id;
     	
     	$this->_fields = array ( 
@@ -88,6 +93,8 @@ class Request_ClosedrequestController extends Centurion_Controller_Action
 	}
 	
     public function indexAction() {
+    	
+    	
     	$session = new Zend_Session_Namespace('Zend_Auth');
      	$id = $this->_request->getParam('id', null);
         //echo 'id :'.$this->_org_id;
@@ -122,7 +129,13 @@ class Request_ClosedrequestController extends Centurion_Controller_Action
        			//	$this->searchAction();
        			//}
        			//else {
+       				//if (session_id() == $data['sessid']) {
        				$this->changefilterAction();
+       				/*}
+       				else {
+       					//$session = new Zend_Session_Namespace('Zend_Auth');
+       					session_id($data['sessid']);
+       					echo 'Houston, on a un problème !';}*/
        			//}
        			
        			//Zend_Debug::dump('refresh !');
@@ -167,6 +180,7 @@ class Request_ClosedrequestController extends Centurion_Controller_Action
     }
    public function getdataAction()
 	{
+		
 		$this->_helper->viewRenderer->setNoRender(true);
 	    // pas de layout autour
     	$this->_helper->layout()->disableLayout();
@@ -211,6 +225,7 @@ class Request_ClosedrequestController extends Centurion_Controller_Action
 			$data = $this->_request->getPost();
 			//Gestion des préférences utilisateur
 			$Opref = $session->pref;
+		
 			$Opref->changePref($data['param'],$data['value']);
 			//Gestion de l'éventuel requêtes de recherches.
 			if ($data['searchMode']=='true'){
