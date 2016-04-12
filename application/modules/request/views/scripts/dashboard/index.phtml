@@ -1,5 +1,6 @@
 <?php
-
+//Color defition for the graphic
+$this->color = '#1C94C4';
 echo '<h1>'.$this->translate('Tableau de bord').'</h1>';
 echo '<h2>'.$this->translate('Les incidents ouverts sur l\'année écoulée').'</h2>';
 
@@ -27,13 +28,13 @@ echo '<h2>'.$this->translate('Les incidents ouverts sur l\'année écoulée').'<
 
        var options = {
           title: <?php echo $this->translate("'Tickets par mois'");?>,
-		  titleTextStyle:{color: '#1C94C4', fontName: 'Calibri', fontSize:16},
+		  titleTextStyle:{color: '<?php echo $this->color;?>', fontName: 'Calibri', fontSize:16},
           hAxis: {title: <?php echo $this->translate("'Mois - Année'")?>,  colors: 'red',
 					fontName: 'Arial', 
 					fontSize: 10,
-					titleTextStyle: {color: '#1C94C4'}},
+					titleTextStyle: {color: '<?php echo $this->color;?>'}},
 		  chartArea:{left:45,top:20,width:"100%",height:"70%"},
-		  colors: ['#1C94C4'],
+		  colors: ['<?php echo $this->color;?>'],
 		   animation:{duration:5000,easing: 'out',}
 				
         };
@@ -51,3 +52,4 @@ echo '<h2>'.$this->translate('Les incidents ouverts sur l\'année écoulée').'<
 
 
      
+

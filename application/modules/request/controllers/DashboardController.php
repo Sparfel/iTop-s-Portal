@@ -22,6 +22,7 @@ class Request_DashboardController extends Centurion_Controller_Action
    
     public function indexAction() {
         $this->view->tableau = $this->getPerMonthRequestTab();
+        //$this->view->color = '#1C94C4'; Color is configured into the view
     }
     
     public function getPerMonthRequestTab() {
