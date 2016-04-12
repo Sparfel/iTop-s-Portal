@@ -46,21 +46,20 @@ ticket.lifetime = 24h
 ticket.salt = ""
 
 
-;Connexion à iTop (production)
+;Connexion to the primary iTop (May be iTop Production)
 itop1.url.protocol = "_WS_PROTOCOL_"
 itop1.url.adress = "_WS_ADRESS_"
 itop1.webservice.user = "_WS_USER_"
 itop1.webservice.pwd = "_WS_PASSWORD_"
 
-;iTop de Test 
+;Connexion to the second iTop (May be iTop Test) 
 itop2.url.protocol = "_WS_PROTOCOL_"
 itop2.url.adress = "_WS_ADRESS_"
 itop2.webservice.user = "_WS_USER_"
 itop2.webservice.pwd = "_WS_PASSWORD_"
 
-
-
-
+;Global parameters relativ to iTop
+itop.requestMinDate = 2015
 
 admin.navigation.types.flatpage.className = "Cms_Model_DbTable_Flatpage"
 

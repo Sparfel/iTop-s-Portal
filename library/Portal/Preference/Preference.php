@@ -43,7 +43,7 @@ class Portal_Preference_Preference {
 	public $_ParamName_UserYear = 'USER_YEAR';
 	public $_ParamName_UserHomeServices = 'HOME_SERVICES';
 	
-	private $_start_date = 2015; // Start Date
+	//private $_start_date = 2015; // Start Date
 		
 	public function __construct($id,$email,$first_name,$last_name) {
 		$webservice = Zend_Controller_Action_HelperBroker::getStaticHelper('ItopWebservice');
@@ -125,7 +125,11 @@ class Portal_Preference_Preference {
 		
 		$tab_yearList = array();
 		$current_date = new Zend_Date();
-		$start_year = $this->_start_date;
+		// We get the oldest Request's start date
+		// Better than scanning all iTop Request to have this date, OQL doesn't have min() function
+		$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+		//$start_year = $this->_start_date;
+		$start_year = $config->itop->requestMinDate;
 		$delta_year = $current_date->get(Zend_Date::YEAR) - $start_year;
 		for ($i = 0; $i <= $delta_year ; $i++) {
 			$tab_yearList[$i] = $start_year + $i;
