@@ -147,9 +147,11 @@ class Portal_Preference_Preference {
 	}
 	
 	public function setUserYearFilter($value){
-		$this->_AyearFilter = $value;
-		$userPref = new Portal_Model_DbTable_UserPref();
-		$userPref->savePref($this->_user_id,$this->_ParamName_UserYear,implode(',',$value));
+		if (is_array($value)){
+			$this->_AyearFilter = $value;
+			$userPref = new Portal_Model_DbTable_UserPref();
+			$userPref->savePref($this->_user_id,$this->_ParamName_UserYear,implode(',',$value));
+		}
 	}
 	
 	// On récupère les différentes site pour lesquels on a des tickets (dans iTop)
@@ -171,9 +173,11 @@ class Portal_Preference_Preference {
 	}
 	
 	public function setUserLocationFilter($value){
-		$this->_AlocationFilter = $value;
-		$userPref = new Portal_Model_DbTable_UserPref();
-		$userPref->savePref($this->_user_id,$this->_ParamName_UserLocation,implode(',',$value));
+		if (is_array($value)){
+			$this->_AlocationFilter = $value;
+			$userPref = new Portal_Model_DbTable_UserPref();
+			$userPref->savePref($this->_user_id,$this->_ParamName_UserLocation,implode(',',$value));
+		}
 	}
 	
 	//Donnée stockée en base - Filtre Visu
