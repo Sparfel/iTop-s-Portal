@@ -1,8 +1,8 @@
 <?php
 $this->placeholder('undermenu')->captureStart();
 ?>
-	<h2>Réglages de vos préférences</h2>
-	<p>Régler ici vos préférences comme la langue ou les sites auquels vous souhaitez vous rattacher.</p> 
+	<h2><?php echo $this->translate('Réglages de vos préférences');?></h2>
+	<p><?php echo $this->translate('Régler ici vos préférences comme la langue ou les sites auquels vous souhaitez vous rattacher.');?></p> 
 <?php 
 	$this->placeholder('undermenu')->captureEnd();
 ?>
@@ -11,7 +11,7 @@ $this->placeholder('aside')->captureStart();
 	echo '<span id="Msg" style="color:red; font-weight:bold;">'.$this->translate($this->actionMsg).'</span>';
 $this->placeholder('aside')->captureEnd();
 ?>
-<h1>Préférences</h1>
+<h1><?php echo $this->translate('Préférences');?></h1>
 <?php echo $this->formPref;?>
 <style>
 label {
@@ -26,7 +26,9 @@ button[type="button"]{
 }
 </style>
 
-<?php echo $this->DropDownCheckList($this->OPref);?>
+<?php 
+//Zend_Debug::dump($this->OPref);
+echo $this->DropDownCheckList($this->OPref);?>
 <?php 
 // On propose la langue qu'on n'a pas actuellement
 $flag = 'uk';
@@ -38,9 +40,9 @@ elseif ($this->OPref->_language == 'fr')
 ?>
 
 <FIELDSET id="fieldset-request">
-	<LEGEND> Langue </LEGEND>
+	<LEGEND> <?php echo $this->translate('Langue');?> </LEGEND>
 		<a class="language" href="<?php echo $this->url(array('controller' => 'language', 'action' => 'change', 'module' => 'user','language'=>$lang,'url'=>$tab_url = explode('/',$this->url())), 'default');?>">
-		<label>Changer de langue pour :</label>    	
+		<label><?php echo $this->translate('Changer de langue pour :');?></label>    	
 		<img src="<?php echo $this->baseUrl();?>/layouts/backoffice/images/flags/<?php echo $flag;?>.png" title="Change language"></img> 
 	</a>          	
 </FIELDSET>
@@ -82,12 +84,12 @@ $(function() {
 		       var message = document.getElementById('Msg');
 		       message.style.color = goodColor;
 		       pass2.style.backgroundColor = goodColor;
-		       $("#Msg").text("Mot de passe valide."); 
+		       $("#Msg").text("<?php echo $this->translate('Mot de passe valide.');?>"); 
 		    }
 		    else {
 		    	var message = document.getElementById('Msg');
 			    message.style.color = badColor;
-		        $("#Msg").text("Mot de passe invalide."); 
+		        $("#Msg").text("<?php echo $this->translate('Mot de passe invalide.');?>"); 
 		    }
 		   $('#Msg').fadeIn(2000);
 		   setTimeout(function(){$("#Msg").fadeOut('slow');}, 5000);
@@ -109,7 +111,7 @@ $(function() {
 	        if  (pass1.value.length < 5) {
 	        	pass1.style.backgroundColor = badColor;
 	            message.style.color = badColor;
-	            message.innerHTML = "Le mot de passe doit faire au moins 5 caractères."
+	            message.innerHTML = "<?php echo $this->translate('Le mot de passe doit faire au moins 5 caractères.');?>"
 	        }
 	        else if(pass1.value == pass2.value ){
 	            //The passwords match. 
@@ -118,7 +120,7 @@ $(function() {
 	            pass2.style.backgroundColor = goodColor;
 	            launchAjax('CHG_PWD',pass1.value)
 	            message.style.color = goodColor;
-	            message.innerHTML = "Le mot de passe a été modifié.";
+	            message.innerHTML = "<?php echo $this->translate('Le mot de passe a été modifié.');?>";
 	            pass1.value="";
 	            pass2.value="";
 	            pass1.style.backgroundColor = "white";
@@ -130,7 +132,7 @@ $(function() {
 	            pass1.style.backgroundColor = "white";
 	            pass2.style.backgroundColor = badColor;
 	            message.style.color = badColor;
-	            message.innerHTML = "Les mots de passe ne correspondent pas."
+	            message.innerHTML = "<?php echo $this->translate('Les mots de passe ne correspondent pas.');?>"
 		        pass2.value="";
 	        }
 		}  
@@ -166,12 +168,31 @@ $(function() {
 	</script>
 <?php echo $this->formpwd;
 
-echo '<H3>Informations</h3>';
-echo '<p>Environnement : <b>'.$this->span1.$this->environment.'</b>'.$this->endspan.'</p>';
+echo '<H3>'.$this->translate('Informations').'</h3>';
+echo '<p>'.$this->translate('Environnement :').' <b>'.$this->span1.$this->environment.'</b>'.$this->endspan.'</p>';
 echo $this->itopinteraction;
 
-echo '<H3>Version du Portail</h3>';
-echo '<p>Version : <b>'.Portal_Version::VERSION.'</b></p>'; 
-
+echo '<H3>'.$this->translate('Version du Portail').'</h3>';
+echo '<p>'.$this->translate('Version').' : <b>'.Portal_Version::VERSION.'.'.Syleps_Version::VERSION.'</b></p>'; 
 ?>
 
+
+
+<?php
+/*
+	$webservice = Zend_Controller_Action_HelperBroker::getStaticHelper('SylepsItopRestWebservice');
+	//$request = $webservice->getInfoContact($email);
+	$request = $webservice->getInfoUserFull('emmanuel.lozachmeur@syleps.fr', 'Manu (admin)', 'Lozachmeur');
+	if (is_array($request)) {
+		foreach ($request as $result) {
+			//$this->_id = $id;
+			//$this->_user_id =  $result['UserLocal']['contactid'];
+			//$this->_user_id_iTop_account=null;
+			//echo 'UserLocal Id => '.$result['UserLocal']['id'].'<br>';
+			echo 'User Id => '. $result['UserLocal']['contactid'].'<br>';
+		}
+	}
+		
+Zend_Debug::dump($request);
+*/
+?>

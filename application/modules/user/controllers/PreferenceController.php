@@ -37,50 +37,37 @@ class User_PreferenceController extends Centurion_Controller_Action
 		
 		//Information relative à la situation du compte
 		$identity = Centurion_Auth::getInstance()->getIdentity();
-		if (($identity->is_staff == '0') AND (isset($session->pref->_user_id_iTop_account) )) { //iTop Test et compte iTop existant => vert - vert
+		$itopOK = $this->view->translate('Compte iTop déclaré');
+		$itopKO = $this->view->translate('Pas de compte iTop déclaré');
+		$iterOK = $this->view->translate('interaction sur les tickets possible');
+		$iterKO = $this->view->translate('interaction sur les tickets impossible');
+		
+		if (($identity->is_staff == '0') AND (isset($session->pref->_user_login_iTop_account) )) { //iTop Test et compte iTop existant => vert - vert
 			$this->view->span1 = '<span style="color:green">';
 			$this->view->span2 = '<span style="color:green">';
 			$this->view->endspan = '</span>';
 			$this->view->environment = 'Test';
-			$this->view->itopinteraction = '<p>Compte iTop déclaré : <b>'.$this->view->span2.'interaction sur les tickets possible</b>'.$this->view->endspan.'.</p>'; 
+			$this->view->itopinteraction = '<p>'.$itopOK.' : <b>'.$this->view->span2.$iterOK.'</b>'.$this->view->endspan.'.</p>'; 
 		}
-		elseif (($identity->is_staff == '0') AND !(isset($session->pref->_user_id_iTop_account))) {//iTop Test et pas compte iTop existant => vert - rouge
+		elseif (($identity->is_staff == '0') AND !(isset($session->pref->_user_login_iTop_account))) {//iTop Test et pas compte iTop existant => vert - rouge
 			$this->view->span1 = '<span style="color:green">';
 			$this->view->span2 = '<span style="color:red">';
 			$this->view->endspan = '</span>';
 			$this->view->environment = 'Test';
-			$this->view->itopinteraction = '<p>Pas de compte iTop déclaré : <b>'.$this->view->span2.'interaction sur les tickets impossible</b>'.$this->view->endspan.'.</p>';
+			$this->view->itopinteraction = '<p>'.$itopKO.' : <b>'.$this->view->span2.$iterKO.'</b>'.$this->view->endspan.'.</p>';
 		}
-		elseif (($identity->is_staff == '1') AND !(isset($session->pref->_user_id_iTop_account))) {//iTop Prod et pas compte iTop existant => rouge - rouge
+		elseif (($identity->is_staff == '1') AND !(isset($session->pref->_user_login_iTop_account))) {//iTop Prod et pas compte iTop existant => rouge - rouge
 			$this->view->span1 = '<span style="color:red">';
 			$this->view->span2 = '<span style="color:red">';
 			$endspan = '</span>';
 			$this->view->environment = 'Production';
-			$this->view->itopinteraction = '<p>Pas de compte iTop déclaré : <b>'.$this->view->span2.'interaction sur les tickets impossible</b>'.$this->view->endspan.'.</p>';
+			$this->view->itopinteraction = '<p>'.$itopKO.' : <b>'.$this->view->span2.$iterKO.'</b>'.$this->view->endspan.'.</p>';
 		}
 		else { // iTop Production et Compte iTop déclaré => tout va bien, on laisse tout en gris
 			$this->view->span1 = $this->view->span2 = $this->view->endspan = '';
 			$this->view->environment = 'Production';
-			$this->view->itopinteraction = '<p>Compte iTop déclaré : <b>'.$this->view->span2.'interaction sur les tickets possible</b>'.$this->view->endspan.'.</p>';
+			$this->view->itopinteraction = '<p>'.$itopOK.' : <b>'.$this->view->span2.$iterOK.'</b>'.$this->view->endspan.'.</p>';
 		} 
-		
-		/*	plus utilisé car on valide à la volée via Ajax et non plus par un submit classique
-		if ($this->_request->isPost()) {
-					$formData = $this->_request->getPost();
-		            if ($formpwd->isValid($formData)) {
-		            	//echo 'Pwd est valide, Youpi !!';
-		            	$user = new Auth_Model_DbTable_User();
-		            	//$rowUser = new Auth_Model_DbTable_Row_User($config)
-		            	$rowUser = $user->find($session->pref->_id);
-		            	//Zend_Debug::dump($rowUser);
-		            	$rowUser->current()->setPassword($formpwd->getValue('pswd'));
-		            	$rowUser->current()->save();
-		            	$this->view->actionMsg = 'Votre mot de passe a bien été modifié.';
-		            	//Zend_Debug::dump($rowUser->current()->_permissions);
-		            }
-		           // else {echo 'Pwd INVALIDE !!! '.$formpwd->getValue('pswd').' / '.$formpwd->getValue('confirm_pswd');}
-		}
-		*/
 	}
 
 	
