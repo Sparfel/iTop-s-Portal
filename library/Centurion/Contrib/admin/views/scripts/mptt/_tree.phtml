@@ -13,7 +13,7 @@
                         </select>
                 <?php else: ?>
                     &nbsp;
-                <?php endif; ?>
+                <?php endif;?>
                 </div>
                 <?php if (isset($this->publishDateColumn) && null !== $page->{$this->publishDateColumn}):
                 $date = new  Zend_Date($page->{$this->publishDateColumn});

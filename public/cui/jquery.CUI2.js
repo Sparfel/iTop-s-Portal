@@ -41,13 +41,13 @@
             // events definitions
             // rows events
             base.$el.find(".row")
-                .live("mouseenter", function() {
+                .on("mouseenter", function() {
                     $(this).addClass("hover")
                 })
-                .live("mouseleave", function() {
+                .on("mouseleave", function() {
                     $(this).removeClass("hover");
                 })
-                .live("click", function() {
+                .on("click", function() {
                     if($(this).parents(".ui-sortable").length == 0) {
                         if($(this).hasClass("select")) {
                             $(this).removeClass("select")
@@ -58,7 +58,7 @@
                     }
                 });
             base.$el.find('.row').find("a, .switch-1, .switch-0")
-                .live("click", function(event) {
+                .on("click", function(event) {
                     var rowEl = $(this).parents('.row');
                     if(rowEl.hasClass("select"))  {
                         rowEl.removeClass("select").find("input[type=checkbox]").removeAttr("checked");
@@ -75,7 +75,7 @@
             });
             
             // select event
-            $(base.options.action).find('.dropdown-select').live('click', function(e){
+            $(base.options.action).find('.dropdown-select').on('click', function(e){
                 if($(e.target).hasClass('checkbox-all')) {
                     base.$el.find('input[type=checkbox]').attr('checked', $(e.target).attr('checked'));
                     if($(e.target).attr('checked')) {
@@ -87,7 +87,7 @@
                     $(this).find('.picker').show();
                 }
             });
-            $(base.options.action).find('.select-all').live('click', function() { 
+            $(base.options.action).find('.select-all').on('click', function() { 
                     $(base.options.action).find('.checkbox-all').attr('checked', 'checked');
                     base.$el.find('input[type=checkbox]').each(function(){
                         $(this).parent().parent().addClass('select');
@@ -96,7 +96,7 @@
                         });
                     return false;
                 });  
-            $(base.options.action).find('a.select-none').live('click', function() {
+            $(base.options.action).find('a.select-none').on('click', function() {
                     $(base.options.action).find('.checkbox-all').removeAttr('checked');
                     base.$el.find('input[type=checkbox]').each(function(){
                         $(this).parent().parent().removeClass('select');
@@ -111,7 +111,7 @@
             
             // order list
             var orderMode = false;
-            $(base.options.action).find('.trigger-order').live("click", function(){
+            $(base.options.action).find('.trigger-order').on("click", function(){
                 if(!orderMode) {
                     orderMode = true;
                     var self = $(this);
@@ -163,14 +163,14 @@
             });
             
             // pager event
-            $(base.options.action).find('.pager a').live("click", function() {
+            $(base.options.action).find('.pager a').on("click", function() {
                 //$.history.load('json.html');
                 $.history.load($(this).attr("href"));
                 return false;
             });
             
             // sorting event
-            base.$el.find('.head a').live("click", function() {
+            base.$el.find('.head a').on("click", function() {
                 //$.history.load('json.html');
                 $.history.load($(this).attr("href"));
                 return false;
@@ -193,7 +193,7 @@
                         filterDiv.addClass('filter-closed')
                     }
                 });
-            $(base.options.filter).find(":input").live("change", function(){
+            $(base.options.filter).find(":input").on("change", function(){
                 var url = $(base.options.filter).attr("action") + '?filter[submit]=submit&' + $(base.options.filter).serialize();
                 //$.history.load('json.html');
                 $.history.load(url);
@@ -342,59 +342,73 @@
             base.options = $.extend({}, $.CUI.Grid.defaultOptions, options);
             base.options.plugin = plugin;
             (base[base.options.plugin])(options);
+            
         };
         
         // switcher
         base.switcher = function() {
             var selectedOption = base.$el.find('option:selected').val()
-            if(base.$el.attr('selected')){
+            
+            //With Jquery 1.11, this part is not necessary.
+            /*if(base.$el.attr('selected')){
                 selectedOption = base.$el.attr('selected')
-            }
+                //alert('=> '+selectedOption+'|'+base.$el.attr('selected'));
+                
+            }*/
             
             var output = $('<span/>', {
                 "class" : "switch-" + selectedOption,
                 text : selectedOption
-            }).bind("click", function(){
-                
-                if(base.options.onclick) { 
-                    base.options.onclick(base.$el) 
-                } else if (base.options.url != undefined) {
-                    var saveThis = this;
-                    $.ajax({
-                        type: "post", 
-                        url: base.options.url, 
-                        data:{name: base.$el[0].name, value:base.$el[0].value},
-                        dataType: 'json',
-                        success: function (data, text) {
-                            if (data.statut !== 200) {
-                                alert('probleme');
-                            } else {
-                                if(data.value == 0) {
-                                    $(saveThis).removeClass('switch-1').addClass('switch-0').empty().append('Offline');
-                                    base.$el.find('option[value=0]').attr('selected', 'selected');
-                                } else {
-                                    $(saveThis).removeClass('switch-0').addClass('switch-1').empty().append('Online');
-                                    base.$el.find('option[value=1]').attr('selected', 'selected');                                
-                                }
-                            }
-                        },
-                        error: function (request, status) {
-                            var obj = $.parseJSON(request.responseText);
-                            alert(obj.error);
-                        }
-                    });
-                    //$.post
-                } else {
-                    if($(this).hasClass('switch-1')) {
-                        $(this).removeClass('switch-1').addClass('switch-0').empty().append('Offline');
-                        base.$el.find('option[value=0]').attr('selected', 'selected');
-                    } else {
-                        $(this).removeClass('switch-0').addClass('switch-1').empty().append('Online');
-                        base.$el.find('option[value=1]').attr('selected', 'selected');                                
-                    }
-                }
-            }).insertAfter(base.$el);
+            	}).bind("click", function(){
+            		 
+	                if(base.options.onclick) { 
+	                    base.options.onclick(base.$el)
+	                 
+	                /*} else if (true){
+	                	alert('ici');
+	                  */ 
+	                
+	                } else if (base.options.url != undefined) {
+	                    var saveThis = this;
+	                    $.ajax({
+	                        type: "post", 
+	                        url: base.options.url, 
+	                        data:{name: base.$el[0].name, value:base.$el[0].value},
+	                        dataType: 'json',
+	                        success: function (data, text) {
+	                        	
+	                            if (data.statut !== 200) {
+	                                alert('probleme');
+	                            } else {
+	                                if(data.value == 0) {
+	                                    $(saveThis).removeClass('switch-1').addClass('switch-0').empty().append('Offline');
+	                                    base.$el.find('option[value=0]').attr('selected', 'selected');
+	                                } else {
+	                                    $(saveThis).removeClass('switch-0').addClass('switch-1').empty().append('Online!');
+	                                    base.$el.find('option[value=1]').attr('selected', 'selected');                                
+	                                }
+	                            }
+	                        },
+	                        error: function (request, status) {
+	                            var obj = $.parseJSON(request.responseText);
+	                            alert(obj.error);
+	                        }
+	                    });
+	                    //$.post
+	                } else {
+	                	
+	                    if($(this).hasClass('switch-1')) {
+	                        $(this).removeClass('switch-1').addClass('switch-0').empty().append('Offline');
+	                        base.$el.find('option[value=0]').attr('selected', 'selected');
+	                    } else {
+	                        $(this).removeClass('switch-0').addClass('switch-1').empty().append('Online?');
+	                        base.$el.find('option[value=1]').attr('selected', 'selected');                                
+	                    }
+	                }
+	            }).insertAfter(base.$el);
             
+            
+           
             base.$el.hide();
             base.$el.addClass('field-switcher-converted');
         }
@@ -685,7 +699,7 @@
                              'cui/plugins/swfupload/handlers.js'],
          'tinymce':         ['cui/plugins/tinymce/jquery.tinymce.js'],
          'jquery-jstree':   ['cui/plugins/utils/mustache.js',
-                             'cui/libs/jquery.cookie.js',
+                             'cui/libs2/jquery.cookie.js',
                              'cui/plugins/jstree/jquery.tree.js'],
          'map' :            ['cui/plugins/map/mod-map.js']
     }
@@ -872,7 +886,7 @@
                                that.dialogMap.dialog('close');
                            });
 
-                           $('.ui-widget-overlay').live('click', function(){
+                           $('.ui-widget-overlay').on('click', function(){
                                that.dialogMap.dialog('close');
                            });
                        },

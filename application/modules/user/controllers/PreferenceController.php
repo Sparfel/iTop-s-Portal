@@ -68,6 +68,7 @@ class User_PreferenceController extends Centurion_Controller_Action
 			$this->view->environment = 'Production';
 			$this->view->itopinteraction = '<p>'.$itopOK.' : <b>'.$this->view->span2.$iterOK.'</b>'.$this->view->endspan.'.</p>';
 		} 
+		
 	}
 
 	

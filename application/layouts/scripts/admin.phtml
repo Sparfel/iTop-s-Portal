@@ -4,8 +4,10 @@
                      ->appendHttpEquiv('Content-Language', 'fr-FR');
     $this->headLink()->headLink(array('rel' => 'favicon' , 'href' => $baseUrl.'/images/favicon.ico'), 'PREPEND');
     $this->headScript()->prependFile($baseUrl.'/layouts/backoffice/js/all.js');
-    $this->headScript()->prependFile($baseUrl.'/cui/jquery.CUI.js');
-    $this->headScript()->prependFile($baseUrl.'/cui/libs/jquery.js');
+    
+    $this->headScript()->prependFile($baseUrl.'/cui/libs2/jquery.js');
+    $this->headScript()->appendFile($baseUrl.'/cui/jquery.CUI2.js');
+    $this->headScript()->appendFile($baseUrl.'/cui/libs2/jquery.browser.js');
 
     $this->headLink()->appendStylesheet($baseUrl.'/layouts/backoffice/styles.css');
 ?>

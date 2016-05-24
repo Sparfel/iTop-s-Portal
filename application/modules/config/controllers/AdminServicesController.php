@@ -14,14 +14,21 @@ class Config_AdminServicesController extends Centurion_Controller_CRUD
         	'link_module'    =>   $this->view->translate('Link Module'),
         	'link_controller'=>   $this->view->translate('Link Controller'),
         	'link_action'    =>   $this->view->translate('Link Action'),
-        	'is_active'		 =>	  $this->view->translate('Active')
+        	//'is_active'		 =>	  $this->view->translate('Active')
+        	'switch'    => array(
+        				'type'   => self::COL_TYPE_ONOFF,
+        				//'type'   => self::COLS_ROW_FUNCTION,
+        				'column' => 'is_active',
+        				'label' => $this->view->translate('Is active'),
+        				'onoffLabel' => array($this->view->translate('Yes'), $this->view->translate('No'))
+        			)
         );
 
         $this->view->placeholder('headling_1_content')->set($this->view->translate('Manage Services'));
         $this->view->placeholder('headling_1_add_button')->set($this->view->translate('Service'));
         
         //Nécessaire pour la compatibilité entre les versions de jquery
-        $this->view->headScript()->prependFile('/cui/libs/jquery-migrate-1.2.1.js');
+        //$this->view->headScript()->prependFile('/cui/libs/jquery-migrate-1.2.1.js');
        
      /*   $this->view->headScript()->appendFile('/cui/libs/jquery.js');
        $this->view->headScript()->appendFile('/cui/libs/jquery-ui-1.11.4.js');
