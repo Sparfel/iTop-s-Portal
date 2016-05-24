@@ -423,7 +423,7 @@
             var availableActions = $('<div class="actions"><input type="text" class="search" name="multiselect-search" value="" /><a href="#" class="add-all">Add All</a></div>');
             var availableList = $('<ul class="availableList"/>');
             var nbSelected = 0; 
-            var nbAvailable =  base.$el.find('option').not(':selected').not('[value=]').length;    
+            var nbAvailable =  base.$el.find('option').not(':selected').not("[value='']").length;    
 
             // update the selected items count
             base.multiselect.updateCount = function () {
@@ -431,7 +431,7 @@
                     $(output).find('.count').empty()
                                             .append(nbSelected + ' item selected');
                     if(nbSelected == 0) {
-                        $(output).prev().find('option[value=]').attr('selected','selected');
+                        $(output).prev().find("option[value='']").attr('selected','selected');
                     }
                 } else {
                     $(output).find('.count').empty()
@@ -440,12 +440,12 @@
             }  
              
             // generate
-            base.$el.find('option:selected').not('[value=]').each(function() {
+            base.$el.find('option:selected').not("[value='']").each(function() {
                 $(selectedList).append('<li><a href="#" rel="'+$(this).val()+'"><span class="icon"></span>'+$(this).text()+'</a></li>');
                 nbSelected = nbSelected + 1;
             })
             
-            base.$el.find('option').not(':selected').not('[value=]').each(function() {
+            base.$el.find('option').not(':selected').not("[value='']").each(function() {
                 $(availableList).append('<li><a href="#" rel="'+$(this).val()+'"><span class="icon"></span>'+$(this).text()+'</a></li>');
             });
             
