@@ -5,7 +5,13 @@ class Cms_FlatpageController extends Centurion_Controller_Action
     public function getAction()
     {
         Centurion_Db_Table_Abstract::setFiltersStatus(true);
-        $flatpageRow = $this->_helper->getObjectOr404('cms/flatpage', array('id'                    =>  $this->_getParam('id'),
+        //$MOD 13.06.2016, Emmanuel Lozachmeur : bad code but it works :/
+        // 		with the current language and we get the page with the id or by the original id !
+        // 		If french => the id of the page is the id
+        //			else we are in english, the page id is the original_id of the translated flatpage
+        if ($this->_getParam('language') == 'fr')  { $id = 'id';}
+        else {$id = 'original_id';};
+        $flatpageRow = $this->_helper->getObjectOr404('cms/flatpage', array($id                    =>  $this->_getParam('id'),
                                                                             'is_published'          =>  1,
                                                                             'published_at__lt'      =>  new Zend_Db_Expr('NOW()')));
         Centurion_Db_Table_Abstract::restoreFiltersStatus();

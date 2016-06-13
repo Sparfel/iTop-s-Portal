@@ -6,6 +6,17 @@
     
     /*
      *  --- GRID DATAS AND MEDIAS ---
+     *  
+     *  Remarque Jquery 1.11
+     *  $(#caseACocher).attr(checked, checked); //Méthode pour cocher la case à cocher
+		$(#caseACocher).removeAttr(checked); //Méthode pour décocher la case à cocher
+		
+		Ces méthodes existent pour toutes les versions de jQuery mais agir sur l'attribut HTML de la case à cocher ne fonctionne pas dans tous les cas. En effet, lorsque l'internaute a déjà modifié l'état de la case à cocher, ces méthodes ne fonctionnent plus. Il est donc conseillé de modifier la propriété JavaScript de l'objet plutôt que son attribut, à moins que l'on ne soit sûr que l'internaute ne va pas interagir avec la case à cocher.
+		
+		La version 1.6 de jQuery a ajouté la méthode prop() qui permet de modifier n'importe quelle propriété :
+		$(#caseACocher).prop(checked, true); //Méthode pour cocher la case
+		$(#caseACocher).prop(checked, false); //Méthode pour décocher la case
+     *  
      */
     
     $.CUI.Grid = function(el, options){
@@ -26,8 +37,8 @@
             base.nbColTemplate = base.rowTemplate.find("> *").length;
             base.$el.coord = base.$el.offset();                
              
-            $(base.options.filter).find('input[type=submit]').hide();
-            $(base.options.action).find('input[type=submit]').hide();
+            $(base.options.filter).find("input[type='submit']").hide();
+            $(base.options.action).find("input[type='submit']").hide();
             
             if(base.options.callback) {
                 base.options.callback();
@@ -50,21 +61,23 @@
                 .on("click", function() {
                     if($(this).parents(".ui-sortable").length == 0) {
                         if($(this).hasClass("select")) {
-                            $(this).removeClass("select")
-                                   .find("input[type=checkbox]").removeAttr("checked").change();
+                            $(this).removeClass("select").find('input[type="checkbox"]').removeAttr("checked").change();
+                        	
                         } else {
-                            $(this).addClass("select").find("input[type=checkbox]").attr("checked", "checked").change();
+                            //$(this).addClass("select").find('input[type="checkbox"]').attr("checked", "checked").change();
+                            $(this).addClass("select").find('input[type="checkbox"]').prop("checked", "true");
                         }
                     }
+                    
                 });
             base.$el.find('.row').find("a, .switch-1, .switch-0")
                 .on("click", function(event) {
                     var rowEl = $(this).parents('.row');
                     if(rowEl.hasClass("select"))  {
-                        rowEl.removeClass("select").find("input[type=checkbox]").removeAttr("checked");
+                        rowEl.removeClass("select").find('input[type="checkbox"]').removeAttr("checked");
                     }
                     else {
-                        rowEl.addClass("select").find("input[type=checkbox]").attr("checked", "checked");
+                        rowEl.addClass("select").find('input[type="checkbox"]').attr("checked", "checked");
                     }
                     //event.stopPropagation();
                 }); 
@@ -77,11 +90,11 @@
             // select event
             $(base.options.action).find('.dropdown-select').on('click', function(e){
                 if($(e.target).hasClass('checkbox-all')) {
-                    base.$el.find('input[type=checkbox]').attr('checked', $(e.target).attr('checked'));
+                    base.$el.find('input[type="checkbox"]').attr('checked', $(e.target).attr('checked'));
                     if($(e.target).attr('checked')) {
-                        base.$el.find('input[type=checkbox]').parent().parent().addClass('select');
+                        base.$el.find('input[type="checkbox"]').parent().parent().addClass('select');
                     } else {
-                        base.$el.find('input[type=checkbox]').parent().parent().removeClass('select');
+                        base.$el.find('input[type="checkbox"]').parent().parent().removeClass('select');
                     }
                 } else {
                     $(this).find('.picker').show();
@@ -89,16 +102,17 @@
             });
             $(base.options.action).find('.select-all').on('click', function() { 
                     $(base.options.action).find('.checkbox-all').attr('checked', 'checked');
-                    base.$el.find('input[type=checkbox]').each(function(){
+                    base.$el.find('input[type="checkbox"]').each(function(){
                         $(this).parent().parent().addClass('select');
-                        $(this).attr('checked', 'checked');
+                        //$(this).attr("checked", "checked");
+                        $(this).prop("checked", "true");
                         $(base.options.action).find('.picker').hide();
                         });
                     return false;
                 });  
             $(base.options.action).find('a.select-none').on('click', function() {
                     $(base.options.action).find('.checkbox-all').removeAttr('checked');
-                    base.$el.find('input[type=checkbox]').each(function(){
+                    base.$el.find('input[type="checkbox"]').each(function(){
                         $(this).parent().parent().removeClass('select');
                         $(this).removeAttr('checked');
                         $(base.options.action).find('.picker').hide();
@@ -166,7 +180,8 @@
             $(base.options.action).find('.pager a').on("click", function() {
                 //$.history.load('json.html');
                 $.history.load($(this).attr("href"));
-                return false;
+                // To work with Firefox, we have to comment this return with Jquery 1.11
+                //return false;
             });
             
             // sorting event
@@ -204,12 +219,14 @@
                 "class": "reset-filter",
                 "href": "#"
             }).bind("click", function(){
-                $(base.options.filter).find("input:radio, input:checkbox").removeAttr("checked")
-                $(base.options.filter).find("input:text").val("");
+            	$(base.options.filter).find("input:radio, input:checkbox").removeAttr("checked");
+                //$(base.options.filter).find("input:text").val("");
+                $(base.options.filter).find("input:text").attr("value", "");
                 var url = $(base.options.filter).attr("action") + '?filter[submit]=submit&' + $(base.options.filter).serialize();
                 $.history.load(url);
                 return false;
             }).appendTo($(base.options.filter).find("h2"));
+            
         };
         
 
@@ -270,7 +287,7 @@
                 base.$el.find('.row:even').not('.row-template').addClass('even');
                 base.$el.find('.row:odd').not('.row-template').addClass('odd');
                 
-                if (data.replace != undefined) {
+               if (data.replace != undefined) {
                     $.each(data.replace, function(attrib, element) {
                         $(element[0]).html(element[1]);
                     });
@@ -363,11 +380,7 @@
             		 
 	                if(base.options.onclick) { 
 	                    base.options.onclick(base.$el)
-	                 
-	                /*} else if (true){
-	                	alert('ici');
-	                  */ 
-	                
+	              
 	                } else if (base.options.url != undefined) {
 	                    var saveThis = this;
 	                    $.ajax({
