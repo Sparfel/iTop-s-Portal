@@ -2,14 +2,17 @@
 
 if (isset($_SERVER['REDIRECT_URL'])) {
 	$url = $_SERVER['REDIRECT_URL'];
+	
 } else if (isset($_SERVER['REQUEST_URI'])) {
 	$url = $_SERVER['REQUEST_URI'];
 } else {
 	$url = null;
 }
 
+//For IIS, we have to do this because we have the step parameter into $url
+$Aurl = explode('?',$url);
 if (isset($_GET['step']) AND $_GET['step'] == -1 ) {
-	if (null !== $url && $url == '/test_redirect/') {
+	if (null !== $url && $Aurl[0] == '/test_redirect/') {
 		echo 'Mod_Rewrite works!';
 	} else {
 		echo 'Mod_Rewrite does not works';

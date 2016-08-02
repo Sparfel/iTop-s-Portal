@@ -18,7 +18,8 @@ include_once __DIR__ . '/../../../library/Centurion/Config/Directory.php';
 include_once __DIR__ . '/../../../library/Centurion/Iterator/Directory.php';
 include_once __DIR__ . '/../../../library/Zend/Config/Ini.php';
 
-$config = Centurion_Config_Directory::loadConfig(__DIR__ . '/../../../application/configs', getenv('APPLICATION_ENV'));
+//$config = Centurion_Config_Directory::loadConfig(__DIR__ . '/../../../application/configs', getenv('APPLICATION_ENV'));
+$config = Centurion_Config_Directory::loadConfig(__DIR__ . '/../../../application/configs', 'production');
 include_once __DIR__ . '/../../../library/Zend/Application/Resource/Db.php';
 include_once __DIR__ . '/../../../library/Zend/Db.php';
 

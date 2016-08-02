@@ -639,11 +639,10 @@ section .content {
 section {padding:0 0 30px 0; 
 	position:relative;
 	zoom:1; 
-	z-index:10000
-	max-width:1040px;
+	z-index:10000;
+	max-width:1600px;
+	/*max-width:1040px;*/
 	margin:0 auto;
-	
-	 max-width:1040px;
 	margin:0 auto;
 	
   }
@@ -725,7 +724,8 @@ form.form-highlight
 /* Listes à puces */
 
 
-section  ul {
+section  ul 
+ {
 	/*list-style-image : url("./images/puce.png");*/
 	margin-left:20px;
 	margin-right:0px;
@@ -733,7 +733,9 @@ section  ul {
    	list-style-position: outside;
 }
 
-section li.list {list-style-image : url("./images/puce.png");}
+/*on met des puces dans les journal public*/
+section li.list, #accordion_content ul
+{list-style-image : url("./images/puce.png");}
 
 section  ul.attachment {
 	/*list-style-image : url("./images/ul_attachment.png");*/

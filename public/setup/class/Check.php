@@ -6,7 +6,8 @@ class Check {
 	public $_checklist = array();
 
 	protected $_phpVersion = null;
-	protected $_apacheVersion = null;
+	protected $_webServerVersion = null;
+	protected $_webServer = null;
 	protected $_hasZend = null;
 	protected $_hasCenturion = null;
 	protected $_hasPortal = null;
@@ -101,12 +102,13 @@ class Check {
 		//TODO: check memory limit
 	}
 
+	//Modification for Microsoft IIS, not only Apache
 	protected function _checkApache()
 	{
+		//echo $_SERVER['SERVER_SOFTWARE'].'<br>';
+		$this->_webServerVersion = $_SERVER['SERVER_SOFTWARE'];
 
-		$this->_apacheVersion = $_SERVER['SERVER_SOFTWARE'];
-
-		if ($this->_apacheVersion == 'Apache') {
+		if ($this->_webServerVersion == 'Apache') {
 			$this->_checklist[] = array(
 					'code' => 1,
 					'canBeBetter' => true,
@@ -115,20 +117,24 @@ class Check {
 					'alt' => 'Apache version is <strong>unknown</strong>. Please verify manually that your are above 2.0',
 			);
 		} else {
-			if (false !== ($pose = strpos($this->_apacheVersion, ' '))) {
-				$this->_apacheVersion = substr($this->_apacheVersion, 0, $pose);
+			if (false !== ($pose = strpos($this->_webServerVersion, ' '))) {
+				$this->_webServerVersion = substr($this->_webServerVersion, 0, $pose);
+				
 			}
 
-			if (false !== ($pose = strpos($this->_apacheVersion, '/'))) {
-				$this->_apacheVersion = substr($this->_apacheVersion, $pose + 1);
+			if (false !== ($pose = strpos($this->_webServerVersion, '/'))) {
+				$this->_webServerVersion = substr($this->_webServerVersion, $pose + 1);
+				$this->_webServer = substr($_SERVER['SERVER_SOFTWARE'], 0, $pose );
+				//echo $this->_webServer.' - '.$this->_webServerVersion;
 			}
 
-			if (version_compare($this->_apacheVersion, '2.') >= 0) {
+			
+			if (version_compare($this->_webServerVersion, '2.') >= 0) {
 				$this->_checklist[] = array(
 						'code' => 1,
 						'canBeBetter' => false,
 						'isNotSecure' => false,
-						'text' => 'Apache version is <strong>'  . $this->_apacheVersion . '</strong>',
+						'text' => $this->_webServer.' version is <strong>'  . $this->_webServerVersion . '</strong>',
 						'alt' => '',
 				);
 			} else {
@@ -136,7 +142,7 @@ class Check {
 						'code' => 0,
 						'canBeBetter' => true,
 						'isNotSecure' => false,
-						'text' => 'Apache version is <strong>'  . $this->_apacheVersion . '</strong>',
+						'text' => $this->_webServer.' version is <strong>'  . $this->_webServerVersion . '</strong>',
 						'alt' => '',
 				);
 			}
