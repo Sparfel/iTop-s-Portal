@@ -75,7 +75,8 @@ class Portal_File_System
 		}
 
 		unset($iterator);
-
+		//usefull on IIS else Permission denied !
+		chdir("/");
 		return rmdir($dirname);
 	}
 }
