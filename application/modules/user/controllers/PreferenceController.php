@@ -11,10 +11,13 @@ class User_PreferenceController extends Centurion_Controller_Action
 		//Zend_Layout::getMvcInstance()->assign('titre', 'Atelys - Vos tableaux de bord');
 		//$session = new Zend_Session_Namespace('Zend_Auth');
 		//$this->_org_id = $session->org_id;
+		//$this->_helper->layout->setLayout('admin');
+		
 	
 	}
 
 	public function indexAction(){
+		echo 'Ici !';
 		$session = new Zend_Session_Namespace('Zend_Auth');
 		/*$formPref = new Syleps_Form_Preference($session->filter->locationList, //$tab_location_list,
 				$session->filter->yearList, //$tab_year,
