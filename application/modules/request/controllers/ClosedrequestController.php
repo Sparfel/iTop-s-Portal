@@ -14,14 +14,8 @@ class Request_ClosedrequestController extends Centurion_Controller_Action
  	
 	public function init() {
     	Zend_Layout::getMvcInstance()->assign('titre', $this->view->translate('Vos incidents fermés'));
-    	
-    	
-    	
-    	 
     	$session = new Zend_Session_Namespace('Zend_Auth');
-    	
     	$this->_org_id = $session->pref->_org_id;
-    	
     	$this->_fields = array ( 
     							array
     								('field' => 'ref',
@@ -179,40 +173,31 @@ class Request_ClosedrequestController extends Centurion_Controller_Action
        	}
     }
    public function getdataAction()
-	{
-		
-		$this->_helper->viewRenderer->setNoRender(true);
+	{	$this->_helper->viewRenderer->setNoRender(true);
 	    // pas de layout autour
     	$this->_helper->layout()->disableLayout();
 		//if($this->getRequest()->isXmlHttpRequest()) {
-	    	$sEcho  = $this->getRequest()->getParam("sEcho");
-	        $start  = ($this->getRequest()->has("iDisplayStart")) ? $this->getRequest()->getParam("iDisplayStart") : 0;
-	        $offset = ($this->getRequest()->has("iDisplayLength")) ? $this->getRequest()->getParam("iDisplayLength") : 10;
-	        $colnum = $this->getRequest()->getParam("iColumns");
-	        $field_list = '';
-	        foreach ($this->_fields as $field) {
-	        	$field_list .= $field['field'].',';
-	        }
-	        
-	        $session = new Zend_Session_Namespace('Zend_Auth');
-	        $webservice = $this->_helper->getHelper('ItopWebservice');
-	        
-	        $tab_result = $webservice->getListClosedRequest($this->_org_id,$session->pref,$session->ASearchCriteria);
-	        //Zend_Debug::dump($tab_filter);
-	        $this->_list_userRequest = $tab_result;
-	       
-	        //print_r($field);
-	 		$response = array(
-	          "iTotalRecords"           => 1, //$datas->getTableDataCount(),
-	          "iTotalDisplayRecords"    => count($tab_result),
-	          "sEcho"                   => (int)$sEcho,
-	          "sColumns"                => $field_list,
-	          "aaData"                  =>  $tab_result//$data->toArray()
-	        );
-	 		//print_r($response);
-	        return $this->_helper->json($response);
-    //};
-	}
+    	$sEcho  = $this->getRequest()->getParam("sEcho");
+        $start  = ($this->getRequest()->has("iDisplayStart")) ? $this->getRequest()->getParam("iDisplayStart") : 0;
+        $offset = ($this->getRequest()->has("iDisplayLength")) ? $this->getRequest()->getParam("iDisplayLength") : 10;
+        $colnum = $this->getRequest()->getParam("iColumns");
+        $field_list = '';
+        foreach ($this->_fields as $field) {
+        	$field_list .= $field['field'].',';
+        }
+        $session = new Zend_Session_Namespace('Zend_Auth');
+        $webservice = $this->_helper->getHelper('ItopWebservice');
+        $tab_result = $webservice->getListClosedRequest($this->_org_id,$session->pref,$session->ASearchCriteria);
+        $this->_list_userRequest = $tab_result;
+      	$response = array(
+          "iTotalRecords"           => 1, //$datas->getTableDataCount(),
+          "iTotalDisplayRecords"    => count($tab_result),
+          "sEcho"                   => (int)$sEcho,
+          "sColumns"                => $field_list,
+          "aaData"                  =>  $tab_result//$data->toArray()
+        );
+ 		return $this->_helper->json($response);
+    }
 	
 	//modification des filtres => svg en variable globale et regénération du tableau Datatable
 	public function changefilterAction(){
@@ -254,7 +239,32 @@ class Request_ClosedrequestController extends Centurion_Controller_Action
 		echo $data;
 	}
 	
-
+	//Action for files download, Attachment
+	public function downloadAction()
+	{
+		$this->view->layout()->disableLayout();
+		$this->_helper->viewRenderer->setNoRender(true);
+		$attachedfile_index = $this->_getParam('attachedfile_index');
+		$attachedfile_id = $this->_getParam('attach_id');
+		$idRequest = $this->_getParam('id');
+	
+		$session = new Zend_Session_Namespace('Zend_Auth');
+		//Request is loaded in Session, we verify that we are downloading his attachement => they are already in Session
+		if ($idRequest == $session->Attachments->_idR)
+		{$OAttachment = $session->Attachments->_Aattachment[$attachedfile_index];}
+		else //Else we get the attachment through the Weservice
+		{
+			$webservice = Zend_Controller_Action_HelperBroker::getStaticHelper('ItopWebservice');
+			$OAttachment = $webservice->getAttachmentPerId($attachedfile_id,$session->pref->_org_id);
+		}
+		$this->getResponse()
+		->setHeader('Content-Type', 'text/html;charset=iso-8859-1')
+		->setHeader('Content-Type',$OAttachment->_mimetype)
+		//->setHeader('Content-Transfer-Encoding', Binary)
+		->setHeader('Content-Disposition:attachment', $OAttachment->_filename)
+		//->setHeader("Cache-Control: must-revalidate, post-check=0, pre-check=0")
+		->appendBody(base64_decode($OAttachment->_data)); // required for certain browsers
+	}
 	
 	
 	
