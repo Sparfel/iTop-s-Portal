@@ -127,8 +127,7 @@ class Centurion_Config_Directory
 
             return $config;
         }
-        //throw new Centurion_Exception('Path must be a directory', 500);
-        throw new Zend_Exception();
+        throw new Centurion_Exception('Path must be a directory', 500);
     }
 
     /**

@@ -48,7 +48,7 @@ class Centurion_ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_A
             'Variables' => null,
             'Time' => null,
             'Memory' => null),
-        'z-index'           => 10255, //$MOD Emmanuel Lozachmeur, to be sure to see it anyway !
+        'z-index'           => 255,
         'jquery_path'       => 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js',
         'image_path'        => null
     );

@@ -37,6 +37,7 @@ class Centurion_Controller_Action_Helper_GetObjectOr404 extends Zend_Controller_
      */
     public function direct($objectTable, array $params = array())
     {
+    	
         if (is_string($objectTable)) {
             $objectTable = Centurion_Db::getSingleton($objectTable);
          } elseif (!($objectTable instanceof Centurion_Db_Table_Abstract)
@@ -45,13 +46,14 @@ class Centurion_Controller_Action_Helper_GetObjectOr404 extends Zend_Controller_
         }
         
         try {
+        	
             $row = $objectTable->get($params);
         } catch (Centurion_Db_Table_Row_Exception_DoesNotExist $e) {
             throw new Zend_Controller_Action_Exception(sprintf('No %s matches the given query %s.',
                                                                get_class($objectTable),
                                                                implode(', ', $params)), 404);
         }
-        
+        //Zend_Debug::dump($row);
         return $row;
     }
 }

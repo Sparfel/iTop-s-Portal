@@ -1,0 +1,85 @@
+<?php
+$this->gridForm()->addHeader($this->form, array(
+    'elements' =>  array('name'),
+));
+
+$this->gridForm()->addMain($this->form, array(
+    'elements'      => array('dashboard','description','source','parameter','type','order','size','is_active'),
+    'noFieldset'    => false
+));
+
+echo $this->partial('grid/_form.phtml', $this);
+
+?>
+
+
+<style>
+#help UL {List-Style-Type: Square;
+	padding-left : 30px;}
+#help UL UL {List-Style-Type: Disc;
+	 margin-left: 40px;}
+	 
+#help p {text-align : justify;	
+}
+
+#help h3{ padding-top:15px;
+}
+
+</style>
+
+<div id="help">
+<h2>Aide sur le paramétrage</h2>
+<p>Il y a plusieurs types de Widget et selon le type; les paramètres en entrée seront différents. Actuellement, nous gérons les widgets :</p>
+<ul>
+<li> Pie : le camembert,</li>
+<li> Table : le tableau listant des données simples,</li>
+<li> Text : du texte avec ou non une mise en forme,</li>
+<li> Flatpage : une page Html élaborer à partir du module CMS.
+</ul>
+<br/>
+<p>Pour renseigner correctement cela, des connaissances sur le code sont nécessaires : connaitre les fonctions internes du Webservices ainsi
+que savoir ce qu'est un tableau au format JSON. 
+Aucun contrôle des données saisies n'est effectué, c'est pourquoi ce paramétrage peut s'avérer délicat ...</p>
+ 
+ <div style="clear:both"></div>
+<h3>Pie (Camembert) :</h3>
+<ul>
+<li >Source : la fonction Webservice du portail utilisée pour récupérer les données,</li>
+<li >Parameter : un tableau JSON contenant 2 cases :
+	<ul>
+	<li><i>count_attribute</i> : l'attribut sur lequel on effectue les cumuls (l'attribut doit forcément être ramené par la requête du Webservice</li>
+	<li><i>where</i>:l'éventuelle clause where, permet d'exclure des données si nécessaire</li>
+	</ul>
+</li>
+</ul>
+<p> <i>Exemple :</i> {"count_attribute":"status","where":"status !='closed'"}
+<br/>
+<i>Résultat : </i>On cumule les tickets selon leurs statuts à l'exception des tickets fermés qui sont exclus de la requêtes.</p>
+<h3>Table (Tableau) :</h3>
+<ul>
+<li >Source : la fonction Webservice du portail utilisée pour récupérer les données,</li>
+<li >Parameter : un tableau JSON contenant 2 cases :
+	<ul>
+	<li><i>field</i> : le champ que l'on souhaite voir apparaitre (ce champ est un attribut qui doit forcément être ramené par la requête du Webservice</li>
+	<li><i>label</i> : le nom utilisé en entête du champ</li>
+	</ul>
+</li>
+</ul>
+<p> <i>Exemple :</i> [{"field":"ref","label":"User Request"},{"field":"title","label":"Title"},{"field":"start_date","label":"Started"}]
+<br/>
+<i>Résultat : </i>le tableau affichera l'identifiant, le titre et la date de début avec les entêtes 'User Request', 'Title' et 'Started'.</p>
+
+<h3>Text (Texte) :</h3>
+<ul>
+<li >Source : vide, ne rien mettre</li>
+<li >Parameter : le texte (html ou pas) que l'on souhaite voir apparaitre.</li>
+</ul>
+
+<h3>Flatpage (Page conçue à partir du module CMS, Flatpage) :</h3>
+<ul>
+<li >Source : vide, ne rien mettre</li>
+<li >Parameter : l'identifiant de la Flatpage à afficher.</li>
+</ul>
+
+
+</div>

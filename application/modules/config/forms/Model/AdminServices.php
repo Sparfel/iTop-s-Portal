@@ -4,7 +4,8 @@ class Config_Form_Model_AdminServices extends Centurion_Form_Model_Abstract
 {
     public function __construct($options = array())
     {
-        $this->_model = Centurion_Db::getSingleton('config/services');
+        //$this->_model = Centurion_Db::getSingleton('config/services');
+        $this->_model = Centurion_Db::getSingleton('Portal/ServiceConfig');
         
         $this->_exclude = array('id', 'created_at', 'updated_at');        
         

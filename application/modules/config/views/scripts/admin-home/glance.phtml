@@ -1,0 +1,23 @@
+<div class="box-dashboard box-dashboard-glance">
+    <h2><?php echo $this->translate('Your site at a glance'); ?></h2>
+    <div class="glance">
+        <?php foreach ($this->glanceData as $key => $data): ?>
+            <div class="<?php echo ($key < 2 ? 'first' : ''); ?>">
+                <span class="col">
+                    <span class="number <?php echo (isset($data['highlight']) && $data['highlight'] ? 'number-blue' : 'number-silver'); ?>"><?php echo $data['count']; ?></span>
+                </span>
+                <a class="edit" href="<?php echo (isset($data['url']) && $data['url'] ? $data['url'] : '#'); ?>"><?php echo $data['label']; ?></a>
+    
+                <?php if (isset($data['actionUrl']) && $data['actionUrl'] && isset($data['actionLabel']) && $data['actionLabel']) : ?>
+                    <a href="<?php echo $data['actionUrl']; ?>" class="create">
+                        <span class="ui-icon ui-icon-gray ui-icon-plus"></span>
+                        <span class="text"><?php echo $data['actionLabel']; ?></span>
+                    </a>
+                <?php endif; ?>
+            </div>
+        <?php if (0 == ($key + 1) % 2) : ?>
+            <div class="clear"></div>
+        <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+</div>

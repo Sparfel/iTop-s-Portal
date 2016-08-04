@@ -88,7 +88,7 @@ class Translation_Bootstrap extends Centurion_Application_Module_Bootstrap
        $application->bootstrap('router');
        $router = $application->getResource('router');
 
-       //Zend_Debug::dump($router->getRoute('home')->getRoute('language'));
+       //Zend_Debug::dump($router->getRoute('home'));//->getRoute('language'));
        //Zend_Debug::dump(array_keys($router->getRoutes()));
        //die();
        $routeLang = $router->getRoute('language_unchained');

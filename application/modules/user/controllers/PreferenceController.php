@@ -17,7 +17,6 @@ class User_PreferenceController extends Centurion_Controller_Action
 	}
 
 	public function indexAction(){
-		echo 'Ici !';
 		$session = new Zend_Session_Namespace('Zend_Auth');
 		/*$formPref = new Syleps_Form_Preference($session->filter->locationList, //$tab_location_list,
 				$session->filter->yearList, //$tab_year,

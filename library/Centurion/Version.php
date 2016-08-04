@@ -26,8 +26,11 @@
  */
 final class Centurion_Version
 {
-    const VERSION = '0.4';
-
+    const VERSION = '0.4b';
+	//$MOD Emmanuel Lozachmeur, I've made some changes and updgrades.
+	// so, I've give to it another version to make the distinction between this Centurion library and 
+	// the Official Centuion library 0.4 available on GitHub.
+    
     /**
      * The latest stable version Zend Framework available
      *

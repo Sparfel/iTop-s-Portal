@@ -52,9 +52,7 @@ class Auth_Form_Model_User extends Centurion_Form_Model_Abstract
             'email'             =>  $this->_translate('Email'),
             'user_parent_id'    =>  $this->_translate('User parent'),
             'can_be_deleted'    =>  $this->_translate('Can be deleted'),
-            //'is_staff'          =>  $this->_translate('Is staff'),
-        	// $MOD Emmanuel Lozachmeur, Switch between the 2 iTop
-        	'is_staff'          =>  $this->_translate('iTop Production'),
+            'is_staff'          =>  $this->_translate('Is staff'),
             'is_active'         =>  $this->_translate('Is active'),
             'is_super_admin'    =>  $this->_translate('Is super admin'),
             'groups'            =>  $this->_translate('Groups'),
@@ -72,13 +70,12 @@ class Auth_Form_Model_User extends Centurion_Form_Model_Abstract
     public function init()
     {
         parent::init();
-
+		// $MOD Emmanuel Lozachmeur, login may be an Email Address, we add '@' to the regex.
         $this->getElement('username')->addValidators(array(
-       		//$MOD Emmanuel Lozachmeur, We allow special characters
-            /*array('Regex',
-                  false, 
-                  array('/^[a-z][a-z0-9._]{2,}$/i',
-                        'messages' => array('regexNotMatch' => $this->_translate('Special characters are not allowed')))),*/
+            array('Regex',
+                  false,
+                  array('/^[a-z][a-z0-9._@]{2,}$/i',
+                        'messages' => array('regexNotMatch' => $this->_translate('Special characters are not allowed')))),
             array(new Centurion_Form_Model_Validator_AlreadyTaken('auth/user', 'username')),
         ));
 
@@ -92,7 +89,8 @@ class Auth_Form_Model_User extends Centurion_Form_Model_Abstract
                  ->setLabel($this->_translate('Password confirmation'))
                  ->setName('password_again');
 
-        $this->getElement('email')->addValidator(new Centurion_Form_Model_Validator_AlreadyTaken('auth/user', 'email'));
+        //$MOD Emmanuel Lozachmeur, we allow to have more than one account with the same Email (for Admin only !)
+        //$this->getElement('email')->addValidator(new Centurion_Form_Model_Validator_AlreadyTaken('auth/user', 'email'));
 
         $email = clone $this->getElement('email');
         $email->addValidator(new Centurion_Validate_IdenticalField('email', 'Email'))
@@ -146,8 +144,9 @@ class Auth_Form_Model_User extends Centurion_Form_Model_Abstract
                 $this->getElement('email_again')->setValue($this->getElement('email')->getValue());
             }
 
-            $this->getElement('email')->getValidator('Centurion_Form_Model_Validator_AlreadyTaken')
-                                      ->setParams(array('!id' => $this->getInstance()->id));
+            //$MOD Emmanuel Lozachmeur, we allow to have more than one account with the same Email (for Admin only !)
+            //$this->getElement('email')->getValidator('Centurion_Form_Model_Validator_AlreadyTaken')
+            //                          ->setParams(array('!id' => $this->getInstance()->id));
 
             if ($this->getElement('password')) {
                 $this->getElement('password')->setValue(null)

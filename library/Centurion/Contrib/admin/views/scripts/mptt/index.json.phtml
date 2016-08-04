@@ -17,7 +17,6 @@
                 <?php else: ?>
                     &nbsp;
                 <?php endif; ?>
-                <!-- <span class="switch-selected switch-<?php echo $page->{$this->publishColumn} ?>">selected</span>-->
                 </div>
                 <?php if (isset($this->publishDateColumn) && null !== $page->{$this->publishDateColumn}):
                 $date = $page->getDateObjectBy($this->publishDateColumn);

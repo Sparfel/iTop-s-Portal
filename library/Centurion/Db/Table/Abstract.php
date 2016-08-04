@@ -791,6 +791,7 @@ abstract class Centurion_Db_Table_Abstract extends Zend_Db_Table_Abstract implem
     {
         $object = $this->filter($kwargs);
 
+        //Zend_Debug::dump($object);
         $num = $object->count();
 
         if ($num === 1) {
@@ -820,7 +821,7 @@ abstract class Centurion_Db_Table_Abstract extends Zend_Db_Table_Abstract implem
         if (null === $select) {
             $select = $this->select(true);
         }
-
+		
         return $select->filter($kwargs)->fetchAll();
     }
 
