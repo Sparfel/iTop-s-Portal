@@ -114,7 +114,7 @@ class Request_ClosedrequestController extends Centurion_Controller_Action
 				$ref = $request['ref'];
 				$this->view->ref = $ref;
 				$this->view->request = $request;
-				$ListAttachment = new Portal_Request_Attachments($request['id']);
+				$ListAttachment = new Portal_Itop_Request_Attachments($request['id']);
 				$this->view->attached_files = $ListAttachment->_Aattachment;
        		}
        	}

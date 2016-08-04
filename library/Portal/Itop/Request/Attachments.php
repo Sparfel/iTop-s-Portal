@@ -1,6 +1,6 @@
 <?php
 // Classe utilisée pour gérer les PJ de manière unitaire
-class Portal_Request_Attachments {
+class Portal_Itop_Request_Attachments {
 	
 	public $_ref; // Référence de l'objet auquel sont rattachées les PJ
 	public $_idR; // ID de l'objet auquel sont rattachées les PJ
@@ -31,7 +31,7 @@ class Portal_Request_Attachments {
 						$data = $attach['contents']['data'];
 						$filename = $attach['contents']['filename'];
 						$mimetype = $attach['contents']['mimetype']; 
-						$Oattachment = new Portal_Request_Attachment($id, $temp_id, $item_class, $item_id, $item_org_id, $friendlyname, $mimetype, $filename, $data);
+						$Oattachment = new Portal_Itop_Request_Attachment($id, $temp_id, $item_class, $item_id, $item_org_id, $friendlyname, $mimetype, $filename, $data);
 						$this->_Aattachment[$i] = $Oattachment;
 						$i++;
 					}

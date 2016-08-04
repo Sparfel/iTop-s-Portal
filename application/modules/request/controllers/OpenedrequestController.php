@@ -117,6 +117,8 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
     	 */
 		if (isset($id)) {
 			$this->view->headScript()->appendFile('/layouts/frontoffice/js/jquery.MultiFile.js');
+			$this->view->headScript()->appendFile('/cui/plugins/ckeditor/ckeditor.js');
+			$this->view->headScript()->appendFile('/cui/plugins/ckeditor/adapters/jquery.js');
 			//Style for the tool to print the Request
 			$this->view->headLink()->appendStylesheet('/layouts/frontoffice/css/datatable/dataTables.tableTools.css');
 			
@@ -141,8 +143,14 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 				
 				$this->view->ref = $ref;
 				$this->view->request = $WSrequest;
+				$itop_version = 2.1; // description et log au format html
+				if ($itop_version >= 2.3) {
+					new Portal_Request_HtmlContent($WSrequest);
+					$this->view->request['description'] = null;
+					
+				}
 				
-				$ListAttachment = new Portal_Request_Attachments($WSrequest['id']);
+				$ListAttachment = new Portal_Itop_Request_Attachments($WSrequest['id']);
 				$this->view->attached_files = $ListAttachment->_Aattachment;
 				// Depends on Request's Status, we allow the caller to solve himself the request
 				// See ticket Life Cycle to configure this.
@@ -173,6 +181,8 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 			else {
 				$updateRequestForm = null;
 			}
+			
+			
 			$this->view->updateRequestForm = $updateRequestForm;
 		}
        	/*

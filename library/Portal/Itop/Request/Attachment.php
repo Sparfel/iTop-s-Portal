@@ -1,6 +1,6 @@
 <?php
 // Classe utilisée pour gérer les PJ de manière unitaire
-class Portal_Request_Attachment {
+class Portal_Itop_Request_Attachment {
 	
 	public $_id; // Id de la pièce jointe
 	public $_temp_id; // Id temporaire

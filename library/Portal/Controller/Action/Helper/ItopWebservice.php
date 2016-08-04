@@ -347,7 +347,7 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 		$i = 0;
 		if (count($results['objects'])>0)
 			{foreach ($results['objects'] as $result) {
-				$Oattach = new Portal_Request_Attachment($result['fields']['id'], 
+				$Oattach = new Portal_Itop_Request_Attachment($result['fields']['id'], 
 														$result['fields']['temp_id'], 
 														$result['fields']['item_class'],
 														$result['fields']['item_id'], 

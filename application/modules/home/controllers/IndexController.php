@@ -162,6 +162,7 @@ class Home_IndexController extends Centurion_Controller_Action
 
 			//Création du catalogue de Services.
 			$catalog = new Portal_Itop_ServicesCatalog($session->pref->_org_id);
+			//Zend_Debug::dump($catalog);
 			$session->ServiceCatalog = $catalog; // On le conserve en global
 			$this->view->nbServices = $catalog->_nb_services;
 			$this->view->ServicesList = $catalog->_list_services;

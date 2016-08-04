@@ -1,0 +1,283 @@
+<?php
+if (is_array($this->request))
+	{
+		$data = $this->request;
+		echo '<TABLE class="gridtable">';
+		echo '<tr>';
+		echo '<td class="half">';
+			echo '<TABLE class="gridtable">';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Référence').'</b></td>';
+			echo '<td class="content">'.$data['ref'].'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Caller').'</b></td>';
+			echo '<td class="content">'.$data['caller_id_friendlyname'].'</td>';
+			echo '</tr>';
+			//echo '<tr>';
+			//echo '<td class="title"><b>'.$this->translate('Location').'</b></td>';
+			//echo '<td class="content">'.$data['site_name'].'</td>';
+			//echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Service').'</b></td>';
+			echo '<td class="content">'.$data['service_name'].'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Title').'</b></td>';
+			echo '<td class="content">'.$data['title'].'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Agent').'</b></td>';
+			echo '<td class="content">'.$data['agent_id_friendlyname'].'</td>';
+			echo '</tr>';
+			
+			//Selon l'état du ticket, on affichera des informations complémentaires
+			// ticket résolu ? => On affichera le code de résolution et la solution
+			if ($data['status'] == 'resolved') 
+				{
+				echo '<tr>';
+				echo '<td class="title"><b>'.$this->translate('Resolution Code').'</b></td>';
+				echo '<td class="content">'.$this->translate($data['resolution_code']).'</td>';
+				echo '</tr>';
+				echo '<tr>';
+				echo '<td class="title"><b>'.$this->translate('Solution').'</b></td>';
+				echo '<td class="content">'.$data['solution'].'</td>';
+				echo '</tr>';
+				}
+			else if ($data['status'] == 'pending') {
+				echo '<tr>';
+				echo '<td class="title"><b>'.$this->translate('Pending Reason').'</b></td>';
+				echo '<td class="content">'.$data['pending_reason'].'</td>';
+				echo '</tr>';
+				}
+			echo '</TABLE>';
+		echo '</td>';
+		
+		echo '<td class="half">';
+			echo '<TABLE class="gridtable">';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Status').'</b></td>';
+			echo '<td class="content">'.$this->translate($data['status']).'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Priority').'</b></td>';
+			echo '<td class="content">'.$this->translate($data['priority']).'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Request Type').'</b></td>';
+			echo '<td class="content">'.$this->translate($data['request_type']).'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Hot Flag').'</b></td>';
+			echo '<td class="content">-</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Start Date').'</b></td>';
+			echo '<td class="content">'.$data['start_date'].'</td>';
+			echo '</tr>';
+			echo '<tr>';
+			echo '<td class="title"><b>'.$this->translate('Last Update').'</b></td>';
+			echo '<td class="content">'.$data['last_update'].'</td>';
+			echo '</tr>';
+			if ($data['status'] == 'resolved') {
+				echo '<tr>';
+				echo '<td class="title"><b>'.$this->translate('Resolution Date').'</b></td>';
+				echo '<td class="content">'.$data['resolution_date'].'</td>';
+				echo '</tr>';
+			}
+			echo '</TABLE>';
+		echo '</td>';
+		echo '</tr>';
+		
+		echo '<tr >';
+		echo '<td colspan="2" class="full">';
+		echo '<table class="gridtable">';
+			echo '<tr>';
+			echo '<td class="title" style="width:3%;"><b>'.$this->translate('Description').'</b></td>';
+			echo '<td class="content" colspan="3">'.htmlspecialchars_decode($data['description']).'</td>';
+			echo '</tr>';
+		echo '</table>';
+		echo '</td>';
+		echo '</tr>';
+		echo '</table>';
+		
+		// Raison de suspension sous le menu.
+		$this->placeholder('aside')->captureStart();
+		
+		$helperUrl = new Zend_View_Helper_Url ( );
+		$ContinuerLink = $helperUrl->url ( array ('action' => 'validation') );
+		$impression_link = $helperUrl->url ( array ('controller'=>'pdf','action'=>'imprimer'));
+				
+		echo '<a href="'.$impression_link.'" target="_black" class="DTTT_button DTTT_button_print" style="z-index:3000;"><span>'.$this->translate('Imprimer').'</span></a>';
+		
+		$this->placeholder('aside')->captureEnd();
+		
+		
+	
+		//echo $this->translate('Public Log');
+		if (is_array($this->attached_files))
+			{if (count($this->attached_files)> 0)
+				{
+					echo '<h4>Pièces attachées au Ticket</h4>';
+					echo '<ul class="attachment">';
+					foreach ($this->attached_files as $key => $attach)
+					{
+						$mimetype = $attach->_mimetype;
+						if ($attach->_filetype=='image') { $preview_class = 'preview';}
+						else {$preview_class = '';}
+						echo '<li class="attachment"><a class="'.$preview_class.'" href="'.
+								$this->url(array('controller' => 'openedrequest', 'action' => 'download', 'module' => 'request','attachedfile_index'=>$key,'attach_id'=>$attach->_id,'filename'=>$attach->_filename), 'default') .'"target="_blank">'.
+								$attach->_filename.
+								'</a></li>';
+					}
+					echo '</ul>';
+					echo '<br>';
+				}
+			}	
+			echo $this->updateRequestForm;
+			?>
+			
+			
+			
+			<script type="text/javascript" >
+
+			jQuery(document).ready( function() {
+				
+				jQuery(function(){ // wait for document to load 
+					jQuery('#tab_files-0').MultiFile({ 
+				  STRING: {
+				   file: '<em title="Click to remove" onclick="$(this).parent().prev().click()">$file</em>',
+				   remove: '<img src="/layouts/frontoffice/images/delete-icon.png" height="16" width="16" alt="x"/>'
+				  }
+				 });
+
+				/*Config */
+				xOffset = 10;
+				yOffset = 30;
+				
+				// these 2 variable determine popup's distance from the cursor
+				// you might want to adjust to get the right result
+					
+				/* END CONFIG */
+				jQuery("a.preview").hover(function(e){
+					this.t = this.title;
+					this.title = "";	
+					//alert(this.href);
+					var c = (this.t != "") ? "<br/>" + this.t : "";
+					jQuery("body").append("<p id='preview'><img style='max-height:300px;' src='"+ this.href +"' alt='Prévisualisation' />"+ c +"</p>");	
+					//$("body").append("<p id='preview'><iframe src='"+ this.href +"' alt='Prévisualisation' /></iframe>"+ c +"</p>");
+												 
+					jQuery("#preview")
+						.css("top",(e.pageY - xOffset) + "px")
+						.css("left",(e.pageX + yOffset) + "px")
+						.fadeIn("fast");						
+			   	 	},
+					function(){
+						this.title = this.t;	
+						jQuery("#preview").remove();
+			    	});	
+				jQuery("a.preview").mousemove(function(e){
+					jQuery("#preview")
+						.css("top",(e.pageY - xOffset) + "px")
+						.css("left",(e.pageX + yOffset) + "px")
+					});		
+				});
+	
+	 		
+	 		jQuery('#accordion').accordion({
+			        collapsible:true,
+			        heightStyle: "content",
+			        beforeActivate: function(event, ui) {
+			             // The accordion believes a panel is being opened
+			            if (ui.newHeader[0]) {
+			                var currHeader  = ui.newHeader;
+			                var currContent = currHeader.next('.ui-accordion-content');
+			             // The accordion believes a panel is being closed
+			            } else {
+			                var currHeader  = ui.oldHeader;
+			                var currContent = currHeader.next('.ui-accordion-content');
+			            }
+			             // Since we've changed the default behavior, this detects the actual status
+			            var isPanelSelected = currHeader.attr('aria-selected') == 'true';
+			            
+			             // Toggle the panel's header ( ui-state-active devient  ui-state pour ne pas mettre en blanc et ne pas toucher au css
+			            currHeader.toggleClass('ui-corner-all',isPanelSelected).toggleClass('accordion-header-active ui-state-active ui-corner-top',!isPanelSelected).attr('aria-selected',((!isPanelSelected).toString()));
+			            
+			            // Toggle the panel's icon
+			            currHeader.children('.ui-icon').toggleClass('ui-icon-triangle-1-e',isPanelSelected).toggleClass('ui-icon-triangle-1-s',!isPanelSelected);
+			            
+			             // Toggle the panel's content
+			            currContent.toggleClass('accordion-content-active',!isPanelSelected)    
+			            if (isPanelSelected) { currContent.slideUp(); }  else { currContent.slideDown(); }
+		
+			            return false; // Cancels the default action
+			        }
+			    });
+			});
+		</script>
+		
+		<?php 
+		echo $this->form;
+		echo '</div>';
+		echo '<div id="accordion">';
+		arsort($data['public_log']['entries']);
+		foreach ($data['public_log']['entries'] as $log)
+		{ 
+			echo '<h2>'.$log['user_login'].' a écrit le '.$log['date'].':</h2>';
+			$order   = array("\r\n", "\n", "\r");
+			$replace = '<br />';
+			echo '<p>'.str_replace($order, $replace,htmlspecialchars_decode($log['message'])). '</p>';
+			
+			//echo '<p>'.$log['message']. '</p>';
+			//echo '<div id="log">'.htmlspecialchars_decode($log['message_html']). '</div>';
+			
+			
+		}
+		echo '</div>';		
+	}
+
+?>
+
+<?php 
+//Zend_Debug::dump($data);
+/*echo '<hr>';
+
+//Zend_Debug::dump($data['description']);
+
+$html_brut = htmlspecialchars_decode($data['description']);
+$nb_img = substr_count($html_brut,'<img src=');
+echo 'Il y a '.$nb_img.' images.<br>';
+
+$Aimg = array();
+$html_read = $html_brut;
+echo strpos($html_read, '>');
+for ($i = 0; $i < $nb_img; $i++) {
+	
+	$Aimg[$i] = strstr(substr($html_read,strpos($html_read, '<img src=')),'>',true).'>';
+	
+	$imgId = strstr(substr($Aimg[$i],strpos($Aimg[$i], 'data-img-id=')),' ',true);
+	$imgId = substr($imgId,strpos($imgId,'"')+1, -1);
+	Zend_Debug::dump($imgId);
+	
+	$imgstyle = strstr(substr($Aimg[$i],strpos($Aimg[$i], 'style=')),' ',true);
+	$imgstyle = substr($imgstyle,strpos($imgstyle,'"')+1, -1);
+	//Zend_Debug::dump($imgstyle);
+	
+	$imgSecret = strstr(substr($Aimg[$i],strpos($Aimg[$i], 'data-img-secret=')),'>',true);
+	$imgSecret = substr($imgSecret,strpos($imgSecret,'"')+1, -1); // We get the Id, +1 to take off the first ", -1 to take off the last "
+	Zend_Debug::dump($imgSecret);
+	
+	$html_read = substr($html_read,strpos($html_read, $Aimg[$i])+ strlen($Aimg[$i]));
+	//$html_read = strstr($html_read,$Aimg[$i]);
+	//echo strpos($html_read, '>').'<br>';
+	
+}
+
+
+/*echo strpos($html_brut, '<img src=');
+echo '<br>';
+$image =  'image : '.strstr(substr($html_brut,strpos($html_brut, '<img src=')),'>',true);*/
+//Zend_Debug::dump($Aimg);
+
+
+?>

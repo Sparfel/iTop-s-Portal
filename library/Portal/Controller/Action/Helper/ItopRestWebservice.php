@@ -60,8 +60,11 @@ class Portal_Controller_Action_Helper_ItopRestWebservice extends Zend_Controller
 				$format.'&fields='.
 				$fields.'&login_mode=basic';
 		//Zend_Debug::dump($url);
+		
+		
 		try{
 			$html = file_get_contents($url);
+			//Zend_Debug::dump($html);
 			$xml = simplexml_load_string($html);
 
 			$result = $xml;
@@ -103,6 +106,9 @@ class Portal_Controller_Action_Helper_ItopRestWebservice extends Zend_Controller
 	function xmlToArray($xml){
 		$tab_result = Array();
 		$i = 0;
+		//Zend_Debug::dump($xml);
+		$tab_result = array();
+		if ($xml) {
 		foreach($xml->children() as $row) {
 				
 			foreach($row->children() as $child) {
@@ -117,7 +123,7 @@ class Portal_Controller_Action_Helper_ItopRestWebservice extends Zend_Controller
 				//print_r($tab_result);
 			}
 			$i++;
-		}
+		}}
 		return $tab_result;
 	}
 	
@@ -126,7 +132,7 @@ class Portal_Controller_Action_Helper_ItopRestWebservice extends Zend_Controller
 	 * 
 	 */
 	
-	function getInfoService() {
+	function getInfoService2() {
 		$query = "SELECT SF,S,CC,SC FROM ServiceContract AS SC
 				JOIN CustomerContract AS CC ON SC.customercontract_id = CC.id
 				JOIN Service AS S ON SC.service_id = S.id
@@ -137,6 +143,23 @@ class Portal_Controller_Action_Helper_ItopRestWebservice extends Zend_Controller
 		$xml = $this->callRestWebService($query,null);
 		
 		$tab_result = $this->xmlToArray($xml);
+		return $tab_result;
+	}
+	
+	function getInfoService() {
+		$query = "SELECT SF,S,CC,SC FROM lnkCustomerContractToService AS SC
+				JOIN  CustomerContract AS CC ON SC.customercontract_id = CC.id
+				JOIN Service AS S ON SC.service_id = S.id
+				JOIN ServiceFamily AS SF ON S.servicefamily_id = SF.id
+				WHERE CC.org_id ='".$this->_org_id."'";
+	
+		//Zend_Debug::dump($query);
+		$xml = $this->callRestWebService($query,null);
+		//Zend_Debug::dump($xml);
+		if (count($xml)>0){
+			$tab_result = $this->xmlToArray($xml);
+		}
+		else $tab_result = null;
 		return $tab_result;
 	}
 	
@@ -385,8 +408,9 @@ class Portal_Controller_Action_Helper_ItopRestWebservice extends Zend_Controller
 					ON S.servicefamily_id = SF.id
 					WHERE SC.org_id = '".$this->_org_id."'";
 		
+			//Zend_Debug::dump($query);
 			$xml = $this->callRestWebService($query,null);
-		
+			//Zend_Debug::dump($xml);
 			$tab_result = $this->xmlToArray($xml);
 			//Zend_Debug::dump($tab_result);
 			return $tab_result;

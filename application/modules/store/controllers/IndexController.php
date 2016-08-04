@@ -1,7 +1,16 @@
 <?php
 class Store_IndexController extends Centurion_Controller_Action {
 
-    public function init() {
+    
+	public function preDispatch()
+	{
+		$this->_helper->authCheck();
+		$this->_helper->aclCheck();
+		
+	}
+	
+	
+	public function init() {
     }
 
     public function indexAction() {
