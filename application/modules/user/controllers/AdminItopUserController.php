@@ -83,7 +83,7 @@ class User_AdminItopUserController extends Centurion_Controller_CRUD
     
     
     public function importAction(){
-    	$itopUser = new Portal_iTop_UserLocal();
+    	$itopUser = new Portal_Itop_UserLocal();
     	$itopUser->importAll();
     	$this->getHelper('redirector')->gotoRoute(array_merge(array(
     			'controller' => $this->_request->getControllerName(),
