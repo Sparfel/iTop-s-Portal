@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.11.1deb2+deb7u2
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Client: localhost
--- Généré le: Jeu 04 Août 2016 à 17:18
--- Version du serveur: 5.5.46
--- Version de PHP: 5.4.45-0+deb7u2
+-- Client :  127.0.0.1
+-- Généré le :  Mar 07 Avril 2015 à 21:24
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `itop_portal_dev`
+-- Base de données :  `itop_portal`
 --
 
 -- --------------------------------------------------------
@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `auth_belong` (
 --
 -- Contenu de la table `auth_belong`
 --
+
 
 INSERT INTO `auth_belong` (`user_id`, `group_id`) VALUES
 (1, 1),
@@ -276,7 +277,7 @@ INSERT INTO `auth_user` (`id`, `username`, `first_name`, `last_name`, `email`, `
 (2, 'anonymous', NULL, NULL, NULL, '', NULL, '', 0, 0, 0, 0, '0000-00-00 00:00:00', '2015-03-26 08:56:52', '2015-04-07 13:02:01', NULL),
 (14, 'dali@demo.com', 'Salvador', 'Dali', 'dali@demo.com', 'c2a2543bdd9f0f5fe3c7887d7c455fa620b30aee', '39a9606ae41122d8f05896e8419c505d', 'sha1', 1, 1, 0, 0, '2015-03-26 08:47:01', '2015-04-07 00:02:32', '2015-04-07 12:02:32', NULL),
 (15, 'pablo@demo.com', 'Pablo', 'Picasso', 'pablo@demo.com', '443941840ecd783d156423d760ef281bda0dd0b7', '8bc9749e695faaf83ecf99aba96c6d05', 'sha1', 1, 1, 0, 1, '2015-03-30 08:51:25', '0000-00-00 00:00:00', '2015-03-30 08:58:03', NULL),
-(16, 'admin', 'My First Name', 'My Last Name', 'my.email@foo.org', 'eaad908b009ee6ea086bde96e6fcb1b61d720cfc', '8928d295449baeeae36ec22d4c833f6e', 'sha1', 0, 1, 1, 0, '2015-04-07 13:02:58', '2016-08-04 01:21:38', '2016-08-04 13:21:38', NULL);
+(16, 'admin', 'My First Name', 'My Last Name', 'my.email@foo.org', 'eaad908b009ee6ea086bde96e6fcb1b61d720cfc', '8928d295449baeeae36ec22d4c833f6e', 'sha1', 0, 1, 1, 0, '2015-04-07 13:02:58', '2015-04-07 07:14:00', '2015-04-07 19:14:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -363,33 +364,33 @@ CREATE TABLE IF NOT EXISTS `centurion_navigation` (
   KEY `original_id` (`original_id`,`language_id`),
   KEY `can_be_deleted` (`can_be_deleted`),
   KEY `language_id` (`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=196 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=192 ;
 
 --
 -- Contenu de la table `centurion_navigation`
 --
 
 INSERT INTO `centurion_navigation` (`id`, `label`, `module`, `controller`, `action`, `params`, `permission`, `route`, `uri`, `order`, `is_visible`, `is_in_menu`, `class`, `mptt_lft`, `mptt_rgt`, `mptt_level`, `mptt_tree_id`, `mptt_parent_id`, `proxy_model`, `proxy_pk`, `can_be_deleted`, `original_id`, `language_id`) VALUES
-(1, 'Users Profiles', 'user', 'admin-profile', NULL, NULL, NULL, 'default', NULL, 1, 1, 1, 'sqdsdqsdqsd', 20, 21, 3, 5, 122, NULL, NULL, 1, NULL, 1),
-(2, 'Manage group permissions', 'auth', 'admin-group-permission', NULL, NULL, NULL, 'default', NULL, 3, 0, 1, NULL, 37, 38, 2, 5, 192, NULL, NULL, 1, NULL, 2),
-(3, 'Pages', 'admin', 'admin-navigation', NULL, NULL, NULL, NULL, NULL, 2, 1, 1, NULL, 52, 63, 1, 5, 12, NULL, NULL, 1, NULL, NULL),
-(4, 'Settings', 'cron', 'admin-cron', NULL, NULL, NULL, 'default', NULL, 3, 1, 1, NULL, 64, 75, 1, 5, 12, NULL, NULL, 1, NULL, 1),
-(5, 'Template', 'cms', 'admin-flatpage-template', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 55, 56, 2, 5, 3, NULL, NULL, 1, NULL, NULL),
-(7, 'Cache', 'admin', 'index', 'cache', NULL, NULL, NULL, NULL, 2, 1, 1, NULL, 67, 70, 2, 5, 4, NULL, NULL, 1, NULL, NULL),
-(8, 'Clear cache', 'admin', 'index', 'clear-cache', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 68, 69, 3, 5, 7, NULL, NULL, 1, NULL, NULL),
-(11, 'Translation', 'translation', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 71, 72, 2, 5, 4, NULL, NULL, 1, NULL, NULL),
-(12, 'Backoffice', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 78, 0, 5, NULL, NULL, NULL, 0, NULL, 1),
-(13, 'Error', 'admin', 'index', 'log', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 73, 74, 2, 5, 4, NULL, NULL, 1, NULL, NULL),
+(1, 'Users', 'user', 'admin-profile', NULL, NULL, NULL, 'default', NULL, 1, 1, 1, 'sqdsdqsdqsd', 18, 39, 1, 5, 12, NULL, NULL, 1, NULL, 1),
+(2, 'Manage group permissions', 'auth', 'admin-group-permission', NULL, NULL, NULL, 'default', NULL, 3, 0, 1, NULL, 33, 34, 2, 5, 1, NULL, NULL, 1, NULL, 2),
+(3, 'Pages', 'admin', 'admin-navigation', NULL, NULL, NULL, NULL, NULL, 2, 1, 1, NULL, 46, 55, 1, 5, 12, NULL, NULL, 1, NULL, NULL),
+(4, 'Settings', 'cron', 'admin-cron', NULL, NULL, NULL, 'default', NULL, 3, 1, 1, NULL, 56, 67, 1, 5, 12, NULL, NULL, 1, NULL, 1),
+(5, 'Template', 'cms', 'admin-flatpage-template', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 49, 50, 2, 5, 3, NULL, NULL, 1, NULL, NULL),
+(7, 'Cache', 'admin', 'index', 'cache', NULL, NULL, NULL, NULL, 2, 1, 1, NULL, 59, 62, 2, 5, 4, NULL, NULL, 1, NULL, NULL),
+(8, 'Clear cache', 'admin', 'index', 'clear-cache', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 60, 61, 3, 5, 7, NULL, NULL, 1, NULL, NULL),
+(11, 'Translation', 'translation', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 63, 64, 2, 5, 4, NULL, NULL, 1, NULL, NULL),
+(12, 'Backoffice', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 70, 0, 5, NULL, NULL, NULL, 0, NULL, 1),
+(13, 'Error', 'admin', 'index', 'log', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 65, 66, 2, 5, 4, NULL, NULL, 1, NULL, NULL),
 (14, 'Pages unactivated', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 'unactived', 1, 26, 0, 20, NULL, NULL, NULL, 0, NULL, NULL),
 (16, 'Frontoffice', NULL, NULL, NULL, NULL, 'all', NULL, NULL, NULL, 1, 1, NULL, 1, 120, 0, 18, NULL, NULL, NULL, 0, NULL, 1),
 (20, 'Contents', 'admin', 'admin-dashboard', 'list-admin', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 2, 17, 1, 5, 12, NULL, NULL, 1, NULL, 1),
-(105, 'Pages', 'admin', 'admin-navigation', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 53, 54, 2, 5, 3, NULL, NULL, 1, NULL, NULL),
-(118, 'Permission', 'auth', 'admin-permission', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 39, 40, 2, 5, 192, NULL, NULL, 1, NULL, 2),
-(119, 'Script permissions', 'auth', 'admin-script-permission', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 30, 31, 3, 5, 122, NULL, NULL, 1, NULL, NULL),
-(121, 'Group permission', 'auth', 'admin-group-permission', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 34, 35, 3, 5, 123, NULL, NULL, 1, NULL, 2),
-(122, 'Users', 'auth', 'admin-user', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 19, 32, 2, 5, 192, NULL, NULL, 1, NULL, 2),
-(123, 'Groups', 'auth', 'admin-group', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 33, 36, 2, 5, 192, NULL, NULL, 1, NULL, 2),
-(124, 'User permission', 'auth', 'admin-permission', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 28, 29, 3, 5, 122, NULL, NULL, 1, NULL, 2),
+(105, 'Pages', 'admin', 'admin-navigation', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 47, 48, 2, 5, 3, NULL, NULL, 1, NULL, NULL),
+(118, 'Permission', 'auth', 'admin-permission', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 29, 30, 2, 5, 1, NULL, NULL, 1, NULL, 2),
+(119, 'Script permissions', 'auth', 'admin-script-permission', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 31, 32, 2, 5, 1, NULL, NULL, 1, NULL, NULL),
+(121, 'Group permission', 'auth', 'admin-group-permission', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 37, 38, 2, 5, 1, NULL, NULL, 1, NULL, 2),
+(122, 'Users', 'auth', 'admin-user', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 19, 26, 2, 5, 1, NULL, NULL, 1, NULL, 2),
+(123, 'Groups', 'auth', 'admin-group', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 27, 28, 2, 5, 1, NULL, NULL, 1, NULL, 2),
+(124, 'User permission', 'auth', 'admin-permission', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 35, 36, 2, 5, 1, NULL, NULL, 1, NULL, 2),
 (125, 'Bienvenue', 'home', 'index', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 86, 103, 1, 18, 16, NULL, NULL, 1, NULL, 2),
 (126, 'Tableau de bord', 'home', 'dashboard', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 87, 88, 2, 18, 125, NULL, NULL, 1, NULL, 2),
 (127, 'Catalogue des services', 'home', 'catalogue', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 89, 94, 2, 18, 125, NULL, NULL, 1, NULL, 2),
@@ -405,19 +406,15 @@ INSERT INTO `centurion_navigation` (`id`, `label`, `module`, `controller`, `acti
 (169, 'Liste des Chat', 'chat', 'index', 'viewallchats', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 96, 97, 3, 18, 128, NULL, NULL, 1, NULL, 1),
 (170, 'Nouveau Chat', 'chat', 'index', 'index', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 98, 99, 3, 18, 128, NULL, NULL, 1, NULL, 1),
 (172, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 101, 102, 2, 18, 125, 2, 1, 1, NULL, 1),
-(183, 'Préférences', 'user', 'preference', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 76, 77, 1, 5, 12, NULL, NULL, 1, NULL, 1),
-(184, 'Manage Import Ldap', 'user', 'admin-ldap-user', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 24, 25, 3, 5, 122, NULL, NULL, 1, NULL, 1),
-(185, 'Manage Local Users', 'user', 'admin-user', NULL, NULL, NULL, 'default', NULL, NULL, 1, 1, NULL, 22, 23, 3, 5, 122, NULL, NULL, 1, NULL, 1),
-(186, 'Manage Import iTop', 'user', 'admin-itop-user', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 26, 27, 3, 5, 122, NULL, NULL, 1, NULL, 1),
-(187, 'Cron Task', 'cron', 'admin-cron', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 65, 66, 2, 5, 4, NULL, NULL, 1, NULL, 1),
+(183, 'Préférences', 'user', 'preference', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 68, 69, 1, 5, 12, NULL, NULL, 1, NULL, 1),
+(184, 'Manage Import Ldap', 'user', 'admin-ldap-user', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 22, 23, 3, 5, 122, NULL, NULL, 1, NULL, 1),
+(185, 'Manage Local Users', 'user', 'admin-user', NULL, NULL, NULL, 'default', NULL, NULL, 1, 1, NULL, 20, 21, 3, 5, 122, NULL, NULL, 1, NULL, 1),
+(186, 'Manage Import iTop', 'user', 'admin-itop-user', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 24, 25, 3, 5, 122, NULL, NULL, 1, NULL, 1),
+(187, 'Cron Task', 'cron', 'admin-cron', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 57, 58, 2, 5, 4, NULL, NULL, 1, NULL, 1),
 (188, 'Contrats Fournisseur', 'home', 'contract', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 90, 91, 3, 18, 127, NULL, NULL, 1, NULL, 1),
 (189, 'Admin Services Clients', 'config', 'admin-services', NULL, NULL, NULL, 'default', NULL, NULL, 1, 1, NULL, 92, 93, 3, 18, 127, NULL, NULL, 1, NULL, 1),
-(190, 'Home Services Page', 'config', 'admin-style-services', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 57, 60, 2, 5, 3, NULL, NULL, 1, NULL, 1),
-(191, 'Manage Media', 'media', 'admin-media', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 58, 59, 3, 5, 190, NULL, NULL, 1, NULL, 1),
-(192, 'Configuration', 'config', 'admin-home', 'dashboard', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 18, 45, 1, 5, 12, NULL, NULL, 1, NULL, 1),
-(193, 'Organizations', 'config', 'admin-organizations', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 41, 42, 2, 5, 192, NULL, NULL, 1, NULL, 1),
-(194, 'Alerts', 'config', 'admin-alerts', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 43, 44, 2, 5, 192, NULL, NULL, 1, NULL, 1),
-(195, 'Widgets', 'config', 'admin-widget', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 61, 62, 2, 5, 3, NULL, NULL, 1, NULL, 1);
+(190, 'Home Services Page', 'config', 'admin-style-services', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 51, 54, 2, 5, 3, NULL, NULL, 1, NULL, 1),
+(191, 'Manage Media', 'media', 'admin-media', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 52, 53, 3, 5, 190, NULL, NULL, 1, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -538,32 +535,6 @@ CREATE TABLE IF NOT EXISTS `cron_task` (
 INSERT INTO `cron_task` (`id`, `name`, `class_name`, `function_name`, `is_active`, `frequency`, `last_execution`) VALUES
 (2, 'Synchronisation des utilisateurs avec iTop', 'Portal_Itop_UserLocal', 'synchronize', '0', 3600, '2015-03-09 11:36:24'),
 (3, 'Synchronisation des utilisateurs avec Ldap', 'Portal_Ldap_ldap ?', 'synchronize', '0', 3600, '2015-03-06 12:02:00');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `ecom_products`
---
-
-CREATE TABLE IF NOT EXISTS `ecom_products` (
-  `produitId` int(20) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(20) NOT NULL,
-  `description` text NOT NULL,
-  `prix` decimal(9,2) NOT NULL,
-  `image` varchar(255) NOT NULL COMMENT 'nom de l''image',
-  PRIMARY KEY (`produitId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=57 ;
-
---
--- Contenu de la table `ecom_products`
---
-
-INSERT INTO `ecom_products` (`produitId`, `nom`, `description`, `prix`, `image`) VALUES
-(56, 'Chromecast Audio', 'Chromecast is a media streaming device that plugs into the HDMI port on your TV. Simply use your mobile device and the TV you already own to cast your favourite TV shows, films, music, sport, games and more.', 40.00, 'google_chromecast_audio.png'),
-(52, 'Google Glass', 'Google Glass is a headset, or optical head-mounted display, that is worn like a pair of eyeglasses.', 1500.00, 'google_glass.png'),
-(53, 'Nexus 9', 'Designed for work and play, the Nexus 9 features a just-right 8.9â€ screen with front-facing speakers for rich music and audio. 64-bit processor drives productivity and play to new levels, with intuitive voice commands and automatic Android updates that keep you on the cutting edge.', 450.00, 'nexus9.png'),
-(54, 'Nexus 5', 'Nexus 5 has a 8 MP OIS camera that incorporates advanced technology to shoot vivid imagery with a wide range of color and light intake. And while youâ€™re holding the camera, Optical Image Stabilization will steady the shot even with shaky hands, so your photos and videos will come out sharp and clear. ', 350.00, 'nexus5.png'),
-(55, 'Chromecast', 'Chromecast is a media streaming device that plugs into the HDMI port on your TV. Simply use your mobile device and the TV you already own to cast your favourite TV shows, films, music, sport, games and more.', 30.00, 'google_chromecast.jpg');
 
 -- --------------------------------------------------------
 
@@ -757,46 +728,6 @@ CREATE TABLE IF NOT EXISTS `media_video` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `portal_alert`
---
-
-CREATE TABLE IF NOT EXISTS `portal_alert` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL DEFAULT '0',
-  `text` text NOT NULL,
-  `is_active` varchar(1) NOT NULL,
-  `start` timestamp NULL DEFAULT '0000-00-00 00:00:00',
-  `stop` timestamp NULL DEFAULT '0000-00-00 00:00:00',
-  `type` enum('Alert','Information','Notification') NOT NULL DEFAULT 'Information',
-  `priority` enum('1','2','3','4','5','6','7','8','9') DEFAULT '5' COMMENT '1 : very high, 9 : very low',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Contenu de la table `portal_alert`
---
-
-INSERT INTO `portal_alert` (`id`, `name`, `text`, `is_active`, `start`, `stop`, `type`, `priority`) VALUES
-(1, 'Welcome', '<p>Message de bienvenue, <strong>commun</strong> &agrave; tout le monde.</p>', '1', '2016-06-22 07:25:00', '2016-06-27 14:25:00', 'Information', '5'),
-(2, 'Patch R-012345', '<p>Un<span style="color: #ff0000;"> nouveau patch</span> est disponible &agrave; l''installation. Merci de nous fournir une date d''installation.</p>', '1', '2016-06-22 15:57:00', '2016-08-21 22:00:00', 'Alert', '3'),
-(3, 'Test', '<p>Ceci est une simple notification, alert du type la plus faible. <span style="text-decoration: underline;"><strong>Attention</strong></span>, 1 seule ligne est visible !</p>', '1', '2016-06-24 12:31:00', '2016-07-24 12:31:00', 'Notification', '5');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `portal_alert_organization`
---
-
-CREATE TABLE IF NOT EXISTS `portal_alert_organization` (
-  `alert_id` int(11) NOT NULL,
-  `organization_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`alert_id`,`organization_id`),
-  KEY `FK_portal_alert_organization_portal_organization` (`organization_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `portal_chat_questions`
 --
 
@@ -869,20 +800,6 @@ CREATE TABLE IF NOT EXISTS `portal_ldap_user` (
   KEY `email` (`email`),
   KEY `sn` (`sn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Table permettant l''import des User de Ldap' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `portal_organization`
---
-
-CREATE TABLE IF NOT EXISTS `portal_organization` (
-  `id` int(11) unsigned NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `phonecode` int(6) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Liste des organisations';
 
 -- --------------------------------------------------------
 
@@ -1020,38 +937,6 @@ INSERT INTO `portal_user_preference` (`id`, `user_id`, `preference_name`, `prefe
 (1, 12, 'USER_FILTER', 'false', '2015-03-26 11:12:25', '2015-03-26 11:12:37'),
 (3, 18, 'HOME_SERVICES', '14,18,20,13,2|19,21,22,23', '2015-03-28 14:35:27', '2015-04-02 12:38:26'),
 (2, 18, 'USER_FILTER', 'false', '2015-03-28 14:35:15', '2015-04-01 15:56:46');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `portal_widget`
---
-
-CREATE TABLE IF NOT EXISTS `portal_widget` (
-  `id` varchar(50) NOT NULL,
-  `dashboard` varchar(50) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `description` text,
-  `source` varchar(500) DEFAULT NULL,
-  `parameter` text,
-  `type` enum('Text','Pie','Table','Flatpage','PhoneCode','StackedBar') NOT NULL DEFAULT 'Text',
-  `is_active` tinyint(4) NOT NULL DEFAULT '1' COMMENT 'Actif (0 False, 1 True)',
-  `order` int(11) DEFAULT NULL,
-  `size` enum('simple','double') NOT NULL DEFAULT 'simple',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `portal_widget`
---
-
-INSERT INTO `portal_widget` (`id`, `dashboard`, `name`, `description`, `source`, `parameter`, `type`, `is_active`, `order`, `size`) VALUES
-('1', 'HOME_DASHBOARD', 'Tickets per status', 'On cumule les tickets par statut en excluant les tickets clos.', 'getCountRequest', '{"count_attribute":"status","where":"status !=''closed''"}', 'Pie', 1, 1, 'simple'),
-('2', 'HOME_DASHBOARD', 'Opened request', 'Liste des tickets ouverts', 'getListOpenedRequest', '[{"field":"ref","label":"User Request"},{"field":"title","label":"Title"},{"field":"start_date","label":"Started"},{"field":"status","label":"Status"}]', 'Table', 1, 0, 'double'),
-('3', 'HOME_DASHBOARD', 'Informations', 'Simple texte d''informations.', NULL, 'Ceci est un exemple de texte. On peut mettre le texte en valeur, les balises Html fonctionnent ! \r\nUne alternative au Flatpage interne au site, cf. partie Admisnistration !\r\n', 'Text', 1, 4, 'simple'),
-('4', 'HOME_DASHBOARD', 'Other informations', 'Texte informatif issu d''une page élaborée à partir de la partie administrative du site.', NULL, '5', 'Flatpage', 0, 3, 'simple'),
-('5', 'HOME_DASHBOARD', 'Phone Code', 'on affiche sur kle tableau de bord principal le code utilise pour le Serveur Vocal.\r\nCode utile pour l''Astreinte Syleps', NULL, 'Votre Code d''accès à l''asteinte Syleps est le 1234', 'PhoneCode', 1, 5, 'simple'),
-('6', 'HOME_DASHBOARD', 'Tickets par mois', 'Nombre de tickets sur les 12 mois écoulés', NULL, 'new,assigned,qualified,pending,resolved,closed', 'StackedBar', 1, 6, 'simple');
 
 -- --------------------------------------------------------
 
@@ -1277,7 +1162,7 @@ CREATE TABLE IF NOT EXISTS `translation_uid` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `uid` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=590 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=553 ;
 
 --
 -- Contenu de la table `translation_uid`
@@ -1809,44 +1694,7 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (549, 'Script permissions'),
 (550, 'Consulter la liste des incidents'),
 (551, 'Nouvelle déclaration d''incident'),
-(552, 'Type'),
-(553, 'Configuration'),
-(554, 'Local Users'),
-(555, 'Create'),
-(556, 'iTop Users'),
-(557, 'Ldap User'),
-(558, 'Organizations'),
-(559, 'Your site at a glance'),
-(560, 'Hey %s, what’s up?'),
-(561, 'Creation date'),
-(562, 'Manage Organizations'),
-(563, 'Text'),
-(564, 'End Date'),
-(565, 'Manage Alerts'),
-(566, 'Alert'),
-(567, 'Edit Alert'),
-(568, 'Alerts'),
-(569, 'Users Profiles'),
-(570, 'Dashboard'),
-(571, 'Manage Widget'),
-(572, 'Widget'),
-(573, 'Widgets'),
-(574, 'Compte iTop déclaré'),
-(575, 'Pas de compte iTop déclaré'),
-(576, 'interaction sur les tickets possible'),
-(577, 'interaction sur les tickets impossible'),
-(578, 'Réglages de vos préférences'),
-(579, 'Régler ici vos préférences comme la langue ou les sites auquels vous souhaitez vous rattacher.'),
-(580, 'Langue'),
-(581, 'Changer de langue pour :'),
-(582, 'Mot de passe valide.'),
-(583, 'Mot de passe invalide.'),
-(584, 'Le mot de passe doit faire au moins 5 caractères.'),
-(585, 'Le mot de passe a été modifié.'),
-(586, 'Informations'),
-(587, 'Environnement :'),
-(588, 'Version du Portail'),
-(589, 'Version');
+(552, 'Type');
 
 -- --------------------------------------------------------
 
@@ -1879,10 +1727,37 @@ INSERT INTO `user_profile` (`id`, `user_id`, `nickname`, `about`, `website`, `cr
 (16, 15, 'pablo@demo.com', NULL, NULL, '2015-03-30 08:51:25', '2015-03-30 08:58:03', NULL),
 (17, 16, 'admin', NULL, NULL, '2015-04-07 13:06:55', '2015-04-07 13:06:55', NULL);
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ecom_products`
+--
+
+CREATE TABLE IF NOT EXISTS `ecom_products` (
+  `produitId` int(20) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(20) NOT NULL,
+  `description` text NOT NULL,
+  `prix` decimal(9,2) NOT NULL,
+  `image` varchar(255) NOT NULL COMMENT 'nom de l''image',
+  PRIMARY KEY (`produitId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=57 ;
+
+--
+-- Contenu de la table `ecom_products`
+--
+
+INSERT INTO `ecom_products` (`produitId`, `nom`, `description`, `prix`, `image`) VALUES
+(56, 'Chromecast Audio', 'Chromecast is a media streaming device that plugs into the HDMI port on your TV. Simply use your mobile device and the TV you already own to cast your favourite TV shows, films, music, sport, games and more.', '40.00', 'google_chromecast_audio.png'),
+(52, 'Google Glass', 'Google Glass is a headset, or optical head-mounted display, that is worn like a pair of eyeglasses.', '1500.00', 'google_glass.png'),
+(53, 'Nexus 9', 'Designed for work and play, the Nexus 9 features a just-right 8.9â€ screen with front-facing speakers for rich music and audio. 64-bit processor drives productivity and play to new levels, with intuitive voice commands and automatic Android updates that keep you on the cutting edge.', '450.00', 'nexus9.png'),
+(54, 'Nexus 5', 'Nexus 5 has a 8 MP OIS camera that incorporates advanced technology to shoot vivid imagery with a wide range of color and light intake. And while youâ€™re holding the camera, Optical Image Stabilization will steady the shot even with shaky hands, so your photos and videos will come out sharp and clear. ', '350.00', 'nexus5.png'),
+(55, 'Chromecast', 'Chromecast is a media streaming device that plugs into the HDMI port on your TV. Simply use your mobile device and the TV you already own to cast your favourite TV shows, films, music, sport, games and more.', '30.00', 'google_chromecast.jpg');
+
+
+
 --
 -- Contraintes pour les tables exportées
 --
-
 --
 -- Contraintes pour la table `auth_belong`
 --
@@ -1956,13 +1831,6 @@ ALTER TABLE `media_multiupload_ticket`
   ADD CONSTRAINT `media_multiupload_ticket_ibfk_2` FOREIGN KEY (`form_class_model_id`) REFERENCES `centurion_content_type` (`id`);
 
 --
--- Contraintes pour la table `portal_alert_organization`
---
-ALTER TABLE `portal_alert_organization`
-  ADD CONSTRAINT `FK_portal_alert_organization_portal_organization` FOREIGN KEY (`organization_id`) REFERENCES `portal_organization` (`id`),
-  ADD CONSTRAINT `FK_portal_alert_organization_portal_alert` FOREIGN KEY (`alert_id`) REFERENCES `portal_alert` (`id`);
-
---
 -- Contraintes pour la table `portal_service_style`
 --
 ALTER TABLE `portal_service_style`
@@ -1988,7 +1856,3 @@ ALTER TABLE `translation_translation`
 ALTER TABLE `user_profile`
   ADD CONSTRAINT `fk_profile__avatar_id___file__id` FOREIGN KEY (`avatar_id`) REFERENCES `media_file` (`id`),
   ADD CONSTRAINT `fk_profile__user_id___user__id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -46,13 +46,13 @@ ticket.lifetime = 24h
 ticket.salt = ""
 
 
-;Connexion to the primary iTop (May be iTop Production)
+;Connection to the primary iTop (May be iTop Production)
 itop1.url.protocol = "_WS_PROTOCOL_"
 itop1.url.adress = "_WS_ADRESS_"
 itop1.webservice.user = "_WS_USER_"
 itop1.webservice.pwd = "_WS_PASSWORD_"
 
-;Connexion to the second iTop (May be iTop Test) 
+;Connection to the second iTop (May be iTop Test) 
 itop2.url.protocol = "_WS_PROTOCOL_"
 itop2.url.adress = "_WS_ADRESS_"
 itop2.webservice.user = "_WS_USER_"
