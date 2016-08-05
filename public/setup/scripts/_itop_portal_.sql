@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 04 Août 2016 à 17:18
+-- Généré le: Ven 05 Août 2016 à 13:52
 -- Version du serveur: 5.5.46
 -- Version de PHP: 5.4.45-0+deb7u2
 
@@ -276,7 +276,7 @@ INSERT INTO `auth_user` (`id`, `username`, `first_name`, `last_name`, `email`, `
 (2, 'anonymous', NULL, NULL, NULL, '', NULL, '', 0, 0, 0, 0, '0000-00-00 00:00:00', '2015-03-26 08:56:52', '2015-04-07 13:02:01', NULL),
 (14, 'dali@demo.com', 'Salvador', 'Dali', 'dali@demo.com', 'c2a2543bdd9f0f5fe3c7887d7c455fa620b30aee', '39a9606ae41122d8f05896e8419c505d', 'sha1', 1, 1, 0, 0, '2015-03-26 08:47:01', '2015-04-07 00:02:32', '2015-04-07 12:02:32', NULL),
 (15, 'pablo@demo.com', 'Pablo', 'Picasso', 'pablo@demo.com', '443941840ecd783d156423d760ef281bda0dd0b7', '8bc9749e695faaf83ecf99aba96c6d05', 'sha1', 1, 1, 0, 1, '2015-03-30 08:51:25', '0000-00-00 00:00:00', '2015-03-30 08:58:03', NULL),
-(16, 'admin', 'My First Name', 'My Last Name', 'my.email@foo.org', 'eaad908b009ee6ea086bde96e6fcb1b61d720cfc', '8928d295449baeeae36ec22d4c833f6e', 'sha1', 0, 1, 1, 0, '2015-04-07 13:02:58', '2016-08-04 01:21:38', '2016-08-04 13:21:38', NULL);
+(16, 'admin', 'My First Name', 'My Last Name', 'my.email@foo.org', 'eaad908b009ee6ea086bde96e6fcb1b61d720cfc', '8928d295449baeeae36ec22d4c833f6e', 'sha1', 0, 1, 1, 0, '2015-04-07 13:02:58', '2016-08-04 23:40:39', '2016-08-05 11:40:39', NULL);
 
 -- --------------------------------------------------------
 
@@ -363,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `centurion_navigation` (
   KEY `original_id` (`original_id`,`language_id`),
   KEY `can_be_deleted` (`can_be_deleted`),
   KEY `language_id` (`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=196 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=200 ;
 
 --
 -- Contenu de la table `centurion_navigation`
@@ -826,6 +826,7 @@ INSERT INTO `portal_chat_questions` (`id`, `message`, `sessId`, `user`, `org_id`
 
 CREATE TABLE IF NOT EXISTS `portal_itop_user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `itop_id` int(11) NOT NULL,
   `login` varchar(255) NOT NULL,
   `first_name` varchar(30) DEFAULT NULL,
   `last_name` varchar(30) DEFAULT NULL,
@@ -838,17 +839,7 @@ CREATE TABLE IF NOT EXISTS `portal_itop_user` (
   PRIMARY KEY (`id`),
   KEY `email` (`email`),
   KEY `login` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Table permettant l''import des User de iTop ' AUTO_INCREMENT=5 ;
-
---
--- Contenu de la table `portal_itop_user`
---
-
-INSERT INTO `portal_itop_user` (`id`, `login`, `first_name`, `last_name`, `email`, `is_local`, `group_id`, `org_id`, `org_name`, `created_at`) VALUES
-(1, 'admin', 'My first name', 'My last name', 'my.email@foo.org', 0, 3, '1', 'My Company/Department', '2015-03-30 08:51:15'),
-(2, 'dali@demo.com', 'Salvador', 'Dali', 'dali@demo.com', 1, 3, '3', 'Demo', '2015-03-30 08:51:15'),
-(3, 'emmanuel.lozachmeur@syleps.fr', 'Manu (admin)', 'Lozachmeur', 'emmanuel.lozachmeur@syleps.fr', 0, 3, '1', 'My Company/Department', '2015-03-30 08:51:15'),
-(4, 'pablo@demo.com', 'Pablo', 'Picasso', 'pablo@demo.com', 1, 3, '3', 'Demo', '2015-03-30 08:51:25');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Table permettant l''import des User de iTop ' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
