@@ -30,6 +30,7 @@ class Portal_Itop_UserLocal {
 			$login =  $person['UserLocal']['login'];
 			$org_id = $person['Person']['org_id'];
 			$org_name = $person['Organization']['name'];
+			$itop_id = $person['UserLocal']['contactid'];
 			
 			//On vérifie si le compte en question est déjà créé ou pas.
 			//TODO
@@ -50,7 +51,7 @@ class Portal_Itop_UserLocal {
 				$group = $this->Default_group;
 			}
 			//Insertion du compte dans la table des imports User iTop
-			$itopuser->insUser($login,$first_name,$last_name,$email,$group, $is_local,$org_id,$org_name);
+			$itopuser->insUser($login,$first_name,$last_name,$email,$group, $is_local,$org_id,$org_name,$itop_id);
 		}
 		
 	}	
@@ -69,12 +70,13 @@ class Portal_Itop_UserLocal {
 		if (null===$rowset) {
 			return;
 		}
+		
 		foreach ($rowset as $key => $row) {
-			//We create an account only for users without account.
+			//On ne crée les comptes que pour ls user qui n'en ont pas !
 			if ($row->is_local == 0){
-				// We create the record for the local user (AUTH_USER table)
+				// On crée ensuite l'enregistrement le user local (table auth_user)
 				$user = new Auth_Model_DbTable_User();
-				//We determine a default password !
+				//Détermination du password par défaut
 				$username = $row->login;
 				$salt = $this->getSalt($username);
 				$password =  $this->setPassword($username,$salt,$row->first_name.'1234','sha1');
