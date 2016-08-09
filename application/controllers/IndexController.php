@@ -19,7 +19,7 @@ class IndexController extends Centurion_Controller_Action
     	 	}
     	else {
     		$session = new Zend_Session_Namespace('Zend_Auth');
-    		$this->_redirect('home/index/index/language/'.$session->pref->_language);
+    		//$this->_redirect('home/index/index/language/'.$session->pref->_language);
     		$this->view->headLink()->appendStylesheet('/layouts/frontoffice/css/slide/piecemaker.css');
     		$this->view->headScript()->appendFile('/layouts/frontoffice/js/slide/swfobject.js');
     		
