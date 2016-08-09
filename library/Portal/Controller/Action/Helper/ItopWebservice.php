@@ -16,6 +16,7 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 	protected $bDebug;
 	protected $_name;
 	protected $_first_name;
+	protected $_OPref;
 	
 	
 	public function __construct()
@@ -50,6 +51,7 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 			$this->_first_name = $session->pref->_user_first_name;
 			$this->_org_id = $session->pref->_org_id;
 			$this->_user_id = $session->pref->_user_id;
+			$this->_OPref = $session->pref;
 		}
 		
 		
@@ -422,7 +424,7 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 	}
 	
 	
-	public function getListOpenedRequest($org_id,$OPref){
+	public function getListOpenedRequest_deprecated($org_id,$OPref){
 		//$filter est un tableau contenant les filtres pour la clause Wher
 		$where = '';
 		if ($OPref->_userFilter == 'true') 
@@ -498,6 +500,63 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 		return $tab_result;
 	}
 
+	
+	public function getListOpenedRequest(){
+		//$filter est un tableau contenant les filtres pour la clause Wher
+		$where = '';
+		//echo $OPref->_userFilter;
+		//Zend_Debug::dump($OPref);
+		//echo get_class($OPref);
+		if ($this->_OPref->_userFilter == 'true')
+		{// on filtre sur le caller_id
+			$where .= ' AND caller_id = "'.$this->_user_id.'"';
+		}
+		//Zend_Debug::dump($OPref->_AyearFilter);
+		if (is_array($this->_OPref->_AyearFilter) and count($this->_OPref->_AyearFilter)>0)
+		{
+			$where .= ' AND (';
+			$i = 0;
+			foreach ($this->_OPref->_AyearFilter as $year)
+			{
+				if (!($year=='All'))
+				{$where .= '(start_date >= "'.$year.'-01-01" AND start_date <= "'.$year.'-12-31")';
+				if ($i < count($this->_OPref->_AyearFilter) -1 ) { $where .= " OR ";}
+				}
+				else {
+					$where .=true;
+					break;
+				} // on sort direct car All doit ramener toutes les années
+				$i++;
+					
+			}
+			$where .= ')';
+		}
+		//Zend_Debug::dump($where);
+		$aData = array(
+				'operation'=> 'core/get',
+				'class' => 'UserRequest',
+				'key' => 'SELECT UserRequest WHERE org_id = "'.$this->_OPref->_org_id.'" '.$where.'
+							AND (status = \'new\' OR status = \'assigned\' OR status = \'qualified\' OR status = \'pending\' OR status = \'resolved\')',
+								'output_fields' => 'id,ref,title,description,start_date,finalclass,status,priority,
+									resolution_date,request_type,service_name,caller_id_friendlyname,agent_id_friendlyname,last_update'
+										);
+		//Zend_Debug::dump($aData);
+		$results = $this->CallWebService($aData);
+		//Zend_Debug::dump($results);
+		$i = 0;
+		if (count($results['objects'])>0)
+		{foreach ($results['objects'] as $result) {
+			$tab_result[$i] = $result['fields'];
+			$i++;
+		}
+		}
+		else $tab_result = array();
+		//echo translate('Title');
+		//Zend_Debug::dump($tab_result);
+		return $tab_result;
+										
+	}
+	
 	public function getListClosedRequest($org_id,$OPref,$AsearchCriteria){
 		//$filter est un tableau contenant les filtres pour la clause Where
 		//Zend_Debug::dump($Opref);
@@ -638,7 +697,7 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 	}
 	
 	// on effectue un cumul des tickets par mois écoulés sur les 12 derniers mois.
-	public function getPerMonthRequest($org_id,$local,$nb_month){
+	public function getPerMonthRequest_deprecated($org_id,$local,$nb_month){
 		$lastyear = Zend_Date::now($local);
 		$lastyear->setDay(1); // first day of the month
 		$lastyear->sub($nb_month -1,Zend_Date::MONTH);
@@ -647,6 +706,37 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 				'operation'=> 'core/get',
 				'class' => 'UserRequest',
 				'key' => 'SELECT UserRequest WHERE org_id = "'.$org_id.'" AND start_date >="'.$start_date.'"',
+				//'key' => 'SELECT UserRequest WHERE start_date >="'.$start_date.'"',
+				'output_fields' => 'id,start_date'
+	
+		);
+		//Zend_Debug::dump($aData);
+		$results = $this->CallWebService( $aData);
+		//Zend_Debug::dump($results);
+		$tab_result = array();
+		if (count($results['objects'])>0){
+			$i = 0;
+			foreach ($results['objects'] as $result) {
+				$tab_result[$i] = $result['fields'];
+				$i++;
+			}
+		}
+		//Zend_Debug::dump($tab_result);
+		return $tab_result;
+	}
+	
+	// on effectue un cumul des tickets par mois écoulés sur les 12 derniers mois.
+	public function getPerMonthRequest($local,$nb_month,$status = null){
+		$lastyear = Zend_Date::now($local);
+		$lastyear->setDay(1); // first day of the month
+		$lastyear->sub($nb_month -1,Zend_Date::MONTH);
+		$start_date = $lastyear->toString('Y-M-d');
+		if (!is_null($status)){$where = ' AND status = "'.$status.'"';}
+			else {$where = '';}
+		$aData = array(
+				'operation'=> 'core/get',
+				'class' => 'UserRequest',
+				'key' => 'SELECT UserRequest WHERE org_id = "'.$this->_org_id.'" AND start_date >="'.$start_date.'"'.$where,
 				//'key' => 'SELECT UserRequest WHERE start_date >="'.$start_date.'"',
 				'output_fields' => 'id,start_date'
 	
@@ -718,24 +808,52 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 		*/
 	}
 	
-	public function getCountRequest($org_id){
+	public function getCountRequest_deprecated($org_id, $clause = null){
+		if (is_null($clause)) { $where = '';}
+		else {$where = ' AND '.$clause;}
 		$aData = array(
 					'operation'=> 'core/get',
 					'class' => 'UserRequest',
-					'key' => 'SELECT UserRequest WHERE org_id = "'.$org_id.'"',
-					'output_fields' => 'ref,resolution_code,service_name,caller_id_friendlyname'
+					'key' => 'SELECT UserRequest WHERE org_id = "'.$org_id.'"'.$where,
+					'output_fields' => 'ref,resolution_code,service_name,caller_id_friendlyname,status'
 					);
 		return $this->CallWebService( $aData);
 	}
 	
-	public function getCountRequestPerUser($org_id,$caller_id){
+	public function getCountRequest($clause = null){
+		if (is_null($clause)) { $where = '';}
+		else {$where = ' AND '.$clause;}
+		$aData = array(
+				'operation'=> 'core/get',
+				'class' => 'UserRequest',
+				'key' => 'SELECT UserRequest WHERE org_id = "'.$this->_OPref->_org_id.'"'.$where,
+				'output_fields' => 'ref,resolution_code,service_name,caller_id_friendlyname,status'
+		);
+		return $this->CallWebService( $aData);
+	}
+	
+/*	public function getCountRequestPerUser($org_id,$caller_id){
 			$aData = array(
 					'operation'=> 'core/get',
 					'class' => 'UserRequest',
 					'key' => 'SELECT UserRequest WHERE org_id = "'.$org_id.'" AND caller_id ="'.$caller_id.'"',
-					'output_fields' => 'ref,resolution_code,service_name,caller_id_friendlyname'
+					'output_fields' => 'ref,resolution_code,service_name,caller_id_friendlyname,status'
 			);
 		
+		return $this->CallWebService( $aData);
+	}
+*/
+	
+	public function getCountRequestPerUser($org_id,$caller_id,$clause = null){
+		if (is_null($clause)) { $where = '';}
+		else {$where = ' AND '.$clause;}
+		$aData = array(
+				'operation'=> 'core/get',
+				'class' => 'UserRequest',
+				'key' => 'SELECT UserRequest WHERE org_id = "'.$org_id.'" AND caller_id ="'.$caller_id.'"'.$where,
+				'output_fields' => 'ref,resolution_code,service_name,caller_id_friendlyname,status'
+		);
+		//Zend_Debug::dump($aData);
 		return $this->CallWebService( $aData);
 	}
 	

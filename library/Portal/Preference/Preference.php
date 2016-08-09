@@ -230,4 +230,10 @@ class Portal_Preference_Preference {
 		return $this->_user_id;
 	}
 	
+	public function getStoredPref($pref){
+		$userPref = new Portal_Model_DbTable_UserPref();
+		$result = $userPref->getPref($this->_user_id,$pref);
+		return $result;
+	}
+	
 }

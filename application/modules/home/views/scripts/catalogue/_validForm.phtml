@@ -1,0 +1,16 @@
+<h1><?php echo $this->translate('Félicitation');?></h1>
+
+<table style = "width:100%;">
+	<tr>
+	<td>
+	<p> Votre demande a bien été enregistrée sous la référence <b><?php echo $this->RefRequest;?></b></p> 
+	<p>Vous recevrez très bientôt un mail vous rappelant la référence votre demande.</p>
+	<p>L'équipe de support vous remercie.</p>
+	</td>
+	<td>
+	<a class="more" href="<?php echo $this->url(array('controller' => 'openedrequest', 'action' => 'index', 'module' => 'request','ref_request'=>null), 'default'); ?>"><?php echo $this->translate('Consulter la liste des incidents');?></a>
+	<br>
+	<a class="more" href="<?php echo $this->url(array('controller' => 'catalogue', 'action' => 'index', 'module' => 'home','ref_request'=>null,'Service'=>null,'eltservice'=>null,'tpleltservice'=>null), 'default'); ?>"><?php echo $this->translate('Catalogue de Services');?></a>
+	</td>
+	</tr>
+</table>

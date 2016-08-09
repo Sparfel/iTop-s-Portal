@@ -1,0 +1,36 @@
+ <script>
+	 $(function() {
+		 $( ".datetimepicker" ).datetimepicker({
+			 dateFormat: "dd-mm-yy",
+			 timeFormat: "HH:mm",
+			 hourText: "Heure",
+			 regional: "fr",
+			 showOn: "button",
+			 buttonImage: "<?php echo $this->baseUrl();?>/layouts/frontoffice/images/calendrier/cal.gif",
+			 buttonImageOnly: true
+			 });
+		 });
+	
+	 $(function() {
+		 $( ".datepicker" ).datepicker({
+		 dateFormat: "dd-mm-yy",
+		 regional: "fr",
+		 showOn: "button",
+		 buttonImage: "<?php echo $this->baseUrl();?>/layouts/frontoffice/images/calendrier/cal.gif",
+		 buttonImageOnly: true
+		 });
+		});
+	</script>
+	<?php 
+		if (strlen($this->serviceName) > 0) {
+			echo '<h1>'.$this->serviceName.'</h1>';
+			}
+		else {echo '<h1>'.$this->translate('Création d\'une nouvelle demande.').'</h1>';}
+		if (strlen($this->serviceDescription)>0) {
+			$this->placeholder('aside')->captureStart();
+			echo '<div id="SrvDesc"><img src= "'.$this->baseUrl().'/layouts/frontoffice/images/info_small.png"/></div>';
+			echo $this->serviceDescription;
+			$this->placeholder('aside')->captureEnd();
+		}
+		echo $this->form;
+		?>

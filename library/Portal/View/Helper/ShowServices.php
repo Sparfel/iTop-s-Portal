@@ -119,7 +119,7 @@ class Portal_View_Helper_ShowServices extends Zend_View_Helper_Abstract
 							//print_r($service);
 							//echo '<li class="'.$this->StyleList[$service->getId()].'" id="'.$service->getId().'">'.chr(13);
 							$script .= '<li class="'.$this->StyleServiceClass($AStyle,$service->getId()).'" id="'.$service->getId().'">'.chr(13);
-							$script .= '<a href="'.$this->view->url(array('controller' => 'index', 'action' => 'index', 'module' => 'home',$type=>$service->getId()),null, true).'">'.chr(13);
+							$script .= '<a href="'.$this->view->url(array('controller' => 'catalogue', 'action' => 'index', 'module' => 'home',$type=>$service->getId()),null, true).'">'.chr(13);
 							$script .= '<hgroup>'.chr(13);
 							$script .= '<h3 class="'.$this->StyleServiceClass($AStyle,$service->getId()).'">'.$service->getName().'<span>'.$service->getName().'</span></h3>'.chr(13);
 							$script .= '</hgroup>'.chr(13);
@@ -137,7 +137,7 @@ class Portal_View_Helper_ShowServices extends Zend_View_Helper_Abstract
 				{
 					if ($i == 1) {$script .= '<div class="col1"><ul class="'.$class.'">'.chr(13);}
 					$script .= '<li class="'.$this->StyleServiceClass($AStyle,$service->getId()).'" id="'.$service->getId().'">'.chr(13);
-					$script .= '<a href="'.$this->view->url(array('controller' => 'index', 'action' => 'index', 'module' => 'home',$type=>$service->getId()),null, true).'">'.chr(13);
+					$script .= '<a href="'.$this->view->url(array('controller' => 'catalogue', 'action' => 'index', 'module' => 'home',$type=>$service->getId()),null, true).'">'.chr(13);
 					$script .= '<hgroup>'.chr(13);
 					$script .= '<h3 class="'.$this->StyleServiceClass($AStyle,$service->getId()).'">'.$service->getName().'<span>'.$service->getName().'</span></h3>'.chr(13);
 					$script .= '</hgroup>'.chr(13);

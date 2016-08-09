@@ -46,7 +46,7 @@ class Portal_Dashboard_Dashboard {
 		$view->headScript()->appendFile('/cui/plugins/flotr2/flotr2.js');
 			
 		$view->headScript()->appendFile('/layouts/frontoffice/js/jquery-sDashboard.js');
-		$view->headScript()->appendFile('/layouts/frontoffice/js/exampleData.js');
+		//$view->headScript()->appendFile('/layouts/frontoffice/js/exampleData.js');
 		$view->headLink()->appendStylesheet('/layouts/frontoffice/css/sDashboard.css');
 		
 		$session = new Zend_Session_Namespace('Zend_Auth');

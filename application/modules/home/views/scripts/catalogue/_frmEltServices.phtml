@@ -1,0 +1,22 @@
+<?php 
+if (isset($this->form))
+{
+	if (strlen($this->serviceName) > 0) {
+		echo '<h1>'.$this->serviceName.'</h1>';
+	}
+	else {echo '<h1>'.$this->translate('Création d\'une nouvelle demande.').'</h1>';}
+	if (strlen($this->serviceDescription)>0) {
+		$this->placeholder('aside')->captureStart();
+		echo '<div id="SrvDesc"><img src= "'.$this->baseUrl().'/layouts/frontoffice/images/info_small.png"/></div>';
+		echo $this->serviceDescription;
+		$this->placeholder('aside')->captureEnd();
+	}
+	echo $this->form;
+}
+else
+{
+	echo '<h1>'.$this->serviceElementName.'</h1>';
+	echo '<h2>'.$this->serviceElementDescription.'</h2>';
+	echo $this->ShowServices($this->ServiceElementTemplateList,$this->tab_tri,'ServiceSubcategoryTemplate');
+}
+?>

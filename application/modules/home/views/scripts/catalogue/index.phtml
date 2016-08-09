@@ -1,82 +1,64 @@
+<Style>
+div#SrvDesc {
+	float:left;
+	margin-left:-35px;
+}
+section aside {
+    margin: 0px;
+    margin-top:20px;
+    float: right;
+    width: 250px;
+    z-index: 1;
+    background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.25);
+	padding: 0px 15px 0px;
+	color: #FFF;
+}
+#fieldset-Servicerequest dt#eltsrvdesc-label{
+background:url("/layouts/frontoffice/images/info_verysmall.png") no-repeat  transparent;
+background-position : 95%;
+height: 32px;
+}
+ #fieldset-Servicerequest dd#eltsrvdesc-element{
+/*background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.3);
+	color: #FFF;
+	width:75%;*/
+	font-size:80%;
+}
+</Style> 
 <?php
 
-echo '<h1>'.$this->translate('Consulter notre catalogue de service').'</h1>';
-
+switch ($this->page) {
+	case "ClientServices" :
+		echo $this->partial('catalogue/_clientServices.phtml', $this);
+		break;
+	case "iTopServices" :
+		echo $this->partial('catalogue/_itopServices.phtml', $this);
+		break;
+	case "EltService" :
+		echo $this->partial('catalogue/_eltServices.phtml', $this);
+			break;
+	case "FrmEltService" :
+		echo $this->partial('catalogue/_frmEltServices.phtml', $this);
+		break;
+	case "TplFrmEltService" :
+		echo $this->partial('catalogue/_tplFrmEltServices.phtml', $this);
+		break;
+	case "ValidForm" :
+		echo $this->partial('catalogue/_validForm.phtml', $this);
+		break;
+	case "" :
+		echo 'Oups, there is a problem !';
+		break;
+}
 ?>
-<br>
-   
-<?php
-	echo $this->tableau;
-?>
-<br>
-<?php 
-echo '<h1>'.$this->translate('Hiérarchie des Services').'</h2>';
-?>
- 
- <style>
- /* Pour corriger le bug d'afficahge sous Chrome*/
-.google-visualization-orgchart-node {border:0px;}
- </style>
- 
- <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['orgchart']}]}"></script>
-    <script type="text/javascript">
-      google.load('visualization', '1', {packages: ['orgchart']});
-    </script>
-    <script type="text/javascript">
-      function drawVisualization() {
-        // Create and populate the data table.
-        var data = google.visualization.arrayToDataTable([
-          ['Name', 'Service', 'Tooltip'],
-          <?php
-          
-          	echo $this->tableau2;
-      	  	?>  
-        ]);
-      
-        // Create and draw the visualization.
-        new google.visualization.OrgChart(document.getElementById('visualization')).
-            draw(data, {allowHtml: true,
-                		
-                		allowCollapse:true
-            			}
-				);
-      }
-      
 
-      google.setOnLoadCallback(drawVisualization);
-    </script>
- 	
- 	
-    <div id="visualization" style="width: 100%; height: 400px; overflow:auto;"></div>
-
- 	 
-    
-  <!--    <style type="text/css">
-        #service {width: 800px;height: 800px; }   
-    </style>
-
-    <div id="service"></div>
-    <script type="text/ecmascript">
-			$('#service').getOrgChart({
-				scale: 0.2,
-				levelSeparation: 500,
-				orientation: getOrgChart.RO_LEFT,
-				//orientation:getOrgChart.RO_BOTTOM_PARENT_LEFT,
-				theme: "eve",
-				color: "parme",
-				primaryColumns: ["Nom", "Description"],
-				//imageColumn: "image",
-				printable: false,
-				gridView: true,
-				editable: false,
-				dataSource:[<?php //echo $this->tableau3;?>
-				]
-			});
-    </script>
-     -->
-    <?php //echo $this->tableau3;?>
- 	
- 	
- 	
- 
- 
+<script type="text/javascript" >
+$(function(){ // wait for document to load 
+ $('#tab_files-0').MultiFile({ 
+  STRING: {
+   file: '<em title="Click to remove" onclick="$(this).parent().prev().click()">$file</em>',
+   remove: '<img src="/layouts/frontoffice/images/delete-icon.png" height="16" width="16" alt="x"/>'
+  }
+ }); 
+});
+</script>

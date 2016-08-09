@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.11.1deb2+deb7u2
+-- version 4.2.12deb2+deb8u2
 -- http://www.phpmyadmin.net
 --
--- Client: localhost
--- Généré le: Ven 05 Août 2016 à 13:52
--- Version du serveur: 5.5.46
--- Version de PHP: 5.4.45-0+deb7u2
+-- Client :  localhost
+-- Généré le :  Mar 09 Août 2016 à 15:26
+-- Version du serveur :  5.5.50-0+deb8u1
+-- Version de PHP :  5.6.24-0+deb8u1
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `itop_portal_dev`
+-- Base de données :  `itop_portal_dev`
 --
 
 -- --------------------------------------------------------
@@ -28,9 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `auth_belong` (
   `user_id` int(11) unsigned NOT NULL,
-  `group_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`user_id`,`group_id`),
-  KEY `fk_belong__group_id___group__user_id` (`group_id`)
+  `group_id` int(11) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -51,13 +49,11 @@ INSERT INTO `auth_belong` (`user_id`, `group_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `auth_group` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(11) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text,
-  `group_parent_id` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_group__group_parent_id___group__id` (`group_parent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+  `group_parent_id` int(11) unsigned DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `auth_group`
@@ -80,9 +76,7 @@ INSERT INTO `auth_group` (`id`, `name`, `description`, `group_parent_id`) VALUES
 
 CREATE TABLE IF NOT EXISTS `auth_group_permission` (
   `group_id` int(11) unsigned NOT NULL,
-  `permission_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`group_id`,`permission_id`),
-  KEY `fk_group_permission__permission_id___permission__id` (`permission_id`)
+  `permission_id` int(11) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -183,11 +177,10 @@ INSERT INTO `auth_group_permission` (`group_id`, `permission_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `auth_permission` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(11) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=82 ;
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `auth_permission`
@@ -241,7 +234,7 @@ INSERT INTO `auth_permission` (`id`, `name`, `description`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `auth_user` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(11) unsigned NOT NULL,
   `username` varchar(255) NOT NULL,
   `first_name` varchar(30) DEFAULT NULL,
   `last_name` varchar(30) DEFAULT NULL,
@@ -256,16 +249,8 @@ CREATE TABLE IF NOT EXISTS `auth_user` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `last_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_parent_id` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `can_be_deleted` (`can_be_deleted`),
-  KEY `is_active` (`is_active`),
-  KEY `is_super_admin` (`is_super_admin`),
-  KEY `is_staff` (`is_staff`),
-  KEY `email` (`email`),
-  KEY `username` (`username`),
-  KEY `fk_user__user_parent_id___user__id` (`user_parent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+  `user_parent_id` int(11) unsigned DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `auth_user`
@@ -276,7 +261,7 @@ INSERT INTO `auth_user` (`id`, `username`, `first_name`, `last_name`, `email`, `
 (2, 'anonymous', NULL, NULL, NULL, '', NULL, '', 0, 0, 0, 0, '0000-00-00 00:00:00', '2015-03-26 08:56:52', '2015-04-07 13:02:01', NULL),
 (14, 'dali@demo.com', 'Salvador', 'Dali', 'dali@demo.com', 'c2a2543bdd9f0f5fe3c7887d7c455fa620b30aee', '39a9606ae41122d8f05896e8419c505d', 'sha1', 1, 1, 0, 0, '2015-03-26 08:47:01', '2015-04-07 00:02:32', '2015-04-07 12:02:32', NULL),
 (15, 'pablo@demo.com', 'Pablo', 'Picasso', 'pablo@demo.com', '443941840ecd783d156423d760ef281bda0dd0b7', '8bc9749e695faaf83ecf99aba96c6d05', 'sha1', 1, 1, 0, 1, '2015-03-30 08:51:25', '0000-00-00 00:00:00', '2015-03-30 08:58:03', NULL),
-(16, 'admin', 'My First Name', 'My Last Name', 'my.email@foo.org', 'eaad908b009ee6ea086bde96e6fcb1b61d720cfc', '8928d295449baeeae36ec22d4c833f6e', 'sha1', 0, 1, 1, 0, '2015-04-07 13:02:58', '2016-08-04 23:40:39', '2016-08-05 11:40:39', NULL);
+(16, 'admin', 'My First Name', 'My Last Name', 'my.email@foo.org', 'eaad908b009ee6ea086bde96e6fcb1b61d720cfc', '8928d295449baeeae36ec22d4c833f6e', 'sha1', 0, 1, 1, 0, '2015-04-07 13:02:58', '2016-08-09 00:58:22', '2016-08-09 12:58:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -286,9 +271,7 @@ INSERT INTO `auth_user` (`id`, `username`, `first_name`, `last_name`, `email`, `
 
 CREATE TABLE IF NOT EXISTS `auth_user_permission` (
   `user_id` int(11) unsigned NOT NULL,
-  `permission_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`user_id`,`permission_id`),
-  KEY `fk_persmission__action_id___action__id` (`permission_id`)
+  `permission_id` int(11) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -305,11 +288,9 @@ INSERT INTO `auth_user_permission` (`user_id`, `permission_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `centurion_content_type` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+`id` int(11) unsigned NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `centurion_content_type`
@@ -327,7 +308,7 @@ INSERT INTO `centurion_content_type` (`id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `centurion_navigation` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(11) unsigned NOT NULL,
   `label` varchar(150) DEFAULT NULL,
   `module` varchar(100) DEFAULT NULL,
   `controller` varchar(100) DEFAULT NULL,
@@ -349,21 +330,8 @@ CREATE TABLE IF NOT EXISTS `centurion_navigation` (
   `proxy_pk` int(11) unsigned DEFAULT NULL,
   `can_be_deleted` int(11) unsigned DEFAULT '1',
   `original_id` int(11) unsigned DEFAULT NULL,
-  `language_id` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `proxy_model` (`proxy_model`,`proxy_pk`),
-  KEY `order` (`order`),
-  KEY `is_visible` (`is_visible`),
-  KEY `is_in_menu` (`is_in_menu`),
-  KEY `mptt_lft` (`mptt_lft`),
-  KEY `mptt_rgt` (`mptt_rgt`),
-  KEY `mptt_level` (`mptt_level`),
-  KEY `mptt_tree_id` (`mptt_tree_id`),
-  KEY `mptt_parent_id` (`mptt_parent_id`),
-  KEY `original_id` (`original_id`,`language_id`),
-  KEY `can_be_deleted` (`can_be_deleted`),
-  KEY `language_id` (`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=200 ;
+  `language_id` int(11) unsigned DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `centurion_navigation`
@@ -381,7 +349,7 @@ INSERT INTO `centurion_navigation` (`id`, `label`, `module`, `controller`, `acti
 (12, 'Backoffice', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 78, 0, 5, NULL, NULL, NULL, 0, NULL, 1),
 (13, 'Error', 'admin', 'index', 'log', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 73, 74, 2, 5, 4, NULL, NULL, 1, NULL, NULL),
 (14, 'Pages unactivated', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 'unactived', 1, 26, 0, 20, NULL, NULL, NULL, 0, NULL, NULL),
-(16, 'Frontoffice', NULL, NULL, NULL, NULL, 'all', NULL, NULL, NULL, 1, 1, NULL, 1, 120, 0, 18, NULL, NULL, NULL, 0, NULL, 1),
+(16, 'Frontoffice', NULL, NULL, NULL, NULL, 'all', NULL, NULL, NULL, 1, 1, NULL, 1, 122, 0, 18, NULL, NULL, NULL, 0, NULL, 1),
 (20, 'Contents', 'admin', 'admin-dashboard', 'list-admin', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 2, 17, 1, 5, 12, NULL, NULL, 1, NULL, 1),
 (105, 'Pages', 'admin', 'admin-navigation', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 53, 54, 2, 5, 3, NULL, NULL, 1, NULL, NULL),
 (118, 'Permission', 'auth', 'admin-permission', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 39, 40, 2, 5, 192, NULL, NULL, 1, NULL, 2),
@@ -390,34 +358,35 @@ INSERT INTO `centurion_navigation` (`id`, `label`, `module`, `controller`, `acti
 (122, 'Users', 'auth', 'admin-user', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 19, 32, 2, 5, 192, NULL, NULL, 1, NULL, 2),
 (123, 'Groups', 'auth', 'admin-group', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 33, 36, 2, 5, 192, NULL, NULL, 1, NULL, 2),
 (124, 'User permission', 'auth', 'admin-permission', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 28, 29, 3, 5, 122, NULL, NULL, 1, NULL, 2),
-(125, 'Bienvenue', 'home', 'index', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 86, 103, 1, 18, 16, NULL, NULL, 1, NULL, 2),
+(125, 'Bienvenue', 'home', 'index', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 86, 105, 1, 18, 16, NULL, NULL, 1, NULL, 2),
 (126, 'Tableau de bord', 'home', 'dashboard', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 87, 88, 2, 18, 125, NULL, NULL, 1, NULL, 2),
-(127, 'Catalogue des services', 'home', 'catalogue', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 89, 94, 2, 18, 125, NULL, NULL, 1, NULL, 2),
-(128, 'Contact', 'home', 'contact', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 95, 100, 2, 18, 125, NULL, NULL, 1, NULL, 2),
-(129, 'Gestion des Incidents', 'request', 'index', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 104, 113, 1, 18, 16, NULL, NULL, 1, NULL, 2),
-(131, 'Tableau de bord', 'request', 'dashboard', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 105, 106, 2, 18, 129, NULL, NULL, 1, NULL, 2),
-(132, 'Nouveau ticket', 'request', 'newrequest', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 107, 108, 2, 18, 129, NULL, NULL, 1, NULL, 2),
-(133, 'Tickets en cours', 'request', 'openedrequest', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 109, 110, 2, 18, 129, NULL, NULL, 1, NULL, 2),
-(134, 'Tickets fermés', 'request', 'closedrequest', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 111, 112, 2, 18, 129, NULL, NULL, 1, NULL, 2),
-(149, 'Store', 'store', 'product', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 114, 119, 1, 18, 16, NULL, NULL, 1, NULL, 2),
-(167, 'Produits', 'store', 'product', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 115, 116, 2, 18, 149, NULL, NULL, 1, NULL, 2),
-(168, 'Panier', 'store', 'panier', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 117, 118, 2, 18, 149, NULL, NULL, 1, NULL, 2),
-(169, 'Liste des Chat', 'chat', 'index', 'viewallchats', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 96, 97, 3, 18, 128, NULL, NULL, 1, NULL, 1),
-(170, 'Nouveau Chat', 'chat', 'index', 'index', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 98, 99, 3, 18, 128, NULL, NULL, 1, NULL, 1),
-(172, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 101, 102, 2, 18, 125, 2, 1, 1, NULL, 1),
+(127, 'Catalogue des services', 'home', 'catalogue', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 89, 96, 2, 18, 125, NULL, NULL, 1, NULL, 2),
+(128, 'Contact', 'home', 'contact', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 97, 102, 2, 18, 125, NULL, NULL, 1, NULL, 2),
+(129, 'Gestion des Incidents', 'request', 'index', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 106, 115, 1, 18, 16, NULL, NULL, 1, NULL, 2),
+(131, 'Tableau de bord', 'request', 'dashboard', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 107, 108, 2, 18, 129, NULL, NULL, 1, NULL, 2),
+(132, 'Nouveau ticket', 'request', 'newrequest', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 109, 110, 2, 18, 129, NULL, NULL, 1, NULL, 2),
+(133, 'Tickets en cours', 'request', 'openedrequest', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 111, 112, 2, 18, 129, NULL, NULL, 1, NULL, 2),
+(134, 'Tickets fermés', 'request', 'closedrequest', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 113, 114, 2, 18, 129, NULL, NULL, 1, NULL, 2),
+(149, 'Store', 'store', 'product', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 116, 121, 1, 18, 16, NULL, NULL, 1, NULL, 2),
+(167, 'Produits', 'store', 'product', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 117, 118, 2, 18, 149, NULL, NULL, 1, NULL, 2),
+(168, 'Panier', 'store', 'panier', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 119, 120, 2, 18, 149, NULL, NULL, 1, NULL, 2),
+(169, 'Liste des Chat', 'chat', 'index', 'viewallchats', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 98, 99, 3, 18, 128, NULL, NULL, 1, NULL, 1),
+(170, 'Nouveau Chat', 'chat', 'index', 'index', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 100, 101, 3, 18, 128, NULL, NULL, 1, NULL, 1),
+(172, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 103, 104, 2, 18, 125, 2, 1, 1, NULL, 1),
 (183, 'Préférences', 'user', 'preference', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 76, 77, 1, 5, 12, NULL, NULL, 1, NULL, 1),
 (184, 'Manage Import Ldap', 'user', 'admin-ldap-user', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 24, 25, 3, 5, 122, NULL, NULL, 1, NULL, 1),
 (185, 'Manage Local Users', 'user', 'admin-user', NULL, NULL, NULL, 'default', NULL, NULL, 1, 1, NULL, 22, 23, 3, 5, 122, NULL, NULL, 1, NULL, 1),
 (186, 'Manage Import iTop', 'user', 'admin-itop-user', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 26, 27, 3, 5, 122, NULL, NULL, 1, NULL, 1),
 (187, 'Cron Task', 'cron', 'admin-cron', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 65, 66, 2, 5, 4, NULL, NULL, 1, NULL, 1),
-(188, 'Contrats Fournisseur', 'home', 'contract', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 90, 91, 3, 18, 127, NULL, NULL, 1, NULL, 1),
-(189, 'Admin Services Clients', 'config', 'admin-services', NULL, NULL, NULL, 'default', NULL, NULL, 1, 1, NULL, 92, 93, 3, 18, 127, NULL, NULL, 1, NULL, 1),
+(188, 'Contrats Fournisseur', 'home', 'contract', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 92, 93, 3, 18, 127, NULL, NULL, 1, NULL, 1),
+(189, 'Admin Services Clients', 'config', 'admin-services', NULL, NULL, NULL, 'default', NULL, NULL, 1, 1, NULL, 94, 95, 3, 18, 127, NULL, NULL, 1, NULL, 1),
 (190, 'Home Services Page', 'config', 'admin-style-services', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 57, 60, 2, 5, 3, NULL, NULL, 1, NULL, 1),
 (191, 'Manage Media', 'media', 'admin-media', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 58, 59, 3, 5, 190, NULL, NULL, 1, NULL, 1),
 (192, 'Configuration', 'config', 'admin-home', 'dashboard', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 18, 45, 1, 5, 12, NULL, NULL, 1, NULL, 1),
 (193, 'Organizations', 'config', 'admin-organizations', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 41, 42, 2, 5, 192, NULL, NULL, 1, NULL, 1),
 (194, 'Alerts', 'config', 'admin-alerts', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 43, 44, 2, 5, 192, NULL, NULL, 1, NULL, 1),
-(195, 'Widgets', 'config', 'admin-widget', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 61, 62, 2, 5, 3, NULL, NULL, 1, NULL, 1);
+(195, 'Widgets', 'config', 'admin-widget', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 61, 62, 2, 5, 3, NULL, NULL, 1, NULL, 1),
+(196, 'Listes des Services', 'home', 'catalogue', 'list', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 90, 91, 3, 18, 127, NULL, NULL, 1, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -426,11 +395,10 @@ INSERT INTO `centurion_navigation` (`id`, `label`, `module`, `controller`, `acti
 --
 
 CREATE TABLE IF NOT EXISTS `centurion_site` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(11) unsigned NOT NULL,
   `domain` varchar(100) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `centurion_site`
@@ -446,7 +414,7 @@ INSERT INTO `centurion_site` (`id`, `domain`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `cms_flatpage` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(11) unsigned NOT NULL,
   `title` varchar(100) NOT NULL,
   `slug` varchar(100) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
@@ -469,20 +437,8 @@ CREATE TABLE IF NOT EXISTS `cms_flatpage` (
   `flatpage_type` int(1) NOT NULL DEFAULT '1',
   `route` varchar(50) DEFAULT NULL,
   `class` varchar(255) DEFAULT NULL,
-  `cover_id` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `flatpage_template_id` (`flatpage_template_id`),
-  KEY `flatpage_cover_id` (`cover_id`),
-  KEY `mptt_parent_id` (`mptt_parent_id`),
-  KEY `slug` (`slug`),
-  KEY `is_published` (`is_published`),
-  KEY `mptt_lft` (`mptt_lft`),
-  KEY `mptt_rgt` (`mptt_rgt`),
-  KEY `mptt_level` (`mptt_level`),
-  KEY `mptt_tree_id` (`mptt_tree_id`),
-  KEY `original_id` (`original_id`,`language_id`),
-  KEY `language_id` (`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `cover_id` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `cms_flatpage`
@@ -499,12 +455,11 @@ INSERT INTO `cms_flatpage` (`id`, `title`, `slug`, `description`, `keywords`, `b
 --
 
 CREATE TABLE IF NOT EXISTS `cms_flatpage_template` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(11) unsigned NOT NULL,
   `name` varchar(50) NOT NULL,
   `view_script` varchar(50) NOT NULL,
-  `class` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `class` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `cms_flatpage_template`
@@ -521,15 +476,14 @@ INSERT INTO `cms_flatpage_template` (`id`, `name`, `view_script`, `class`) VALUE
 --
 
 CREATE TABLE IF NOT EXISTS `cron_task` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `class_name` varchar(255) NOT NULL,
   `function_name` varchar(255) NOT NULL,
   `is_active` varchar(1) NOT NULL,
   `frequency` int(11) NOT NULL,
-  `last_execution` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table listant les tâches exécutées par le cron' AUTO_INCREMENT=5 ;
+  `last_execution` datetime DEFAULT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COMMENT='Table listant les tâches exécutées par le cron';
 
 --
 -- Contenu de la table `cron_task`
@@ -546,13 +500,12 @@ INSERT INTO `cron_task` (`id`, `name`, `class_name`, `function_name`, `is_active
 --
 
 CREATE TABLE IF NOT EXISTS `ecom_products` (
-  `produitId` int(20) NOT NULL AUTO_INCREMENT,
+`produitId` int(20) NOT NULL,
   `nom` varchar(20) NOT NULL,
   `description` text NOT NULL,
   `prix` decimal(9,2) NOT NULL,
-  `image` varchar(255) NOT NULL COMMENT 'nom de l''image',
-  PRIMARY KEY (`produitId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=57 ;
+  `image` varchar(255) NOT NULL COMMENT 'nom de l''image'
+) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `ecom_products`
@@ -572,14 +525,12 @@ INSERT INTO `ecom_products` (`produitId`, `nom`, `description`, `prix`, `image`)
 --
 
 CREATE TABLE IF NOT EXISTS `media_duplicate` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(11) unsigned NOT NULL,
   `file_id` varchar(100) NOT NULL,
   `adapter` varchar(50) NOT NULL,
   `params` text NOT NULL,
-  `dest` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `file_id` (`file_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=71 ;
+  `dest` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `media_duplicate`
@@ -629,15 +580,7 @@ CREATE TABLE IF NOT EXISTS `media_file` (
   `belong_pk` int(11) unsigned DEFAULT NULL,
   `description` text,
   `sha1` varchar(40) DEFAULT NULL,
-  `delete_original` int(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  KEY `fk_file__user_id___user__id` (`user_id`),
-  KEY `proxy_model` (`proxy_model`),
-  KEY `proxy_pk` (`proxy_pk`),
-  KEY `belong_model` (`belong_model`),
-  KEY `belong_pk` (`belong_pk`),
-  KEY `file_id` (`file_id`),
-  KEY `local_filename` (`local_filename`)
+  `delete_original` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -671,11 +614,10 @@ INSERT INTO `media_file` (`id`, `file_id`, `local_filename`, `mime`, `filename`,
 --
 
 CREATE TABLE IF NOT EXISTS `media_image` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(11) unsigned NOT NULL,
   `width` int(11) unsigned NOT NULL,
-  `height` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=53 ;
+  `height` int(11) unsigned NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `media_image`
@@ -726,19 +668,15 @@ INSERT INTO `media_image` (`id`, `width`, `height`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `media_multiupload_ticket` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(11) unsigned NOT NULL,
   `ticket` varchar(32) NOT NULL,
   `expire` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `proxy_model_id` int(11) unsigned DEFAULT NULL,
   `proxy_pk` int(11) unsigned DEFAULT NULL,
   `form_class_model_id` int(11) unsigned NOT NULL,
   `element_name` varchar(255) NOT NULL,
-  `values` text,
-  PRIMARY KEY (`id`),
-  KEY `proxy_model` (`proxy_model_id`),
-  KEY `form_class_model` (`form_class_model_id`),
-  KEY `proxy_pk` (`proxy_pk`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `values` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -747,12 +685,11 @@ CREATE TABLE IF NOT EXISTS `media_multiupload_ticket` (
 --
 
 CREATE TABLE IF NOT EXISTS `media_video` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(11) unsigned NOT NULL,
   `width` int(11) unsigned NOT NULL,
   `height` int(11) unsigned NOT NULL,
-  `duration` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `duration` int(11) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -761,16 +698,15 @@ CREATE TABLE IF NOT EXISTS `media_video` (
 --
 
 CREATE TABLE IF NOT EXISTS `portal_alert` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL DEFAULT '0',
   `text` text NOT NULL,
   `is_active` varchar(1) NOT NULL,
   `start` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `stop` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `type` enum('Alert','Information','Notification') NOT NULL DEFAULT 'Information',
-  `priority` enum('1','2','3','4','5','6','7','8','9') DEFAULT '5' COMMENT '1 : very high, 9 : very low',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `priority` enum('1','2','3','4','5','6','7','8','9') DEFAULT '5' COMMENT '1 : very high, 9 : very low'
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `portal_alert`
@@ -789,9 +725,7 @@ INSERT INTO `portal_alert` (`id`, `name`, `text`, `is_active`, `start`, `stop`, 
 
 CREATE TABLE IF NOT EXISTS `portal_alert_organization` (
   `alert_id` int(11) NOT NULL,
-  `organization_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`alert_id`,`organization_id`),
-  KEY `FK_portal_alert_organization_portal_organization` (`organization_id`)
+  `organization_id` int(11) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -801,15 +735,14 @@ CREATE TABLE IF NOT EXISTS `portal_alert_organization` (
 --
 
 CREATE TABLE IF NOT EXISTS `portal_chat_questions` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(10) unsigned NOT NULL,
   `message` varchar(255) NOT NULL,
   `sessId` varchar(100) NOT NULL DEFAULT '',
   `user` varchar(20) NOT NULL,
   `org_id` int(11) NOT NULL,
   `organization` varchar(40) NOT NULL,
-  `role` varchar(6) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `role` varchar(6) NOT NULL DEFAULT ''
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `portal_chat_questions`
@@ -825,9 +758,9 @@ INSERT INTO `portal_chat_questions` (`id`, `message`, `sessId`, `user`, `org_id`
 --
 
 CREATE TABLE IF NOT EXISTS `portal_itop_user` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `itop_id` int(11) NOT NULL,
+`id` int(11) unsigned NOT NULL,
   `login` varchar(255) NOT NULL,
+  `itop_id` int(11) NOT NULL,
   `first_name` varchar(30) DEFAULT NULL,
   `last_name` varchar(30) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
@@ -835,11 +768,8 @@ CREATE TABLE IF NOT EXISTS `portal_itop_user` (
   `group_id` int(11) DEFAULT NULL,
   `org_id` varchar(255) NOT NULL,
   `org_name` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `email` (`email`),
-  KEY `login` (`login`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Table permettant l''import des User de iTop ' AUTO_INCREMENT=1 ;
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Table permettant l''import des User de iTop ';
 
 -- --------------------------------------------------------
 
@@ -848,18 +778,15 @@ CREATE TABLE IF NOT EXISTS `portal_itop_user` (
 --
 
 CREATE TABLE IF NOT EXISTS `portal_ldap_user` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(11) unsigned NOT NULL,
   `sn` varchar(255) NOT NULL,
   `first_name` varchar(30) DEFAULT NULL,
   `last_name` varchar(30) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `email2` varchar(255) DEFAULT NULL,
   `is_local` int(1) unsigned NOT NULL DEFAULT '0',
-  `group_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `email` (`email`),
-  KEY `sn` (`sn`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Table permettant l''import des User de Ldap' AUTO_INCREMENT=1 ;
+  `group_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Table permettant l''import des User de Ldap';
 
 -- --------------------------------------------------------
 
@@ -871,8 +798,7 @@ CREATE TABLE IF NOT EXISTS `portal_organization` (
   `id` int(11) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `phonecode` int(6) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `phonecode` int(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Liste des organisations';
 
 -- --------------------------------------------------------
@@ -882,7 +808,7 @@ CREATE TABLE IF NOT EXISTS `portal_organization` (
 --
 
 CREATE TABLE IF NOT EXISTS `portal_service_config` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identifiant',
+`id` int(11) NOT NULL COMMENT 'identifiant',
   `name` varchar(50) NOT NULL COMMENT 'identifiant utilisateur',
   `title` varchar(80) NOT NULL COMMENT 'Titre',
   `subtitle` varchar(160) NOT NULL COMMENT 'Sous Titre',
@@ -892,9 +818,8 @@ CREATE TABLE IF NOT EXISTS `portal_service_config` (
   `link_action` varchar(50) NOT NULL COMMENT 'Action destination',
   `created_at` date NOT NULL COMMENT 'Date de création',
   `updated_at` date NOT NULL COMMENT 'Date de modification',
-  `is_active` tinyint(4) NOT NULL DEFAULT '1' COMMENT 'Actif (0 False, 1 True)',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Configuration Homepage' AUTO_INCREMENT=9 ;
+  `is_active` tinyint(4) NOT NULL DEFAULT '1' COMMENT 'Actif (0 False, 1 True)'
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='Configuration Homepage';
 
 --
 -- Contenu de la table `portal_service_config`
@@ -927,10 +852,7 @@ CREATE TABLE IF NOT EXISTS `portal_service_style` (
   `parent_name` varchar(50) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `avatar_id` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`),
-  KEY `fk_service__avatar_id___file__id` (`avatar_id`)
+  `avatar_id` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -993,15 +915,13 @@ INSERT INTO `portal_service_style` (`id`, `name`, `description`, `code`, `color`
 --
 
 CREATE TABLE IF NOT EXISTS `portal_user_preference` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `preference_name` varchar(50) NOT NULL,
   `preference_value` varchar(250) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`user_id`,`preference_name`,`id`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `portal_user_preference`
@@ -1028,8 +948,7 @@ CREATE TABLE IF NOT EXISTS `portal_widget` (
   `type` enum('Text','Pie','Table','Flatpage','PhoneCode','StackedBar') NOT NULL DEFAULT 'Text',
   `is_active` tinyint(4) NOT NULL DEFAULT '1' COMMENT 'Actif (0 False, 1 True)',
   `order` int(11) DEFAULT NULL,
-  `size` enum('simple','double') NOT NULL DEFAULT 'simple',
-  PRIMARY KEY (`id`)
+  `size` enum('simple','double') NOT NULL DEFAULT 'simple'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1040,9 +959,8 @@ INSERT INTO `portal_widget` (`id`, `dashboard`, `name`, `description`, `source`,
 ('1', 'HOME_DASHBOARD', 'Tickets per status', 'On cumule les tickets par statut en excluant les tickets clos.', 'getCountRequest', '{"count_attribute":"status","where":"status !=''closed''"}', 'Pie', 1, 1, 'simple'),
 ('2', 'HOME_DASHBOARD', 'Opened request', 'Liste des tickets ouverts', 'getListOpenedRequest', '[{"field":"ref","label":"User Request"},{"field":"title","label":"Title"},{"field":"start_date","label":"Started"},{"field":"status","label":"Status"}]', 'Table', 1, 0, 'double'),
 ('3', 'HOME_DASHBOARD', 'Informations', 'Simple texte d''informations.', NULL, 'Ceci est un exemple de texte. On peut mettre le texte en valeur, les balises Html fonctionnent ! \r\nUne alternative au Flatpage interne au site, cf. partie Admisnistration !\r\n', 'Text', 1, 4, 'simple'),
-('4', 'HOME_DASHBOARD', 'Other informations', 'Texte informatif issu d''une page élaborée à partir de la partie administrative du site.', NULL, '5', 'Flatpage', 0, 3, 'simple'),
-('5', 'HOME_DASHBOARD', 'Phone Code', 'on affiche sur kle tableau de bord principal le code utilise pour le Serveur Vocal.\r\nCode utile pour l''Astreinte Syleps', NULL, 'Votre Code d''accès à l''asteinte Syleps est le 1234', 'PhoneCode', 1, 5, 'simple'),
-('6', 'HOME_DASHBOARD', 'Tickets par mois', 'Nombre de tickets sur les 12 mois écoulés', NULL, 'new,assigned,qualified,pending,resolved,closed', 'StackedBar', 1, 6, 'simple');
+('4', 'HOME_DASHBOARD', 'Other informations', 'Texte informatif issu d''une page élaborée à partir de la partie administrative du site.', NULL, '5', 'Flatpage', 1, 3, 'simple'),
+('6', 'HOME_DASHBOARD', 'Tickets par mois', 'Nombre de tickets sur les 12 mois écoulés', NULL, 'new,assigned,qualified,pending,resolved,closed', 'StackedBar', 0, 6, 'simple');
 
 -- --------------------------------------------------------
 
@@ -1051,12 +969,11 @@ INSERT INTO `portal_widget` (`id`, `dashboard`, `name`, `description`, `source`,
 --
 
 CREATE TABLE IF NOT EXISTS `translation_language` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(10) unsigned NOT NULL,
   `locale` varchar(20) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `flag` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `flag` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `translation_language`
@@ -1073,10 +990,9 @@ INSERT INTO `translation_language` (`id`, `locale`, `name`, `flag`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `translation_tag` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `tag` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+`id` int(11) unsigned NOT NULL,
+  `tag` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `translation_tag`
@@ -1096,9 +1012,7 @@ INSERT INTO `translation_tag` (`id`, `tag`) VALUES
 
 CREATE TABLE IF NOT EXISTS `translation_tag_uid` (
   `uid_id` int(11) unsigned NOT NULL,
-  `tag_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`uid_id`,`tag_id`),
-  KEY `FK_translation_tag_uid2` (`tag_id`)
+  `tag_id` int(11) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1144,10 +1058,7 @@ INSERT INTO `translation_tag_uid` (`uid_id`, `tag_id`) VALUES
 CREATE TABLE IF NOT EXISTS `translation_translation` (
   `translation` text COLLATE utf8_bin NOT NULL,
   `uid_id` int(11) unsigned NOT NULL,
-  `language_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`uid_id`,`language_id`),
-  KEY `uid_id` (`uid_id`),
-  KEY `language_id` (`language_id`)
+  `language_id` int(11) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -1265,10 +1176,9 @@ INSERT INTO `translation_translation` (`translation`, `uid_id`, `language_id`) V
 --
 
 CREATE TABLE IF NOT EXISTS `translation_uid` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` text COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=590 ;
+`id` int(11) unsigned NOT NULL,
+  `uid` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=594 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Contenu de la table `translation_uid`
@@ -1837,7 +1747,11 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (586, 'Informations'),
 (587, 'Environnement :'),
 (588, 'Version du Portail'),
-(589, 'Version');
+(589, 'Version'),
+(590, 'Opened request'),
+(591, 'Tickets per status'),
+(592, 'Other informations'),
+(593, 'Listes des Services');
 
 -- --------------------------------------------------------
 
@@ -1846,18 +1760,15 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `user_profile` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`id` int(11) unsigned NOT NULL,
   `user_id` int(11) unsigned NOT NULL,
   `nickname` varchar(50) DEFAULT NULL,
   `about` text,
   `website` varchar(150) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `avatar_id` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_profile__user_id___user__id` (`user_id`),
-  KEY `fk_profile__avatar_id___file__id` (`avatar_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+  `avatar_id` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `user_profile`
@@ -1871,6 +1782,338 @@ INSERT INTO `user_profile` (`id`, `user_id`, `nickname`, `about`, `website`, `cr
 (17, 16, 'admin', NULL, NULL, '2015-04-07 13:06:55', '2015-04-07 13:06:55', NULL);
 
 --
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `auth_belong`
+--
+ALTER TABLE `auth_belong`
+ ADD PRIMARY KEY (`user_id`,`group_id`), ADD KEY `fk_belong__group_id___group__user_id` (`group_id`);
+
+--
+-- Index pour la table `auth_group`
+--
+ALTER TABLE `auth_group`
+ ADD PRIMARY KEY (`id`), ADD KEY `fk_group__group_parent_id___group__id` (`group_parent_id`);
+
+--
+-- Index pour la table `auth_group_permission`
+--
+ALTER TABLE `auth_group_permission`
+ ADD PRIMARY KEY (`group_id`,`permission_id`), ADD KEY `fk_group_permission__permission_id___permission__id` (`permission_id`);
+
+--
+-- Index pour la table `auth_permission`
+--
+ALTER TABLE `auth_permission`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `auth_user`
+--
+ALTER TABLE `auth_user`
+ ADD PRIMARY KEY (`id`), ADD KEY `can_be_deleted` (`can_be_deleted`), ADD KEY `is_active` (`is_active`), ADD KEY `is_super_admin` (`is_super_admin`), ADD KEY `is_staff` (`is_staff`), ADD KEY `email` (`email`), ADD KEY `username` (`username`), ADD KEY `fk_user__user_parent_id___user__id` (`user_parent_id`);
+
+--
+-- Index pour la table `auth_user_permission`
+--
+ALTER TABLE `auth_user_permission`
+ ADD PRIMARY KEY (`user_id`,`permission_id`), ADD KEY `fk_persmission__action_id___action__id` (`permission_id`);
+
+--
+-- Index pour la table `centurion_content_type`
+--
+ALTER TABLE `centurion_content_type`
+ ADD PRIMARY KEY (`id`), ADD KEY `name` (`name`);
+
+--
+-- Index pour la table `centurion_navigation`
+--
+ALTER TABLE `centurion_navigation`
+ ADD PRIMARY KEY (`id`), ADD KEY `proxy_model` (`proxy_model`,`proxy_pk`), ADD KEY `order` (`order`), ADD KEY `is_visible` (`is_visible`), ADD KEY `is_in_menu` (`is_in_menu`), ADD KEY `mptt_lft` (`mptt_lft`), ADD KEY `mptt_rgt` (`mptt_rgt`), ADD KEY `mptt_level` (`mptt_level`), ADD KEY `mptt_tree_id` (`mptt_tree_id`), ADD KEY `mptt_parent_id` (`mptt_parent_id`), ADD KEY `original_id` (`original_id`,`language_id`), ADD KEY `can_be_deleted` (`can_be_deleted`), ADD KEY `language_id` (`language_id`);
+
+--
+-- Index pour la table `centurion_site`
+--
+ALTER TABLE `centurion_site`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `cms_flatpage`
+--
+ALTER TABLE `cms_flatpage`
+ ADD PRIMARY KEY (`id`), ADD KEY `flatpage_template_id` (`flatpage_template_id`), ADD KEY `flatpage_cover_id` (`cover_id`), ADD KEY `mptt_parent_id` (`mptt_parent_id`), ADD KEY `slug` (`slug`), ADD KEY `is_published` (`is_published`), ADD KEY `mptt_lft` (`mptt_lft`), ADD KEY `mptt_rgt` (`mptt_rgt`), ADD KEY `mptt_level` (`mptt_level`), ADD KEY `mptt_tree_id` (`mptt_tree_id`), ADD KEY `original_id` (`original_id`,`language_id`), ADD KEY `language_id` (`language_id`);
+
+--
+-- Index pour la table `cms_flatpage_template`
+--
+ALTER TABLE `cms_flatpage_template`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `cron_task`
+--
+ALTER TABLE `cron_task`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `ecom_products`
+--
+ALTER TABLE `ecom_products`
+ ADD PRIMARY KEY (`produitId`);
+
+--
+-- Index pour la table `media_duplicate`
+--
+ALTER TABLE `media_duplicate`
+ ADD PRIMARY KEY (`id`), ADD KEY `file_id` (`file_id`);
+
+--
+-- Index pour la table `media_file`
+--
+ALTER TABLE `media_file`
+ ADD PRIMARY KEY (`id`), ADD KEY `fk_file__user_id___user__id` (`user_id`), ADD KEY `proxy_model` (`proxy_model`), ADD KEY `proxy_pk` (`proxy_pk`), ADD KEY `belong_model` (`belong_model`), ADD KEY `belong_pk` (`belong_pk`), ADD KEY `file_id` (`file_id`), ADD KEY `local_filename` (`local_filename`);
+
+--
+-- Index pour la table `media_image`
+--
+ALTER TABLE `media_image`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `media_multiupload_ticket`
+--
+ALTER TABLE `media_multiupload_ticket`
+ ADD PRIMARY KEY (`id`), ADD KEY `proxy_model` (`proxy_model_id`), ADD KEY `form_class_model` (`form_class_model_id`), ADD KEY `proxy_pk` (`proxy_pk`);
+
+--
+-- Index pour la table `media_video`
+--
+ALTER TABLE `media_video`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `portal_alert`
+--
+ALTER TABLE `portal_alert`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `portal_alert_organization`
+--
+ALTER TABLE `portal_alert_organization`
+ ADD PRIMARY KEY (`alert_id`,`organization_id`), ADD KEY `FK_portal_alert_organization_portal_organization` (`organization_id`);
+
+--
+-- Index pour la table `portal_chat_questions`
+--
+ALTER TABLE `portal_chat_questions`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `portal_itop_user`
+--
+ALTER TABLE `portal_itop_user`
+ ADD PRIMARY KEY (`id`), ADD KEY `email` (`email`), ADD KEY `login` (`login`);
+
+--
+-- Index pour la table `portal_ldap_user`
+--
+ALTER TABLE `portal_ldap_user`
+ ADD PRIMARY KEY (`id`), ADD KEY `email` (`email`), ADD KEY `sn` (`sn`);
+
+--
+-- Index pour la table `portal_organization`
+--
+ALTER TABLE `portal_organization`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `portal_service_config`
+--
+ALTER TABLE `portal_service_config`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `portal_service_style`
+--
+ALTER TABLE `portal_service_style`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `code` (`code`), ADD KEY `fk_service__avatar_id___file__id` (`avatar_id`);
+
+--
+-- Index pour la table `portal_user_preference`
+--
+ALTER TABLE `portal_user_preference`
+ ADD PRIMARY KEY (`user_id`,`preference_name`,`id`), ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Index pour la table `portal_widget`
+--
+ALTER TABLE `portal_widget`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `translation_language`
+--
+ALTER TABLE `translation_language`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `translation_tag`
+--
+ALTER TABLE `translation_tag`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `translation_tag_uid`
+--
+ALTER TABLE `translation_tag_uid`
+ ADD PRIMARY KEY (`uid_id`,`tag_id`), ADD KEY `FK_translation_tag_uid2` (`tag_id`);
+
+--
+-- Index pour la table `translation_translation`
+--
+ALTER TABLE `translation_translation`
+ ADD PRIMARY KEY (`uid_id`,`language_id`), ADD KEY `uid_id` (`uid_id`), ADD KEY `language_id` (`language_id`);
+
+--
+-- Index pour la table `translation_uid`
+--
+ALTER TABLE `translation_uid`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `user_profile`
+--
+ALTER TABLE `user_profile`
+ ADD PRIMARY KEY (`id`), ADD KEY `fk_profile__user_id___user__id` (`user_id`), ADD KEY `fk_profile__avatar_id___file__id` (`avatar_id`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `auth_group`
+--
+ALTER TABLE `auth_group`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT pour la table `auth_permission`
+--
+ALTER TABLE `auth_permission`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=82;
+--
+-- AUTO_INCREMENT pour la table `auth_user`
+--
+ALTER TABLE `auth_user`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT pour la table `centurion_content_type`
+--
+ALTER TABLE `centurion_content_type`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT pour la table `centurion_navigation`
+--
+ALTER TABLE `centurion_navigation`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=197;
+--
+-- AUTO_INCREMENT pour la table `centurion_site`
+--
+ALTER TABLE `centurion_site`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `cms_flatpage`
+--
+ALTER TABLE `cms_flatpage`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `cms_flatpage_template`
+--
+ALTER TABLE `cms_flatpage_template`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `cron_task`
+--
+ALTER TABLE `cron_task`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `ecom_products`
+--
+ALTER TABLE `ecom_products`
+MODIFY `produitId` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=57;
+--
+-- AUTO_INCREMENT pour la table `media_duplicate`
+--
+ALTER TABLE `media_duplicate`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=71;
+--
+-- AUTO_INCREMENT pour la table `media_image`
+--
+ALTER TABLE `media_image`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
+--
+-- AUTO_INCREMENT pour la table `media_multiupload_ticket`
+--
+ALTER TABLE `media_multiupload_ticket`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `media_video`
+--
+ALTER TABLE `media_video`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `portal_alert`
+--
+ALTER TABLE `portal_alert`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `portal_chat_questions`
+--
+ALTER TABLE `portal_chat_questions`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `portal_itop_user`
+--
+ALTER TABLE `portal_itop_user`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `portal_ldap_user`
+--
+ALTER TABLE `portal_ldap_user`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `portal_service_config`
+--
+ALTER TABLE `portal_service_config`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identifiant',AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT pour la table `portal_user_preference`
+--
+ALTER TABLE `portal_user_preference`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `translation_language`
+--
+ALTER TABLE `translation_language`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `translation_tag`
+--
+ALTER TABLE `translation_tag`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `translation_uid`
+--
+ALTER TABLE `translation_uid`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=594;
+--
+-- AUTO_INCREMENT pour la table `user_profile`
+--
+ALTER TABLE `user_profile`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+--
 -- Contraintes pour les tables exportées
 --
 
@@ -1878,107 +2121,107 @@ INSERT INTO `user_profile` (`id`, `user_id`, `nickname`, `about`, `website`, `cr
 -- Contraintes pour la table `auth_belong`
 --
 ALTER TABLE `auth_belong`
-  ADD CONSTRAINT `fk_belong__group_id___group__user_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
-  ADD CONSTRAINT `fk_reference_32` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+ADD CONSTRAINT `fk_belong__group_id___group__user_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+ADD CONSTRAINT `fk_reference_32` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Contraintes pour la table `auth_group`
 --
 ALTER TABLE `auth_group`
-  ADD CONSTRAINT `fk_group__group_parent_id___group__id` FOREIGN KEY (`group_parent_id`) REFERENCES `auth_group` (`id`);
+ADD CONSTRAINT `fk_group__group_parent_id___group__id` FOREIGN KEY (`group_parent_id`) REFERENCES `auth_group` (`id`);
 
 --
 -- Contraintes pour la table `auth_group_permission`
 --
 ALTER TABLE `auth_group_permission`
-  ADD CONSTRAINT `fk_group_permission__group_id___group__id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
-  ADD CONSTRAINT `fk_group_permission__permission_id___permission__id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`);
+ADD CONSTRAINT `fk_group_permission__group_id___group__id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+ADD CONSTRAINT `fk_group_permission__permission_id___permission__id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`);
 
 --
 -- Contraintes pour la table `auth_user`
 --
 ALTER TABLE `auth_user`
-  ADD CONSTRAINT `fk_user__user_parent_id___user__id` FOREIGN KEY (`user_parent_id`) REFERENCES `auth_user` (`id`);
+ADD CONSTRAINT `fk_user__user_parent_id___user__id` FOREIGN KEY (`user_parent_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Contraintes pour la table `auth_user_permission`
 --
 ALTER TABLE `auth_user_permission`
-  ADD CONSTRAINT `fk_permission__user_id___user__id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
-  ADD CONSTRAINT `fk_persmission__action_id___action__id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`);
+ADD CONSTRAINT `fk_permission__user_id___user__id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
+ADD CONSTRAINT `fk_persmission__action_id___action__id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`);
 
 --
 -- Contraintes pour la table `centurion_navigation`
 --
 ALTER TABLE `centurion_navigation`
-  ADD CONSTRAINT `centurion_navigation_ibfk_1` FOREIGN KEY (`proxy_model`) REFERENCES `centurion_content_type` (`id`),
-  ADD CONSTRAINT `centurion_navigation_ibfk_2` FOREIGN KEY (`original_id`) REFERENCES `centurion_navigation` (`id`),
-  ADD CONSTRAINT `centurion_navigation_ibfk_3` FOREIGN KEY (`language_id`) REFERENCES `translation_language` (`id`),
-  ADD CONSTRAINT `centurion_navigation_ibfk_4` FOREIGN KEY (`language_id`) REFERENCES `translation_language` (`id`),
-  ADD CONSTRAINT `fk_navigation__navigation_parent_id___navigation__id` FOREIGN KEY (`mptt_parent_id`) REFERENCES `centurion_navigation` (`id`);
+ADD CONSTRAINT `centurion_navigation_ibfk_1` FOREIGN KEY (`proxy_model`) REFERENCES `centurion_content_type` (`id`),
+ADD CONSTRAINT `centurion_navigation_ibfk_2` FOREIGN KEY (`original_id`) REFERENCES `centurion_navigation` (`id`),
+ADD CONSTRAINT `centurion_navigation_ibfk_3` FOREIGN KEY (`language_id`) REFERENCES `translation_language` (`id`),
+ADD CONSTRAINT `centurion_navigation_ibfk_4` FOREIGN KEY (`language_id`) REFERENCES `translation_language` (`id`),
+ADD CONSTRAINT `fk_navigation__navigation_parent_id___navigation__id` FOREIGN KEY (`mptt_parent_id`) REFERENCES `centurion_navigation` (`id`);
 
 --
 -- Contraintes pour la table `cms_flatpage`
 --
 ALTER TABLE `cms_flatpage`
-  ADD CONSTRAINT `cms_flatpage_ibfk_1` FOREIGN KEY (`mptt_parent_id`) REFERENCES `cms_flatpage` (`id`),
-  ADD CONSTRAINT `cms_flatpage_ibfk_2` FOREIGN KEY (`original_id`) REFERENCES `cms_flatpage` (`id`),
-  ADD CONSTRAINT `cms_flatpage_ibfk_3` FOREIGN KEY (`language_id`) REFERENCES `translation_language` (`id`),
-  ADD CONSTRAINT `cms_flatpage__banner_id___media_file__id` FOREIGN KEY (`cover_id`) REFERENCES `media_file` (`id`),
-  ADD CONSTRAINT `cms_flatpage__flatpage_template_id___cms_flatpage_template__id` FOREIGN KEY (`flatpage_template_id`) REFERENCES `cms_flatpage_template` (`id`) ON UPDATE CASCADE;
+ADD CONSTRAINT `cms_flatpage_ibfk_1` FOREIGN KEY (`mptt_parent_id`) REFERENCES `cms_flatpage` (`id`),
+ADD CONSTRAINT `cms_flatpage_ibfk_2` FOREIGN KEY (`original_id`) REFERENCES `cms_flatpage` (`id`),
+ADD CONSTRAINT `cms_flatpage_ibfk_3` FOREIGN KEY (`language_id`) REFERENCES `translation_language` (`id`),
+ADD CONSTRAINT `cms_flatpage__banner_id___media_file__id` FOREIGN KEY (`cover_id`) REFERENCES `media_file` (`id`),
+ADD CONSTRAINT `cms_flatpage__flatpage_template_id___cms_flatpage_template__id` FOREIGN KEY (`flatpage_template_id`) REFERENCES `cms_flatpage_template` (`id`) ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `media_duplicate`
 --
 ALTER TABLE `media_duplicate`
-  ADD CONSTRAINT `media_duplicate_ibfk_1` FOREIGN KEY (`file_id`) REFERENCES `media_file` (`id`);
+ADD CONSTRAINT `media_duplicate_ibfk_1` FOREIGN KEY (`file_id`) REFERENCES `media_file` (`id`);
 
 --
 -- Contraintes pour la table `media_file`
 --
 ALTER TABLE `media_file`
-  ADD CONSTRAINT `fk_file__user_id___user__id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+ADD CONSTRAINT `fk_file__user_id___user__id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Contraintes pour la table `media_multiupload_ticket`
 --
 ALTER TABLE `media_multiupload_ticket`
-  ADD CONSTRAINT `media_multiupload_ticket_ibfk_1` FOREIGN KEY (`proxy_model_id`) REFERENCES `centurion_content_type` (`id`),
-  ADD CONSTRAINT `media_multiupload_ticket_ibfk_2` FOREIGN KEY (`form_class_model_id`) REFERENCES `centurion_content_type` (`id`);
+ADD CONSTRAINT `media_multiupload_ticket_ibfk_1` FOREIGN KEY (`proxy_model_id`) REFERENCES `centurion_content_type` (`id`),
+ADD CONSTRAINT `media_multiupload_ticket_ibfk_2` FOREIGN KEY (`form_class_model_id`) REFERENCES `centurion_content_type` (`id`);
 
 --
 -- Contraintes pour la table `portal_alert_organization`
 --
 ALTER TABLE `portal_alert_organization`
-  ADD CONSTRAINT `FK_portal_alert_organization_portal_organization` FOREIGN KEY (`organization_id`) REFERENCES `portal_organization` (`id`),
-  ADD CONSTRAINT `FK_portal_alert_organization_portal_alert` FOREIGN KEY (`alert_id`) REFERENCES `portal_alert` (`id`);
+ADD CONSTRAINT `FK_portal_alert_organization_portal_organization` FOREIGN KEY (`organization_id`) REFERENCES `portal_organization` (`id`),
+ADD CONSTRAINT `FK_portal_alert_organization_portal_alert` FOREIGN KEY (`alert_id`) REFERENCES `portal_alert` (`id`);
 
 --
 -- Contraintes pour la table `portal_service_style`
 --
 ALTER TABLE `portal_service_style`
-  ADD CONSTRAINT `fk_service__avatar_id___file__id` FOREIGN KEY (`avatar_id`) REFERENCES `media_file` (`id`);
+ADD CONSTRAINT `fk_service__avatar_id___file__id` FOREIGN KEY (`avatar_id`) REFERENCES `media_file` (`id`);
 
 --
 -- Contraintes pour la table `translation_tag_uid`
 --
 ALTER TABLE `translation_tag_uid`
-  ADD CONSTRAINT `FK_translation_tag_uid` FOREIGN KEY (`uid_id`) REFERENCES `translation_uid` (`id`),
-  ADD CONSTRAINT `FK_translation_tag_uid2` FOREIGN KEY (`tag_id`) REFERENCES `translation_tag` (`id`);
+ADD CONSTRAINT `FK_translation_tag_uid` FOREIGN KEY (`uid_id`) REFERENCES `translation_uid` (`id`),
+ADD CONSTRAINT `FK_translation_tag_uid2` FOREIGN KEY (`tag_id`) REFERENCES `translation_tag` (`id`);
 
 --
 -- Contraintes pour la table `translation_translation`
 --
 ALTER TABLE `translation_translation`
-  ADD CONSTRAINT `translation_translation_ibfk_1` FOREIGN KEY (`uid_id`) REFERENCES `translation_uid` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `translation_translation_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `translation_language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `translation_translation_ibfk_1` FOREIGN KEY (`uid_id`) REFERENCES `translation_uid` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `translation_translation_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `translation_language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `user_profile`
 --
 ALTER TABLE `user_profile`
-  ADD CONSTRAINT `fk_profile__avatar_id___file__id` FOREIGN KEY (`avatar_id`) REFERENCES `media_file` (`id`),
-  ADD CONSTRAINT `fk_profile__user_id___user__id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+ADD CONSTRAINT `fk_profile__avatar_id___file__id` FOREIGN KEY (`avatar_id`) REFERENCES `media_file` (`id`),
+ADD CONSTRAINT `fk_profile__user_id___user__id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

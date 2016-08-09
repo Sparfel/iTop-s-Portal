@@ -93,7 +93,7 @@ class User_AdminItopUserController extends Centurion_Controller_CRUD
     }
     
     public function accountCreationAction($rowset = null){
-    	$itopUser = new Portal_iTop_UserLocal();
+    	$itopUser = new Portal_Itop_UserLocal();
     	$itopUser->createAccount($rowset);
     	$this->getHelper('redirector')->gotoRoute(array_merge(array(
     			'controller' => $this->_request->getControllerName(),
@@ -103,7 +103,7 @@ class User_AdminItopUserController extends Centurion_Controller_CRUD
     }
     
     public function deleteAllAction(){
-    	$itopUser = new Portal_iTop_UserLocal();
+    	$itopUser = new Portal_Itop_UserLocal();
     	$itopUser->deleteAll();
     	$this->getHelper('redirector')->gotoRoute(array_merge(array(
     			'controller' => $this->_request->getControllerName(),
