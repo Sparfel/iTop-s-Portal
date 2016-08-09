@@ -242,8 +242,8 @@ footer {                    margin:0; padding:5px 15px 0 0; font:11px/18px Arial
 
 /* ---------------------------------------------------------------------------------------------------------------------
 DASHBOARD */
-#tpl-dashboard header.sh {  margin:0;}  
-#tpl-dashboard section {    margin:0; background:none #fff; min-height:500px; _height:500px; }  
+#tpl-dashboard header.sh { /* margin:0;*/}  
+#tpl-dashboard section {   /* margin:0; background:none #fff; min-height:500px; _height:500px; */}  
 #tpl-dashboard .col-right { position:relative; float:right; clear:right; width:49%; margin-left:1%; }
 #tpl-dashboard .col-left {  position:relative; float:left; clear:left; width:49%; margin-right:1%; }
 
