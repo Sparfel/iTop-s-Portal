@@ -54,7 +54,7 @@ class Request_DashboardController extends Centurion_Controller_Action
     	//Zend_Debug::dump($date_tab);
     	// We use the Webservice to get the datas
     	$webservice = $this->_helper->getHelper('ItopWebservice');
-    	$tab_result = $webservice->getPerMonthRequest($this->_org_id,$this->_locale,$nb_month);
+    	$tab_result = $webservice->getPerMonthRequest($this->_locale,$nb_month);
     	//Zend_Debug::dump($month_tab);
     	if (count($tab_result)>0){
     		//$date_list = array();
