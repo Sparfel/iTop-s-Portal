@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 09 Août 2016 à 15:26
+-- Généré le :  Jeu 11 Août 2016 à 13:58
 -- Version du serveur :  5.5.50-0+deb8u1
 -- Version de PHP :  5.6.24-0+deb8u1
 
@@ -197,7 +197,7 @@ INSERT INTO `auth_permission` (`id`, `name`, `description`) VALUES
 (8, 'auth_admin-group-permission_switch', 'Switch permission'),
 (9, 'all', 'All'),
 (10, 'home_index_index', 'Accueil du site'),
-(11, 'home_dashboard_index', 'Tableau de bord global'),
+(11, 'request_dashboard_index', 'Tableau de bord global'),
 (12, 'home_catalogue_index', 'Catalogue des services'),
 (13, 'home_contact_index', 'Contact Services'),
 (14, 'request_index_index', 'Accueil request (rediriger)'),
@@ -213,7 +213,7 @@ INSERT INTO `auth_permission` (`id`, `name`, `description`) VALUES
 (61, 'user_language_change', 'User can change the language'),
 (62, 'request_openedrequest_download', 'Download Attachment'),
 (66, 'home_index_savepref', 'Action pour sauvegarder la position des services sur la page d''acceuil'),
-(67, 'home_dashboard_recherche', 'Action pour recharger les données des diagramme dans le tableau de bords général'),
+(67, 'request_dashboard_recherche', 'Action pour recharger les données des diagramme dans le tableau de bords général'),
 (68, 'user_preference_index', 'Préférence'),
 (69, 'user_preference_changepref', 'validation en background des préférences'),
 (70, 'request_openedrequest_changefilter', 'Modification des filtres sur consultation des tickets'),
@@ -259,9 +259,9 @@ CREATE TABLE IF NOT EXISTS `auth_user` (
 INSERT INTO `auth_user` (`id`, `username`, `first_name`, `last_name`, `email`, `password`, `salt`, `algorithm`, `can_be_deleted`, `is_active`, `is_super_admin`, `is_staff`, `created_at`, `last_login`, `updated_at`, `user_parent_id`) VALUES
 (1, 'manu', 'Manu (admin)', 'Lozachmeur', 'emmanuel.lozachmeur@syleps.fr', 'c138ef1cde75dcf83c5f99ddeac292678543cdeb', 'a73056c2bbdca2d4148049493e296e70', 'sha1', 0, 1, 1, 0, '2009-11-23 17:36:31', '2015-04-07 01:06:01', '2015-04-07 13:06:01', NULL),
 (2, 'anonymous', NULL, NULL, NULL, '', NULL, '', 0, 0, 0, 0, '0000-00-00 00:00:00', '2015-03-26 08:56:52', '2015-04-07 13:02:01', NULL),
-(14, 'dali@demo.com', 'Salvador', 'Dali', 'dali@demo.com', 'c2a2543bdd9f0f5fe3c7887d7c455fa620b30aee', '39a9606ae41122d8f05896e8419c505d', 'sha1', 1, 1, 0, 0, '2015-03-26 08:47:01', '2015-04-07 00:02:32', '2015-04-07 12:02:32', NULL),
+(14, 'dali@demo.com', 'Salvador', 'Dali', 'dali@demo.com', 'c2a2543bdd9f0f5fe3c7887d7c455fa620b30aee', '39a9606ae41122d8f05896e8419c505d', 'sha1', 1, 1, 0, 0, '2015-03-26 08:47:01', '2016-08-10 23:56:20', '2016-08-11 11:56:20', NULL),
 (15, 'pablo@demo.com', 'Pablo', 'Picasso', 'pablo@demo.com', '443941840ecd783d156423d760ef281bda0dd0b7', '8bc9749e695faaf83ecf99aba96c6d05', 'sha1', 1, 1, 0, 1, '2015-03-30 08:51:25', '0000-00-00 00:00:00', '2015-03-30 08:58:03', NULL),
-(16, 'admin', 'My First Name', 'My Last Name', 'my.email@foo.org', 'eaad908b009ee6ea086bde96e6fcb1b61d720cfc', '8928d295449baeeae36ec22d4c833f6e', 'sha1', 0, 1, 1, 0, '2015-04-07 13:02:58', '2016-08-09 00:58:22', '2016-08-09 12:58:22', NULL);
+(16, 'admin', 'My First Name', 'My Last Name', 'my.email@foo.org', 'eaad908b009ee6ea086bde96e6fcb1b61d720cfc', '8928d295449baeeae36ec22d4c833f6e', 'sha1', 0, 1, 1, 0, '2015-04-07 13:02:58', '2016-08-10 23:48:56', '2016-08-11 11:48:56', NULL);
 
 -- --------------------------------------------------------
 
@@ -359,7 +359,7 @@ INSERT INTO `centurion_navigation` (`id`, `label`, `module`, `controller`, `acti
 (123, 'Groups', 'auth', 'admin-group', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 33, 36, 2, 5, 192, NULL, NULL, 1, NULL, 2),
 (124, 'User permission', 'auth', 'admin-permission', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 28, 29, 3, 5, 122, NULL, NULL, 1, NULL, 2),
 (125, 'Bienvenue', 'home', 'index', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 86, 105, 1, 18, 16, NULL, NULL, 1, NULL, 2),
-(126, 'Tableau de bord', 'home', 'dashboard', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 87, 88, 2, 18, 125, NULL, NULL, 1, NULL, 2),
+(126, 'Tableau de bord', 'home', 'index', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 87, 88, 2, 18, 125, NULL, NULL, 1, NULL, 2),
 (127, 'Catalogue des services', 'home', 'catalogue', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 89, 96, 2, 18, 125, NULL, NULL, 1, NULL, 2),
 (128, 'Contact', 'home', 'contact', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 97, 102, 2, 18, 125, NULL, NULL, 1, NULL, 2),
 (129, 'Gestion des Incidents', 'request', 'index', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 106, 115, 1, 18, 16, NULL, NULL, 1, NULL, 2),
@@ -713,9 +713,9 @@ CREATE TABLE IF NOT EXISTS `portal_alert` (
 --
 
 INSERT INTO `portal_alert` (`id`, `name`, `text`, `is_active`, `start`, `stop`, `type`, `priority`) VALUES
-(1, 'Welcome', '<p>Message de bienvenue, <strong>commun</strong> &agrave; tout le monde.</p>', '1', '2016-06-22 07:25:00', '2016-06-27 14:25:00', 'Information', '5'),
-(2, 'Patch R-012345', '<p>Un<span style="color: #ff0000;"> nouveau patch</span> est disponible &agrave; l''installation. Merci de nous fournir une date d''installation.</p>', '1', '2016-06-22 15:57:00', '2016-08-21 22:00:00', 'Alert', '3'),
-(3, 'Test', '<p>Ceci est une simple notification, alert du type la plus faible. <span style="text-decoration: underline;"><strong>Attention</strong></span>, 1 seule ligne est visible !</p>', '1', '2016-06-24 12:31:00', '2016-07-24 12:31:00', 'Notification', '5');
+(1, 'Welcome', '<p>Hello, this message is viewed by <span style="text-decoration: underline;">everyone</span>. It is an information.</p>', '1', '2016-06-22 07:25:00', '2016-06-27 14:25:00', 'Information', '5'),
+(2, 'Patch R-012345', '<p>A<span style="color: #ff0000;"> new version</span>&nbsp;is available. Please give us your feedback !</p>', '1', '2016-06-22 15:57:00', '2016-08-21 22:00:00', 'Alert', '3'),
+(3, 'Test', '<p>This is a single notification. This is the lower priority in the alerts.<strong> Be careful</strong>, only one line is readable.</p>', '1', '2016-06-24 12:31:00', '2016-07-24 12:31:00', 'Notification', '5');
 
 -- --------------------------------------------------------
 
@@ -727,6 +727,19 @@ CREATE TABLE IF NOT EXISTS `portal_alert_organization` (
   `alert_id` int(11) NOT NULL,
   `organization_id` int(11) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `portal_alert_organization`
+--
+
+INSERT INTO `portal_alert_organization` (`alert_id`, `organization_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(1, 2),
+(3, 2),
+(1, 3),
+(3, 3);
 
 -- --------------------------------------------------------
 
@@ -800,6 +813,15 @@ CREATE TABLE IF NOT EXISTS `portal_organization` (
   `created_at` timestamp NULL DEFAULT NULL,
   `phonecode` int(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Liste des organisations';
+
+--
+-- Contenu de la table `portal_organization`
+--
+
+INSERT INTO `portal_organization` (`id`, `name`, `created_at`, `phonecode`) VALUES
+(1, 'My Company/Department', '2016-08-11 07:40:08', NULL),
+(2, 'IT Department', '2016-08-11 07:40:08', NULL),
+(3, 'Demo', '2016-08-11 07:40:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -921,14 +943,16 @@ CREATE TABLE IF NOT EXISTS `portal_user_preference` (
   `preference_value` varchar(250) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `portal_user_preference`
 --
 
 INSERT INTO `portal_user_preference` (`id`, `user_id`, `preference_name`, `preference_value`, `created_at`, `updated_at`) VALUES
+(4, 1, 'USER_LANGUAGE', 'en', '2016-08-09 15:28:12', '2016-08-11 09:54:10'),
 (1, 12, 'USER_FILTER', 'false', '2015-03-26 11:12:25', '2015-03-26 11:12:37'),
+(5, 12, 'USER_LANGUAGE', 'en', '2016-08-11 11:46:31', '2016-08-11 11:46:31'),
 (3, 18, 'HOME_SERVICES', '14,18,20,13,2|19,21,22,23', '2015-03-28 14:35:27', '2015-04-02 12:38:26'),
 (2, 18, 'USER_FILTER', 'false', '2015-03-28 14:35:15', '2015-04-01 15:56:46');
 
@@ -1156,6 +1180,8 @@ INSERT INTO `translation_translation` (`translation`, `uid_id`, `language_id`) V
 ('User Request', 278, 2),
 ('Gestion des incidents', 280, 1),
 ('Incident Management', 280, 2),
+('Tableau de bord global', 379, 1),
+('Main Dashboard', 379, 2),
 ('nouveau', 424, 1),
 ('new', 424, 2),
 ('indéfini', 425, 1),
@@ -1164,10 +1190,112 @@ INSERT INTO `translation_translation` (`translation`, `uid_id`, `language_id`) V
 ('Service Request', 426, 2),
 ('Début', 427, 1),
 ('Started', 427, 2),
+('Nom du fichier', 458, 1),
+('File name', 458, 2),
+('Gérer les Médias', 459, 1),
+('Manage Media', 459, 2),
+('Nom', 461, 1),
+('First Name', 461, 2),
+('Prénom', 462, 1),
+('Last Name', 462, 2),
+('Actif', 463, 1),
+('Activ', 463, 2),
+('Générer', 471, 1),
+('Generate', 471, 2),
+('Importer', 472, 1),
+('Import', 472, 2),
+('Importer', 478, 1),
+('Import', 478, 2),
+('utilisateurs', 482, 1),
+('users', 482, 2),
+('Oui', 483, 1),
+('Yes', 483, 2),
+('Non', 484, 1),
+('No', 484, 2),
+('Date de dernière exécution', 494, 1),
+('Last execution Date', 494, 2),
+('Tâche', 496, 1),
+('Task', 496, 2),
+('Fournisseur', 498, 1),
+('Provider', 498, 2),
+('Contrats Fournisseur', 499, 1),
+('Provider Contract', 499, 2),
+('Sous-titre', 500, 1),
+('Subtitle', 500, 2),
+('Configurations', 505, 1),
+('Settings', 505, 2),
+('Traduction', 511, 1),
+('Translation', 511, 2),
+('Votre espace Services', 519, 1),
+('Your Syleps Area', 519, 2),
+('Tableaux de bord', 523, 1),
+('Dashboard', 523, 2),
+('Nouvelle requête utilisateur.', 524, 1),
+('New user request', 524, 2),
+('iTop - Déclarer un incident', 525, 1),
+('iTop - Declare an incident', 525, 2),
+('Requêtes Utilisateur', 526, 1),
+('User''s Requests', 526, 2),
+('fermé', 546, 1),
+('closed', 546, 2),
+('Catalogue de Services.', 548, 1),
+('Services Catalog', 548, 2),
 ('Consulter la liste des incidents', 550, 1),
 ('View the Incidents List', 550, 2),
 ('Nouvelle déclaration d''incident', 551, 1),
-('New incident', 551, 2);
+('New incident', 551, 2),
+('Créer', 555, 1),
+('Create', 555, 2),
+('Organisations', 558, 1),
+('Organizations', 558, 2),
+('Votre site en un coup d''oeil', 559, 1),
+('Your site at a glance', 559, 2),
+('Salut %s, quoi de neuf ?', 560, 1),
+('Hey %s, what’s up?', 560, 2),
+('Gérer les alertes', 565, 1),
+('Manage Alerts', 565, 2),
+('Alerte', 566, 1),
+('Alert', 566, 2),
+('Modifier Alerte', 567, 1),
+('Edit Alert', 567, 2),
+('Alertes', 568, 1),
+('Alerts', 568, 2),
+('Tableau de bord', 570, 1),
+('Dashboard', 570, 2),
+('Compte iTop déclaré', 574, 1),
+('iTop''s account available', 574, 2),
+('Pas de compte iTop déclaré', 575, 1),
+('No iTop account available', 575, 2),
+('interaction sur les tickets possible', 576, 1),
+('Interaction with request possible', 576, 2),
+('interaction sur les tickets impossible', 577, 1),
+('Interaction on request not possible', 577, 2),
+('Réglages de vos préférences', 578, 1),
+('Manage your settings', 578, 2),
+('Régler ici vos préférences comme la langue ou les sites auquels vous souhaitez vous rattacher.', 579, 1),
+('Configure here your settings like the language or the sites which you want to consult.', 579, 2),
+('Langue', 580, 1),
+('Language', 580, 2),
+('Changer de langue pour :', 581, 1),
+('Change the language for:', 581, 2),
+('Mot de passe valide.', 582, 1),
+('Password is correct.', 582, 2),
+('Mot de passe invalide.', 583, 1),
+('Password is not correct.', 583, 2),
+('Le mot de passe doit faire au moins 5 caractères.', 584, 1),
+('The password must have 5 caracters minimum.', 584, 2),
+('Le mot de passe a été modifié.', 585, 1),
+('The password has been changed.', 585, 2),
+('Tickets par statut', 591, 1),
+('Tickets per status', 591, 2),
+('Autre informations', 592, 1),
+('Other informations', 592, 2),
+('Listes des Services', 593, 1),
+('Services Lists', 593, 2),
+('Veuillez renseigner les informations ci-dessous :', 594, 1),
+('Please fill the informations below:', 594, 2),
+('Contrats Fournisseurs', 595, 1),
+('Provider Contracts', 595, 2);
 
 -- --------------------------------------------------------
 
@@ -1178,7 +1306,7 @@ INSERT INTO `translation_translation` (`translation`, `uid_id`, `language_id`) V
 CREATE TABLE IF NOT EXISTS `translation_uid` (
 `id` int(11) unsigned NOT NULL,
   `uid` text COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=594 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=638 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Contenu de la table `translation_uid`
@@ -1380,7 +1508,6 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (213, 'Détails de la requête'),
 (215, 'Votre Store Syleps'),
 (216, 'Votre espace Services Admys'),
-(218, 'Atelys - Vos tableaux de bord'),
 (219, 'Votre Espace Services Atelys'),
 (221, 'Admys - Documentation en ligne'),
 (223, 'Votre espace Services Movys'),
@@ -1607,14 +1734,9 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (446, 'Nom du responsable'),
 (447, 'Type de contrat'),
 (448, 'Date d’arrivée'),
-(449, 'Matricule de paye'),
-(450, 'Matricule gestion analytique'),
 (451, 'Compétence'),
 (452, 'Demande accès au Système d''Information'),
 (453, 'Demande reconditionnement poste de travail'),
-(454, 'ADMYS A : Analyse, Diagnostic, Config Sonde'),
-(455, 'Upload!'),
-(456, 'test'),
 (457, 'Contacts Services'),
 (458, 'File name'),
 (459, 'Manage media'),
@@ -1624,7 +1746,6 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (463, 'Activ'),
 (464, 'iTop Production'),
 (465, 'Edit User'),
-(466, 'checkldap'),
 (467, 'Manage Ldap'),
 (468, 'ldap'),
 (469, 'Email2'),
@@ -1686,7 +1807,6 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (525, 'iTop - Déclarer un incident'),
 (526, 'Requêtes Utilisateur'),
 (527, 'Assistance'),
-(528, '4'),
 (529, 'Manage profile''s users'),
 (530, 'profile''s user'),
 (531, 'Service ID'),
@@ -1751,7 +1871,51 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (590, 'Opened request'),
 (591, 'Tickets per status'),
 (592, 'Other informations'),
-(593, 'Listes des Services');
+(593, 'Listes des Services'),
+(594, 'Veuillez renseigner les informations ci-dessous :'),
+(595, 'Contrats Fournisseurs'),
+(596, 'Your Syleps Area'),
+(597, '4'),
+(598, 'Gestion des incidents'),
+(599, 'Utilisateur'),
+(600, 'Organisation'),
+(601, 'Ticket par code résolution'),
+(602, 'Code résolution'),
+(603, 'Nbre de tickets'),
+(604, 'Ticket par Service'),
+(605, 'Répartition des tickets selon leur code de résolution'),
+(606, 'Les incidents ouverts sur l''année écoulée'),
+(607, '''Mois - Année'''),
+(608, '''Nbre de tickets'''),
+(609, '''Tickets par mois'''),
+(610, 'Le graphique ci-dessus donne la répartition des tickets incidents déclarés les mois passés.'),
+(611, 'Répartition des tickets selon les services'),
+(612, 'Traitement en cours...'),
+(613, 'Rechercher :'),
+(614, '_MENU_ éléments'),
+(615, 'Affichage de l\\''élément _START_ &agrave; _END_ sur _TOTAL_ éléments'),
+(616, 'Affichage de l\\''élément'),
+(617, 'Affichage de l\\''élément 0 à 0 sur 0 éléments'),
+(618, '(filtré de _MAX_ éléments au total)'),
+(619, 'Chargement en cours...'),
+(620, 'Aucun élément à afficher'),
+(621, 'Aucune donnée disponible dans le tableau'),
+(622, 'Premier'),
+(623, 'Précédent'),
+(624, 'Suivant'),
+(625, 'Dernier'),
+(626, 'activer pour trier la colonne par ordre croissant'),
+(627, 'activer pour trier la colonne par ordre décroissant'),
+(628, 'collection'),
+(629, 'Export'),
+(630, 'Copier'),
+(631, 'Listes des tickets.'),
+(632, '<h1>Visualisation en mode édition</h1><p>Utiliser les fonction d\\''édition du navigateur. Presser \\''Echappe\\'' pour revenir à la page</p>'),
+(633, 'Provider Contract'),
+(634, 'Vos Contacts'),
+(635, 'Le responsable'),
+(636, 'Les membres de l''équipe'),
+(637, 'Mes requêtes fermées');
 
 -- --------------------------------------------------------
 
@@ -2092,7 +2256,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identifiant',AUTO_INCREMENT
 -- AUTO_INCREMENT pour la table `portal_user_preference`
 --
 ALTER TABLE `portal_user_preference`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `translation_language`
 --
@@ -2107,7 +2271,7 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT pour la table `translation_uid`
 --
 ALTER TABLE `translation_uid`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=594;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=638;
 --
 -- AUTO_INCREMENT pour la table `user_profile`
 --
@@ -2193,8 +2357,8 @@ ADD CONSTRAINT `media_multiupload_ticket_ibfk_2` FOREIGN KEY (`form_class_model_
 -- Contraintes pour la table `portal_alert_organization`
 --
 ALTER TABLE `portal_alert_organization`
-ADD CONSTRAINT `FK_portal_alert_organization_portal_organization` FOREIGN KEY (`organization_id`) REFERENCES `portal_organization` (`id`),
-ADD CONSTRAINT `FK_portal_alert_organization_portal_alert` FOREIGN KEY (`alert_id`) REFERENCES `portal_alert` (`id`);
+ADD CONSTRAINT `FK_portal_alert_organization_portal_alert` FOREIGN KEY (`alert_id`) REFERENCES `portal_alert` (`id`),
+ADD CONSTRAINT `FK_portal_alert_organization_portal_organization` FOREIGN KEY (`organization_id`) REFERENCES `portal_organization` (`id`);
 
 --
 -- Contraintes pour la table `portal_service_style`
