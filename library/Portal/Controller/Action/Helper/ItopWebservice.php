@@ -114,6 +114,34 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 		return $this->CallWebService($aData);
 	}
 	
+	public function getiTopVersion(){
+		$aData = array(
+				'operation'=> 'core/get',
+				'class' => 'ModuleInstallation',
+				'key' => 'SELECT ModuleInstallation WHERE name LIKE "itop%" AND parent_id = ""', /*pour éviter au petits malins de modifier l\'url et de voir les ticket des voisins*/
+				'output_fields' => 'name,version,installed'
+
+		);
+		$results = $this->CallWebService( $aData);
+		$i = 1;//on conserve le 0 pour la valeur 'All'
+		$tab_version = array();
+		foreach ($results['objects'] as $result) {
+			$tab_version[$i]['name'] = $result['fields']['name'];
+			$tab_version[$i]['version'] = $result['fields']['version'];
+			$tab_version[$i]['installed'] = $result['fields']['installed'];
+			$i++;
+		}
+		foreach ($tab_version as $key => $row) {
+			$name[$key]  = $row['name'];
+			$version[$key] = $row['version'];
+			$installed[$key] = $row['installed'];
+		}
+		
+		array_multisort($installed, SORT_DESC,$version,SORT_DESC, $tab_version);
+		return array('name'=> $tab_version[0]['name'],
+					'version' =>$tab_version[0]['version']);
+	}
+	
 	// Création d'un ticket basique
 	public function CreateRequest($title,$description, $type)
 	{
@@ -1301,6 +1329,18 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 		//Zend_Debug::dump($tab_SrvElt_list);
 		//sort($tab_SrvElt_list);
 		return $tab_SrvElt_list;
+	}
+	
+	
+	public function getAllOrganizations(){
+		$aData = array(
+				'operation'=> 'core/get',
+				'class' => 'Organization',
+				'key' => 'SELECT Organization WHERE status ="active"',
+				'output_fields' => 'id,name,code'
+	
+		);
+		return $this->CallWebService( $aData);
 	}
 	
 }

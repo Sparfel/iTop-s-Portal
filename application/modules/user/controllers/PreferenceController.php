@@ -71,6 +71,10 @@ class User_PreferenceController extends Centurion_Controller_Action
 			$this->view->itopinteraction = '<p>'.$itopOK.' : <b>'.$this->view->span2.$iterOK.'</b>'.$this->view->endspan.'.</p>';
 		} 
 		
+		$webservice = $this->_helper->getHelper('ItopWebservice');
+		$AiTopVersion = $webservice->getiTopVersion();
+		$this->view->iTopVersion = $AiTopVersion;
+		
 	}
 
 	

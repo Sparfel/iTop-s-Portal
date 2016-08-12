@@ -174,8 +174,11 @@ echo $this->itopinteraction;
 
 echo '<H3>'.$this->translate('Version du Portail').'</h3>';
 echo '<p>'.$this->translate('Version').' : <b>'.Portal_Version::VERSION./*'.'.Syleps_Version::VERSION.*/'</b></p>'; 
-?>
 
+
+echo '<H3>'.$this->translate('Version de iTop').'</h3>';
+echo '<p>'.$this->translate('Version').' : <b>'.$this->iTopVersion['version'].'</b> ('.$this->iTopVersion['name'].')</p>'; 
+?>
 
 <?php
 /*
