@@ -27,7 +27,7 @@ class Portal_View_Helper_ShowAlerts extends Zend_View_Helper_Abstract
 					break;
 				case 'Information' :
 					$AAlerts[$i]['title'] = 'Info';
-					$AAlerts[$i]['titleStyle'] = 'parme';
+					$AAlerts[$i]['titleStyle'] = 'blue';
 					break;
 				case 'Notification' :
 					$AAlerts[$i]['title'] = 'Note';

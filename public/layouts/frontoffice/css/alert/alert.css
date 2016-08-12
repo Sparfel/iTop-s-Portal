@@ -81,3 +81,8 @@
 .bn-parme>.bn-title>span{border-left-color:#646496;}
 .bn-parme>ul>li>a:hover,.bn-pink>ul>li>a>span{color:#646496;}
 
+.bn-blue{border-color: #28B4E6;}
+.bn-blue>.bn-title{background:#28B4E6;}
+.bn-blue>.bn-title>span{border-left-color:#28B4E6;}
+.bn-blue>ul>li>a:hover,.bn-pink>ul>li>a>span{color:#28B4E6;}
+
