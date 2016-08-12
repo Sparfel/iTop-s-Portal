@@ -12,7 +12,8 @@ if (isset($_GET['removeMe'])) {
 	unlink('../index.php');
 	//rename('../index.php', '../index.php_previous');
 	rename('../index.php_next', '../index.php');
-
+	//to avoid redirection problem
+	touch('../index.php');
 	include_once '../../library/Portal/File/System.php';
 	Portal_File_System::rmdir(__DIR__);
 	header('Location: ../index/installation-complete');
