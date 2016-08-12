@@ -20,8 +20,7 @@ class Home_CatalogueController extends Centurion_Controller_Action
     	
     	//the fields we want to see in the datagrid
     	$this->_fields = array ( 
-				    			
-    							array
+				    			array
     								('field' => 'name',
     								'label' => $this->view->translate('Name'),
     							 	'width' => '30%',
@@ -41,12 +40,14 @@ class Home_CatalogueController extends Centurion_Controller_Action
 	}
 	
     public function listAction() {
+    	//$session = new Zend_Session_Namespace('Zend_Auth');
+    	//Zend_Debug::dump($session->pref_language);
     	$service_id = $this->_request->getParam('service_id',null);
     	$id = $this->_request->getParam('id',null);
     	if (isset($service_id) AND isset($id)) {
     		// load the catalog
     		$session = new Zend_Session_Namespace('Zend_Auth');
-    		$catalog = new Portal_iTop_ServicesCatalog($session->pref->_org_id);
+    		$catalog = new Portal_Itop_ServicesCatalog($session->pref->_org_id);
     		$session->ServiceCatalog = $catalog;
     		//we get the the Service of the Service Subcategory
     		//we take this service inside the catalog
@@ -54,8 +55,8 @@ class Home_CatalogueController extends Centurion_Controller_Action
     		//Generation on demand of Service Subcategory
     		$Srv->getServiceElement();
     		$session->Service = $Srv;
-    		
-    		$this->getHelper('redirector')->gotoUrlAndExit('/home/index/index/language/fr/ServiceSubcategory/'.$id);
+    		Zend_Debug::dump($session);
+    		$this->getHelper('redirector')->gotoUrlAndExit('/home/catalogue/index/language/'.$session->pref->_language.'/ServiceSubcategory/'.$id);
     		 
     	}
     	else {
@@ -120,13 +121,12 @@ class Home_CatalogueController extends Centurion_Controller_Action
     //};
 	}
     
-	public function getseidandredirectAction() {
+	/*public function getseidandredirectAction() {
 		//getting the ID of the ServiceESubcategory
 		$id = $this->_request->getParam('id',null);
-		$this->getHelper('redirector')->gotoUrlAndExit('/home/index/index/language/fr/service/'.$id);
+		$this->getHelper('redirector')->gotoUrlAndExit('/home/catalogue/index/language/fr/service/'.$id);
 		//$this->getHelper('redirector')->gotoUrlAndExit('/');
-		
-	}
+	}*/
 	
 	
 	//Here the Service Catalog
