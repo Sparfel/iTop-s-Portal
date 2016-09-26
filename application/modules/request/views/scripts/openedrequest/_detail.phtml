@@ -1,3 +1,10 @@
+<style>
+.inline-image {
+	cursor: zoom-in;
+	
+}
+</style>
+
 <?php
 if (is_array($this->request))
 	{
@@ -108,7 +115,7 @@ if (is_array($this->request))
 		$ContinuerLink = $helperUrl->url ( array ('action' => 'validation') );
 		$impression_link = $helperUrl->url ( array ('controller'=>'pdf','action'=>'imprimer'));
 				
-		echo '<a href="'.$impression_link.'" target="_black" class="DTTT_button DTTT_button_print" style="z-index:3000;"><span>'.$this->translate('Imprimer').'</span></a>';
+		//echo '<a href="'.$impression_link.'" target="_black" class="DTTT_button DTTT_button_print"><span>'.$this->translate('Imprimer').'</span></a>';
 		
 		$this->placeholder('aside')->captureEnd();
 		
@@ -142,6 +149,54 @@ if (is_array($this->request))
 			<script type="text/javascript" >
 
 			jQuery(document).ready( function() {
+
+				
+				
+
+				//Rich Text for iTop version 2.3.
+		 		$( 'textarea#Log' ).ckeditor({
+		 		    language: 'fr',
+
+		 		  // extraPlugins: 'uploadimage,image',
+					//height: 300,
+
+					// Upload images to a CKFinder connector (note that the response type is set to JSON).
+					//uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+
+					// Configure your file manager integration. This example uses CKFinder 3 for PHP.
+					/*
+					filebrowserBrowseUrl: '/ckfinder/ckfinder.html',
+					filebrowserImageBrowseUrl: '/ckfinder/ckfinder.html?type=Images',
+					filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+					filebrowserImageUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+					filebrowserImageUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+					*/
+
+					filebrowserBrowseUrl : '/kcfinder/browse.php?opener=ckeditor&type=files',
+					filebrowserImageBrowseUrl : '/kcfinder/browse.php?opener=ckeditor&type=images',
+					filebrowserFlashBrowseUrl : '/kcfinder/browse.php?opener=ckeditor&type=flash',
+					filebrowserUploadUrl : '/kcfinder/upload.php?opener=ckeditor&type=files',
+					filebrowserImageUploadUrl : '/kcfinder/upload.php?opener=ckeditor&type=images',
+					filebrowserFlashUploadUrl : '/kcfinder/upload.php?opener=ckeditor&type=flash',
+					
+					// The following options are not necessary and are used here for presentation purposes only.
+					// They configure the Styles drop-down list and widgets to use classes.
+
+					stylesSet: [
+						{ name: 'Narrow image', type: 'widget', widget: 'image', attributes: { 'class': 'image-narrow' } },
+						{ name: 'Wide image', type: 'widget', widget: 'image', attributes: { 'class': 'image-wide' } }
+					],
+
+					// Load the default contents.css file plus customizations for this sample.
+					contentsCss: [ CKEDITOR.basePath + 'contents.css', 'http://sdk.ckeditor.com/samples/assets/css/widgetstyles.css' ],
+
+					// Configure the Enhanced Image plugin to use classes instead of styles and to disable the
+					// resizer (because image size is controlled by widget styles or the image takes maximum
+					// 100% of the editor width).
+					image2_alignClasses: [ 'image-align-left', 'image-align-center', 'image-align-right' ],
+					image2_disableResizer: true
+
+			 		    });
 				
 				jQuery(function(){ // wait for document to load 
 					jQuery('#tab_files-0').MultiFile({ 
@@ -159,6 +214,22 @@ if (is_array($this->request))
 				// you might want to adjust to get the right result
 					
 				/* END CONFIG */
+				
+				jQuery('.inline-image').magnificPopup({
+					type: 'image',
+					closeOnContentClick: true,
+					closeBtnInside: true,
+					fixedContentPos: true,
+					mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+					image: {
+						verticalFit: true
+					},
+					zoom: {
+						enabled: true,
+						duration: 300 // don't foget to change the duration also in CSS
+					}
+				});
+				
 				jQuery("a.preview").hover(function(e){
 					this.t = this.title;
 					this.title = "";	
@@ -220,17 +291,20 @@ if (is_array($this->request))
 		echo $this->form;
 		echo '</div>';
 		echo '<div id="accordion">';
+		//Zend_Debug::dump($data['public_log']['entries']);
 		arsort($data['public_log']['entries']);
 		foreach ($data['public_log']['entries'] as $log)
 		{ 
 			echo '<h2>'.$log['user_login'].' a écrit le '.$log['date'].':</h2>';
 			$order   = array("\r\n", "\n", "\r");
 			$replace = '<br />';
-			echo '<p>'.str_replace($order, $replace,htmlspecialchars_decode($log['message'])). '</p>';
+			//echo '<p>'.str_replace($order, $replace,htmlspecialchars_decode($log['message'])). '</p>';
 			
 			//echo '<p>'.$log['message']. '</p>';
-			//echo '<div id="log">'.htmlspecialchars_decode($log['message_html']). '</div>';
-			
+			if ($this->itop_version >= 2.3)
+				{echo '<div id="log">'.htmlspecialchars_decode($log['message_html_portal']). '</div>';}
+			else 
+			{echo '<p>'.str_replace($order, $replace,htmlspecialchars_decode($log['message'])). '</p>';}
 			
 		}
 		echo '</div>';		
@@ -238,46 +312,9 @@ if (is_array($this->request))
 
 ?>
 
-<?php 
-//Zend_Debug::dump($data);
-/*echo '<hr>';
-
-//Zend_Debug::dump($data['description']);
-
-$html_brut = htmlspecialchars_decode($data['description']);
-$nb_img = substr_count($html_brut,'<img src=');
-echo 'Il y a '.$nb_img.' images.<br>';
-
-$Aimg = array();
-$html_read = $html_brut;
-echo strpos($html_read, '>');
-for ($i = 0; $i < $nb_img; $i++) {
-	
-	$Aimg[$i] = strstr(substr($html_read,strpos($html_read, '<img src=')),'>',true).'>';
-	
-	$imgId = strstr(substr($Aimg[$i],strpos($Aimg[$i], 'data-img-id=')),' ',true);
-	$imgId = substr($imgId,strpos($imgId,'"')+1, -1);
-	Zend_Debug::dump($imgId);
-	
-	$imgstyle = strstr(substr($Aimg[$i],strpos($Aimg[$i], 'style=')),' ',true);
-	$imgstyle = substr($imgstyle,strpos($imgstyle,'"')+1, -1);
-	//Zend_Debug::dump($imgstyle);
-	
-	$imgSecret = strstr(substr($Aimg[$i],strpos($Aimg[$i], 'data-img-secret=')),'>',true);
-	$imgSecret = substr($imgSecret,strpos($imgSecret,'"')+1, -1); // We get the Id, +1 to take off the first ", -1 to take off the last "
-	Zend_Debug::dump($imgSecret);
-	
-	$html_read = substr($html_read,strpos($html_read, $Aimg[$i])+ strlen($Aimg[$i]));
-	//$html_read = strstr($html_read,$Aimg[$i]);
-	//echo strpos($html_read, '>').'<br>';
-	
-}
 
 
-/*echo strpos($html_brut, '<img src=');
-echo '<br>';
-$image =  'image : '.strstr(substr($html_brut,strpos($html_brut, '<img src=')),'>',true);*/
-//Zend_Debug::dump($Aimg);
 
 
-?>
+
+

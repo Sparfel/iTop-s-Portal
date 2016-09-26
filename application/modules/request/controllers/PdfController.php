@@ -18,7 +18,7 @@ class Request_PdfController extends Centurion_Controller_Action
  		$request = $webservice->getInfoTicket($id,$this->_org_id);
  		
  		// Création du document Pdf
- 		$pdf = new Syleps_Document_Pdf_Request();
+ 		$pdf = new Portal_Document_Pdf_Request();
  
  		
  		//céation d'une nouvelle page au format A4

@@ -102,7 +102,7 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
     
     public function indexAction() {
     	$session = new Zend_Session_Namespace('Zend_Auth');
-    	
+    	//Zend_Debug::dump($session->pref);
     	$ref = $this->_request->getParam('ref',null);
     	if (isset($ref)) {
     		$id = $this->refToId($ref);
@@ -121,6 +121,10 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 			$this->view->headScript()->appendFile('/cui/plugins/ckeditor/adapters/jquery.js');
 			//Style for the tool to print the Request
 			$this->view->headLink()->appendStylesheet('/layouts/frontoffice/css/datatable/dataTables.tableTools.css');
+			
+			//To zoom on the picture
+			$this->view->headScript()->appendFile('/layouts/frontoffice/js/jquery.magnific-popup.min.js');
+			$this->view->headLink()->appendStylesheet('/layouts/frontoffice/css/magnific-popup.css');
 			
 			$this->view->typ = 'view';
 			$webservice = $this->_helper->getHelper('ItopWebservice');
@@ -143,11 +147,16 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 				
 				$this->view->ref = $ref;
 				$this->view->request = $WSrequest;
-				$itop_version = 2.1; // description et log au format html
+				//Zend_Debug::dump($WSrequest);
+				$itop_version = 2.3; // description et log au format html
 				if ($itop_version >= 2.3) {
-					new Portal_Request_HtmlContent($WSrequest);
-					$this->view->request['description'] = null;
-					
+					$HtmlContent = new Portal_Itop_Request_HtmlContent();
+					$HtmlContent->generateItop2Portal($WSrequest);
+					$this->view->request['description'] = $HtmlContent->getHtmlDescPortal();
+					//Zend_Debug::dump($HtmlContent->getAPic());
+					$this->view->request['public_log']['entries'] = $HtmlContent->getHtmlLogPortal(); 
+					//Zend_Debug::dump($HtmlContent->getHtmlLogPortal());
+					$this->view->itop_version = $itop_version;
 				}
 				
 				$ListAttachment = new Portal_Itop_Request_Attachments($WSrequest['id']);
@@ -231,27 +240,27 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 		// no layout, it's Json
 		$this->_helper->layout()->disableLayout();
 		//if($this->getRequest()->isXmlHttpRequest()) {
-			$sEcho  = $this->getRequest()->getParam("sEcho");
-	        $start  = ($this->getRequest()->has("iDisplayStart")) ? $this->getRequest()->getParam("iDisplayStart") : 0;
-	        $offset = ($this->getRequest()->has("iDisplayLength")) ? $this->getRequest()->getParam("iDisplayLength") : 10;
-	        $colnum = $this->getRequest()->getParam("iColumns");
-	        $field_list = '';
-	        foreach ($this->_fields as $field) {
-	        	$field_list .= $field['field'].',';
-	        }
-	        $session = new Zend_Session_Namespace('Zend_Auth');
-	        $webservice = $this->_helper->getHelper('ItopWebservice');
-	        $tab_result = $webservice->getListOpenedRequest($this->_org_id,$session->pref);
-	        $this->_list_userRequest = $tab_result;
-	      	$response = array(
-	          "iTotalRecords"           => 1, //$datas->getTableDataCount(),
-	          "iTotalDisplayRecords"    => count($tab_result),
-	          "sEcho"                   => (int)$sEcho,
-	          "sColumns"                => $field,
-	          "aaData"                  =>  $this->_list_userRequest //$tab_result //$result['fields'] //$data->toArray()
-	        );
-	        return $this->_helper->json($response);
-		//};
+		$sEcho  = $this->getRequest()->getParam("sEcho");
+        $start  = ($this->getRequest()->has("iDisplayStart")) ? $this->getRequest()->getParam("iDisplayStart") : 0;
+        $offset = ($this->getRequest()->has("iDisplayLength")) ? $this->getRequest()->getParam("iDisplayLength") : 10;
+        $colnum = $this->getRequest()->getParam("iColumns");
+        $field_list = '';
+        foreach ($this->_fields as $field) {
+        	$field_list .= $field['field'].',';
+        }
+        $session = new Zend_Session_Namespace('Zend_Auth');
+        $webservice = $this->_helper->getHelper('ItopWebservice');
+        $tab_result = $webservice->getListOpenedRequest($this->_org_id,$session->pref);
+        $this->_list_userRequest = $tab_result;
+      	$response = array(
+          "iTotalRecords"           => 1, //$datas->getTableDataCount(),
+          "iTotalDisplayRecords"    => count($tab_result),
+          "sEcho"                   => (int)$sEcho,
+          "sColumns"                => $field,
+          "aaData"                  =>  $this->_list_userRequest //$tab_result //$result['fields'] //$data->toArray()
+        );
+        return $this->_helper->json($response);
+	//};
 	}
 	
 	//Action for files download, Attachment
@@ -335,9 +344,15 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 				if (isset($_POST['submit'])) {
 					try {
 						if (strlen($updateRequestForm->getValue('Log'))> 0) {
+							//We modify the log to send the images to iTop and regenerate the img src link
+							//the picture will be stored into iTop and not (only) in the portal 
+							$publicLog = $updateRequestForm->getValue('Log');
+							$HtmlRequest = new Portal_Itop_Request_HtmlContent($id);
+							//$HtmlRequest->generatePortal2Itop($publicLog);
+							//Zend_Debug::dump($HtmlRequest->generatePortal2Itop($publicLog));
 							$content = $webservice->UpdateRequest($id, //$request['ref'],
 									$session->pref,
-									$updateRequestForm->getValue('Log'));
+									$HtmlRequest->generatePortal2Itop($publicLog));
 						}
 						$this->view->typ='maj';
 						$this->view->title = 'Ticket mis à jour';
@@ -384,8 +399,7 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 		$url_redirection = '/'.$module.'/'.$controller.'/index/language/'.$session->pref->_language.'/id/'.$id;
 		$this->getHelper('redirector')->gotoUrlAndExit($url_redirection);
 		
-		
-		
+		/*
 		echo $this->getRequest()->getBaseUrl();
 		echo '<br>';
 		echo  $this->getRequest()->getRequestUri();
@@ -394,9 +408,10 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 		echo '<br>';
 		echo $this->getRequest()->getParam('controller');
 		echo '<br>';
-		
+		*/
 	}
 	
+	// to be able to display the ticket if we've got the Id (12345) or the ref (R-12345) 
 	private function refToId($ref){
 		// = $this->_request->getParam('ref',null);
 		$id = '';
@@ -408,4 +423,31 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 		return $id;
 	}
 		
+	
+	public function displayimageAction()
+	{
+		$this->view->layout()->disableLayout();
+		$this->_helper->viewRenderer->setNoRender(true);
+		$secret = $this->_getParam('secret');
+		$idRequest = $this->_getParam('id');
+	
+		$webservice = Zend_Controller_Action_HelperBroker::getStaticHelper('ItopWebservice');
+		$OImage = $webservice->getImage($idRequest,$secret);
+		//Zend_Debug::dump($OImage);
+		//echo 'Image : '.$OImage['filename'];
+		$this->getResponse()
+			->setHeader('Content-Type', 'text/html;charset=iso-8859-1')
+			->setHeader('Content-Type',$OImage->_mimetype)
+			//->setHeader('Content-Transfer-Encoding', Binary)
+			->setHeader('Content-Disposition:attachment', $OImage->_filename)
+			//->setHeader("Cache-Control: must-revalidate, post-check=0, pre-check=0")
+			->appendBody(base64_decode($OImage->_data)); // required for certain browsers
+	}
+	
+	public function testAction(){
+		$this->view->layout()->disableLayout();
+		$this->_helper->viewRenderer->setNoRender(true);
+		Zend_Debug::dump($this->_request->getPost());
+	}
+	
 }

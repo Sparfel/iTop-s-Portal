@@ -57,6 +57,10 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 		
 	}
 
+	public function getItopUrl(){
+		return $this->_protocol.'://'.$this->_adress;
+	}
+	
 	protected function CallWebService($aData)
 	{
 		$aPostData = array(
@@ -1343,6 +1347,73 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 		return $this->CallWebService( $aData);
 	}
 	
+	public function getImage($id,$secret){
+		$aData = array(
+				'operation'=> 'core/get',
+				'class' => 'InlineImage',
+				'key' => 'SELECT InlineImage WHERE item_id = "'.$id.'"AND secret = "'.$secret.'"',
+				'output_fields' => 'id,friendlyname,contents,item_class, item_id,item_org_id,expire,temp_id'
+				/* itop syleps -->'output_fields' => 'public_log,private_log,description'*/
+		);
+		$results = $this->CallWebService($aData);
+		//Zend_Debug::dump($aData);
+		//Zend_Debug::dump($results);
+		$i = 0;
+		if (count($results['objects'])>0)
+		{foreach ($results['objects'] as $result) {
+			$OImage = new Portal_Itop_Request_InlineImage($result['fields']['id'],
+					$result['fields']['temp_id'],
+					$result['fields']['expire'],
+					$result['fields']['item_class'],
+					$result['fields']['item_id'],
+					$result['fields']['item_org_id'],
+					$result['fields']['friendlyname'],
+					$result['fields']['contents']['mimetype'],
+					$result['fields']['contents']['filename'],
+					$result['fields']['contents']['data']);
+			$i++;
+		}
+		}
+		else $OImage = null;
+		//Zend_Debug::dump($Oattach);
+		return $OImage;
+		
+	}
+	
+	public function AddInlineImage($name,$data,$item_class,$item_id,$type,$org_id,$secret)
+	{
+		//We determine here the secret id for iTop
+		
+		$aData = array(
+				'operation'=>'core/create',
+				'comment'=>'Ajout d\'image',
+				'class'=>'InlineImage',
+				'output_fields'=>'id',
+				'fields'=>array(
+						'item_org_id'=>$org_id,
+						'item_class'=>$item_class,
+						'item_id'=>$item_id,
+						'secret' => $secret,
+						'contents'=>array('data'=>$data,
+								'mimetype'=>$type,
+								'filename'=>$name),
+				),
+		);
+		//Zend_Debug::dump($aData);
+		//echo json_encode($aData);
+		$results = $this->CallWebService( $aData);
+		//Zend_Debug::dump($results);
+		if (count($results['objects'])>0)
+		{
+			foreach ($results['objects'] as $result) {
+				//Zend_Debug::dump($result);
+				$id_created = $result['fields']['id'];
+			}
+		}
+		
+		//Zend_Debug::dump($id_created);
+		return $id_created;
+	}
 }
 
 ?>
