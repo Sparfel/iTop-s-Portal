@@ -77,7 +77,9 @@ class Admin_IndexController extends Centurion_Controller_Action
         $this->view->page = $this->_getParam('page', 0);
 
         if ($file === null) {
-            $file = sprintf('%s_application.log', Zend_Date::now()->toString('yyyy.MM.dd'));
+            //$file = sprintf('%s_application.log', Zend_Date::now()->toString('yyyy.MM.dd'));
+            //$MOD 27.09.2016, Emmanuel Lozachmeur
+        	$file = sprintf('%s_%s_application.log',APPLICATION_ENV, Zend_Date::now()->toString('yyyy.MM.dd'));
         }
 
         $fp = fopen($dir . $file, 'r');

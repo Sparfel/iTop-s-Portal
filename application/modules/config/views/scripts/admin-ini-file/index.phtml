@@ -1,0 +1,20 @@
+<style>
+#info UL {List-Style-Type: Square;
+	padding-left : 30px;}
+#info UL UL {List-Style-Type: Disc;
+	 margin-left: 40px;}
+	 
+#info p {text-align : justify;}
+#info h3{ padding-top:15px;}
+
+</style>
+
+<?php echo '<h1>'.$this->translate($this->title).'</h1>';?>
+<div class="info">
+	<p>Be very cautious when you modify tyhe configuration file, you may destroy your Web application with bad configuration</p>
+	<p>There are 2 files :</p>
+	<ul>
+	<li><b>application.ini</b> : it contains all paramaters of the application.</li>
+	<li><b>db.ini</b> : it contains the database connection parameters</li>
+	</ul> 
+</div>

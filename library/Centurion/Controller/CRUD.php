@@ -170,17 +170,19 @@ class Centurion_Controller_CRUD extends Centurion_Controller_AGL
         }
     }
 
-    public function deleteAction($rowset = null)
+   public function deleteAction($rowset = null)
     {
-        if (null === $rowset) {
+    	
+       if (null === $rowset) {
             $id = array($this->_getParam('id', null));
             $rowset = $this->_getModel()->find($id);
         }
         
-        if ($this->_useTicket && !$this->view->ticket()->isValid()) {
+       /* $MOD 27.09.2016, Emmanuel Lozachmeur : comment this else the deletion doesn't work !
+        * if ($this->_useTicket && !$this->view->ticket()->isValid()) {
             $this->view->errors[] = $this->view->translate('Invalid ticket');
             return $this->_forward('index', null, null, array('errors' => array()));
-        }
+        }*/
         
         if (!count($rowset)) {
             throw new Zend_Controller_Action_Exception(sprintf('Object with type %s and id(s) %s not found',
@@ -192,26 +194,29 @@ class Centurion_Controller_CRUD extends Centurion_Controller_AGL
         foreach ($rowset as $key => $row) {
             if ($row->isReadOnly()) {
                 //Todo: find why $row is in read only state sometimes !!!
+                
                 $row->setReadOnly(false);
             }
             $this->_preDelete($row);
             $row->delete();
             $this->_postDelete($row);
         }
+     
 
-        $this->_cleanCache();
+     $this->_cleanCache();
 
         if ($this->_hasParam('_next', false)) {
             $url = urldecode($this->_getParam('_next', null));
             return $this->_response->setRedirect($url);
         }
-
+        
         $this->getHelper('redirector')->gotoRoute(array_merge(array(
             'controller' => $this->_request->getControllerName(),
             'module'     => $this->_request->getModuleName(),
             'action'         => 'index'
         ), $this->_extraParam), null, true);
     }
+    
 
     public function debug($str, $reset = false)
     {

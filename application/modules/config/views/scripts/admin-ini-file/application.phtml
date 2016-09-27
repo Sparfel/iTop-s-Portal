@@ -1,0 +1,43 @@
+<?php echo '<h1>'.$this->translate($this->title).'</h1>';?>
+
+<?php 
+$file = './../application/configs/application.ini';
+
+if (is_writable($file)) { $writable = true;
+							$disabled = '';}
+	else { $writable = false;
+			$disabled = 'disabled="disabled"';}
+?> 
+<div  style="width: 80%;float:left;">
+	<p>Be very cautious when editing the configuration file.
+	<?php if (!($writable)) { echo '<span style="color:red;"><b>'.$this->translate('The file is not writable, you\'re not allowed to modify it !').'</b></span>';}?>
+	</p>
+	
+	
+	<?php
+	// configuration
+	//$url = 'http://domain.com/backend/editor.php';
+	
+	
+	// check if form has been submitted
+	if (isset($_POST['text']))
+	{
+	    
+		// save the text contents
+	    file_put_contents($file, $_POST['text']);
+	}	
+	// read the textfile
+	$text = file_get_contents($file);
+	
+	?>
+	<!-- HTML form -->
+	<form action="" method="post">
+		<textarea rows="40" cols="150" name="text" <?php echo $disabled;?>><?php echo htmlspecialchars($text); ?></textarea>
+		<?php 
+		if (($writable)){
+				echo '<input type="submit" />';
+				echo '<input type="reset" />';
+				}
+		?>
+	</form>
+</div>

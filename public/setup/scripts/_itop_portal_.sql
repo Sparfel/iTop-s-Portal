@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 11 Août 2016 à 13:58
+-- Généré le :  Mar 27 Septembre 2016 à 14:37
 -- Version du serveur :  5.5.50-0+deb8u1
 -- Version de PHP :  5.6.24-0+deb8u1
 
@@ -259,9 +259,9 @@ CREATE TABLE IF NOT EXISTS `auth_user` (
 INSERT INTO `auth_user` (`id`, `username`, `first_name`, `last_name`, `email`, `password`, `salt`, `algorithm`, `can_be_deleted`, `is_active`, `is_super_admin`, `is_staff`, `created_at`, `last_login`, `updated_at`, `user_parent_id`) VALUES
 (1, 'manu', 'Manu (admin)', 'Lozachmeur', 'emmanuel.lozachmeur@syleps.fr', 'c138ef1cde75dcf83c5f99ddeac292678543cdeb', 'a73056c2bbdca2d4148049493e296e70', 'sha1', 0, 1, 1, 0, '2009-11-23 17:36:31', '2015-04-07 01:06:01', '2015-04-07 13:06:01', NULL),
 (2, 'anonymous', NULL, NULL, NULL, '', NULL, '', 0, 0, 0, 0, '0000-00-00 00:00:00', '2015-03-26 08:56:52', '2015-04-07 13:02:01', NULL),
-(14, 'dali@demo.com', 'Salvador', 'Dali', 'dali@demo.com', 'c2a2543bdd9f0f5fe3c7887d7c455fa620b30aee', '39a9606ae41122d8f05896e8419c505d', 'sha1', 1, 1, 0, 0, '2015-03-26 08:47:01', '2016-08-10 23:56:20', '2016-08-11 11:56:20', NULL),
+(14, 'dali@demo.com', 'Salvador', 'Dali', 'dali@demo.com', 'c2a2543bdd9f0f5fe3c7887d7c455fa620b30aee', '39a9606ae41122d8f05896e8419c505d', 'sha1', 1, 1, 0, 0, '2015-03-26 08:47:01', '2016-09-23 00:05:39', '2016-09-23 12:05:39', NULL),
 (15, 'pablo@demo.com', 'Pablo', 'Picasso', 'pablo@demo.com', '443941840ecd783d156423d760ef281bda0dd0b7', '8bc9749e695faaf83ecf99aba96c6d05', 'sha1', 1, 1, 0, 1, '2015-03-30 08:51:25', '0000-00-00 00:00:00', '2015-03-30 08:58:03', NULL),
-(16, 'admin', 'My First Name', 'My Last Name', 'my.email@foo.org', 'eaad908b009ee6ea086bde96e6fcb1b61d720cfc', '8928d295449baeeae36ec22d4c833f6e', 'sha1', 0, 1, 1, 0, '2015-04-07 13:02:58', '2016-08-10 23:48:56', '2016-08-11 11:48:56', NULL);
+(16, 'admin', 'My First Name', 'My Last Name', 'my.email@foo.org', 'eaad908b009ee6ea086bde96e6fcb1b61d720cfc', '8928d295449baeeae36ec22d4c833f6e', 'sha1', 0, 1, 1, 0, '2015-04-07 13:02:58', '2016-09-26 23:45:28', '2016-09-27 11:45:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -331,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `centurion_navigation` (
   `can_be_deleted` int(11) unsigned DEFAULT '1',
   `original_id` int(11) unsigned DEFAULT NULL,
   `language_id` int(11) unsigned DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `centurion_navigation`
@@ -341,12 +341,12 @@ INSERT INTO `centurion_navigation` (`id`, `label`, `module`, `controller`, `acti
 (1, 'Users Profiles', 'user', 'admin-profile', NULL, NULL, NULL, 'default', NULL, 1, 1, 1, 'sqdsdqsdqsd', 20, 21, 3, 5, 122, NULL, NULL, 1, NULL, 1),
 (2, 'Manage group permissions', 'auth', 'admin-group-permission', NULL, NULL, NULL, 'default', NULL, 3, 0, 1, NULL, 37, 38, 2, 5, 192, NULL, NULL, 1, NULL, 2),
 (3, 'Pages', 'admin', 'admin-navigation', NULL, NULL, NULL, NULL, NULL, 2, 1, 1, NULL, 52, 63, 1, 5, 12, NULL, NULL, 1, NULL, NULL),
-(4, 'Settings', 'cron', 'admin-cron', NULL, NULL, NULL, 'default', NULL, 3, 1, 1, NULL, 64, 75, 1, 5, 12, NULL, NULL, 1, NULL, 1),
+(4, 'Settings', 'cron', 'admin-cron', NULL, NULL, NULL, 'default', NULL, 3, 1, 1, NULL, 64, 81, 1, 5, 12, NULL, NULL, 1, NULL, 1),
 (5, 'Template', 'cms', 'admin-flatpage-template', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 55, 56, 2, 5, 3, NULL, NULL, 1, NULL, NULL),
 (7, 'Cache', 'admin', 'index', 'cache', NULL, NULL, NULL, NULL, 2, 1, 1, NULL, 67, 70, 2, 5, 4, NULL, NULL, 1, NULL, NULL),
 (8, 'Clear cache', 'admin', 'index', 'clear-cache', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 68, 69, 3, 5, 7, NULL, NULL, 1, NULL, NULL),
 (11, 'Translation', 'translation', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 71, 72, 2, 5, 4, NULL, NULL, 1, NULL, NULL),
-(12, 'Backoffice', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 78, 0, 5, NULL, NULL, NULL, 0, NULL, 1),
+(12, 'Backoffice', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 84, 0, 5, NULL, NULL, NULL, 0, NULL, 1),
 (13, 'Error', 'admin', 'index', 'log', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 73, 74, 2, 5, 4, NULL, NULL, 1, NULL, NULL),
 (14, 'Pages unactivated', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 'unactived', 1, 26, 0, 20, NULL, NULL, NULL, 0, NULL, NULL),
 (16, 'Frontoffice', NULL, NULL, NULL, NULL, 'all', NULL, NULL, NULL, 1, 1, NULL, 1, 122, 0, 18, NULL, NULL, NULL, 0, NULL, 1),
@@ -373,7 +373,7 @@ INSERT INTO `centurion_navigation` (`id`, `label`, `module`, `controller`, `acti
 (169, 'Liste des Chat', 'chat', 'index', 'viewallchats', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 98, 99, 3, 18, 128, NULL, NULL, 1, NULL, 1),
 (170, 'Nouveau Chat', 'chat', 'index', 'index', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 100, 101, 3, 18, 128, NULL, NULL, 1, NULL, 1),
 (172, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 103, 104, 2, 18, 125, 2, 1, 1, NULL, 1),
-(183, 'Préférences', 'user', 'preference', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 76, 77, 1, 5, 12, NULL, NULL, 1, NULL, 1),
+(183, 'Préférences', 'user', 'preference', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 82, 83, 1, 5, 12, NULL, NULL, 1, NULL, 1),
 (184, 'Manage Import Ldap', 'user', 'admin-ldap-user', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 24, 25, 3, 5, 122, NULL, NULL, 1, NULL, 1),
 (185, 'Manage Local Users', 'user', 'admin-user', NULL, NULL, NULL, 'default', NULL, NULL, 1, 1, NULL, 22, 23, 3, 5, 122, NULL, NULL, 1, NULL, 1),
 (186, 'Manage Import iTop', 'user', 'admin-itop-user', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 26, 27, 3, 5, 122, NULL, NULL, 1, NULL, 1),
@@ -386,7 +386,10 @@ INSERT INTO `centurion_navigation` (`id`, `label`, `module`, `controller`, `acti
 (193, 'Organizations', 'config', 'admin-organizations', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 41, 42, 2, 5, 192, NULL, NULL, 1, NULL, 1),
 (194, 'Alerts', 'config', 'admin-alerts', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 43, 44, 2, 5, 192, NULL, NULL, 1, NULL, 1),
 (195, 'Widgets', 'config', 'admin-widget', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 61, 62, 2, 5, 3, NULL, NULL, 1, NULL, 1),
-(196, 'Listes des Services', 'home', 'catalogue', 'list', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 90, 91, 3, 18, 127, NULL, NULL, 1, NULL, 1);
+(196, 'Listes des Services', 'home', 'catalogue', 'list', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 90, 91, 3, 18, 127, NULL, NULL, 1, NULL, 1),
+(197, 'Configuration Files', 'config', 'admin-ini-file', 'index', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 75, 80, 2, 5, 4, NULL, NULL, 1, NULL, 1),
+(198, 'Application', 'config', 'admin-ini-file', 'application', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 76, 77, 3, 5, 197, NULL, NULL, 1, NULL, 1),
+(199, 'Database', 'config', 'admin-ini-file', 'db', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 78, 79, 3, 5, 197, NULL, NULL, 1, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -530,32 +533,34 @@ CREATE TABLE IF NOT EXISTS `media_duplicate` (
   `adapter` varchar(50) NOT NULL,
   `params` text NOT NULL,
   `dest` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `media_duplicate`
 --
 
 INSERT INTO `media_duplicate` (`id`, `file_id`, `adapter`, `params`, `dest`) VALUES
-(52, 'b270d78a83e5d5c7584ba6e4147e37ec', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', '34PniNU-tO8gzPBIMJ7Ncw/_adc75e75.centurion'),
-(53, '538844570c7ede460b53639f04a56a73', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'iLJx2-I51UrYWoQpFsro7w/_adc75e75.centurion'),
-(54, '3f6e0df4c354ad27d829b7af7fb516c9', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'RVWWZMI04wjSvnLOGQE8rQ/_adc75e75.centurion'),
-(55, '1311d969b803f360433a4252e501eb8c', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', '__6cV6myViOsIZJgwbUVUA/_adc75e75.centurion'),
-(56, '7ead9b87613378ab41c733ff85f7c6bf', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'ylcJDJmiXLSYSJdIgXQ4nw/_adc75e75.centurion'),
-(57, '412f3013dca7184c8876c8e7092dcd86', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'IFwsAfVifdaM9UakMgWLQA/_adc75e75.centurion'),
-(58, 'b6d2ed8d5a22e584dee51034edb75901', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'OC2dyZ6n9a3W-md-wJZdCQ/_adc75e75.centurion'),
-(59, '2abfd121b2b3074ae4ba914769ee8fbf', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'Ni-cMpO9tLQRZjlMAQrQHg/_adc75e75.centurion'),
-(60, 'a7ee0fc801aae5fafbe678e47afe0420', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'TgaYbutJJ8m3GkMTbCxYkg/_.centurion'),
-(61, '412f3013dca7184c8876c8e7092dcd86', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'IFwsAfVifdaM9UakMgWLQA/_.centurion'),
-(62, 'b270d78a83e5d5c7584ba6e4147e37ec', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', '34PniNU-tO8gzPBIMJ7Ncw/_.centurion'),
-(63, '538844570c7ede460b53639f04a56a73', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'iLJx2-I51UrYWoQpFsro7w/_.centurion'),
-(64, '13ed5810386e20dcf0a02bfb197564ba', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'ueUVCRe7IP7Thlcczsfs9g/_.centurion'),
-(65, '7ead9b87613378ab41c733ff85f7c6bf', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'ylcJDJmiXLSYSJdIgXQ4nw/_.centurion'),
-(66, 'b6d2ed8d5a22e584dee51034edb75901', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'OC2dyZ6n9a3W-md-wJZdCQ/_.centurion'),
-(67, '1669ea92abfd2b1229c809cc4a528f6d', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'av4yJ73C6VdhvgtVaPcuyg/_.centurion'),
-(68, '8a7eb9d5e669e5433b3b299145f14eac', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'nG7MNMk4iaDk28iiZItdEQ/_.centurion'),
-(69, '6eb147aea2654478b297469098434798', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'seOnsSB0S2de8fa9nR4mAA/_.centurion'),
-(70, '5077346224f7c73bf562c0420951b5ab', 'local', 'a:3:{s:4:"path";s:66:"D:\\Site Web\\Portail iTop\\Portail iTop\\application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', '4PysWemJ4b1wr_U-A5Lj4w/_.centurion');
+(52, 'b270d78a83e5d5c7584ba6e4147e37ec', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', '34PniNU-tO8gzPBIMJ7Ncw/_adc75e75.centurion'),
+(53, '538844570c7ede460b53639f04a56a73', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'iLJx2-I51UrYWoQpFsro7w/_adc75e75.centurion'),
+(54, '3f6e0df4c354ad27d829b7af7fb516c9', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'RVWWZMI04wjSvnLOGQE8rQ/_adc75e75.centurion'),
+(55, '1311d969b803f360433a4252e501eb8c', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', '__6cV6myViOsIZJgwbUVUA/_adc75e75.centurion'),
+(56, '7ead9b87613378ab41c733ff85f7c6bf', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'ylcJDJmiXLSYSJdIgXQ4nw/_adc75e75.centurion'),
+(57, '412f3013dca7184c8876c8e7092dcd86', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'IFwsAfVifdaM9UakMgWLQA/_adc75e75.centurion'),
+(58, 'b6d2ed8d5a22e584dee51034edb75901', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'OC2dyZ6n9a3W-md-wJZdCQ/_adc75e75.centurion'),
+(59, '2abfd121b2b3074ae4ba914769ee8fbf', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'Ni-cMpO9tLQRZjlMAQrQHg/_adc75e75.centurion'),
+(60, 'a7ee0fc801aae5fafbe678e47afe0420', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'TgaYbutJJ8m3GkMTbCxYkg/_.centurion'),
+(61, '412f3013dca7184c8876c8e7092dcd86', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'IFwsAfVifdaM9UakMgWLQA/_.centurion'),
+(62, 'b270d78a83e5d5c7584ba6e4147e37ec', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', '34PniNU-tO8gzPBIMJ7Ncw/_.centurion'),
+(63, '538844570c7ede460b53639f04a56a73', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'iLJx2-I51UrYWoQpFsro7w/_.centurion'),
+(64, '13ed5810386e20dcf0a02bfb197564ba', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'ueUVCRe7IP7Thlcczsfs9g/_.centurion'),
+(65, '7ead9b87613378ab41c733ff85f7c6bf', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'ylcJDJmiXLSYSJdIgXQ4nw/_.centurion'),
+(66, 'b6d2ed8d5a22e584dee51034edb75901', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'OC2dyZ6n9a3W-md-wJZdCQ/_.centurion'),
+(67, '1669ea92abfd2b1229c809cc4a528f6d', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'av4yJ73C6VdhvgtVaPcuyg/_.centurion'),
+(68, '8a7eb9d5e669e5433b3b299145f14eac', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'nG7MNMk4iaDk28iiZItdEQ/_.centurion'),
+(69, '6eb147aea2654478b297469098434798', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'seOnsSB0S2de8fa9nR4mAA/_.centurion'),
+(70, '5077346224f7c73bf562c0420951b5ab', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', '4PysWemJ4b1wr_U-A5Lj4w/_.centurion'),
+(71, '55140aa540ebe30a95dbd0d8da8a9a90', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'OvhsY0Zyd6-d8y6vtsaPvA/_abf174g94.centurion'),
+(72, '55140aa540ebe30a95dbd0d8da8a9a90', 'local', 'a:3:{s:4:"path";s:51:"/var/www/itopPortalDev/application/../public/files/";s:3:"url";s:8:"/static/";s:16:"use_urlrewriting";s:1:"1";}', 'OvhsY0Zyd6-d8y6vtsaPvA/_abf174g94.centurion');
 
 -- --------------------------------------------------------
 
@@ -599,6 +604,7 @@ INSERT INTO `media_file` (`id`, `file_id`, `local_filename`, `mime`, `filename`,
 ('412f3013dca7184c8876c8e7092dcd86', '205c2c01f5627dd68cf546a432058b40', '86\\9e11266344dd7030847f96c965e7ca.png', 'image/png', 'admin[64].png', '', 7584, '2015-04-07 13:12:49', 0, NULL, 'Media_Model_DbTable_Image', 43, NULL, NULL, NULL, 'bcbef6d2b31803286ca89dc15c41be4dabb38d46', 1),
 ('5077346224f7c73bf562c0420951b5ab', 'e0fcac59e989e1bd70aff53e0392e3e3', '53\\3d319fe42419714646abfe31a0e484.png', 'image/png', 'remote_access[64].png', '', 4677, '2015-04-07 13:50:16', 0, NULL, 'Media_Model_DbTable_Image', 50, NULL, NULL, NULL, '87ec3ea0b656a9de7ead03f527c7690dda34b355', 1),
 ('538844570c7ede460b53639f04a56a73', '88b271dbe239d54ad85a842916cae8ef', 'd8\\7b20732c2ead4cdb19c548f840c81d.png', 'image/png', 'collaboratif[64].png', '', 10083, '2015-04-07 13:10:38', 0, NULL, 'Media_Model_DbTable_Image', 38, NULL, NULL, NULL, 'f8a158f2b836b794094f5ac5741015340fe5538c', 1),
+('55140aa540ebe30a95dbd0d8da8a9a90', '3af86c63467277af9df32eafb6c68fbc', '73/b3aca17cab54741d3559f34ff3b257.png', 'image/png', 'logo.png', '', 5891, '2016-09-09 15:20:52', 0, NULL, 'Media_Model_DbTable_Image', 53, NULL, NULL, NULL, 'cc3439dd38ed9f04574a11b6dcc3ad383fd7f5cc', 1),
 ('6eb147aea2654478b297469098434798', 'b1e3a7b120744b675ef1f6bd9d1e2600', '4d\\e253332057b1f1939a97c28c071170.png', 'image/png', 'reinstall_workstation[64].png', '', 8720, '2015-04-07 13:49:49', 0, NULL, 'Media_Model_DbTable_Image', 49, NULL, NULL, NULL, '9330115e18a0359933bd3c331d89c95289b700b1', 1),
 ('7ead9b87613378ab41c733ff85f7c6bf', 'ca57090c99a25cb4984897488174389f', '5d\\f61e6a390fb3b49cabcdfa70c39a0d.png', 'image/png', 'bureautique[64].png', '', 5999, '2015-04-07 13:12:27', 0, NULL, 'Media_Model_DbTable_Image', 42, NULL, NULL, NULL, '08780704eddad53d23fe33d8aa869b9cb823cea9', 1),
 ('8a7eb9d5e669e5433b3b299145f14eac', '9c6ecc34c93889a0e4dbc8a2648b5d11', '86\\6db1ee6f435a41e87d6b29cf16a6b3.png', 'image/png', 'acquisition2[64].png', '', 8058, '2015-04-07 13:51:04', 0, NULL, 'Media_Model_DbTable_Image', 52, NULL, NULL, NULL, 'fa41dbd83eeeddc9acddfc1d91c6a6aecf97fac8', 1),
@@ -617,7 +623,7 @@ CREATE TABLE IF NOT EXISTS `media_image` (
 `id` int(11) unsigned NOT NULL,
   `width` int(11) unsigned NOT NULL,
   `height` int(11) unsigned NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `media_image`
@@ -659,7 +665,8 @@ INSERT INTO `media_image` (`id`, `width`, `height`) VALUES
 (49, 64, 64),
 (50, 64, 64),
 (51, 64, 64),
-(52, 64, 64);
+(52, 64, 64),
+(53, 156, 60);
 
 -- --------------------------------------------------------
 
@@ -735,11 +742,7 @@ CREATE TABLE IF NOT EXISTS `portal_alert_organization` (
 INSERT INTO `portal_alert_organization` (`alert_id`, `organization_id`) VALUES
 (1, 1),
 (2, 1),
-(3, 1),
-(1, 2),
-(3, 2),
-(1, 3),
-(3, 3);
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -820,8 +823,8 @@ CREATE TABLE IF NOT EXISTS `portal_organization` (
 
 INSERT INTO `portal_organization` (`id`, `name`, `created_at`, `phonecode`) VALUES
 (1, 'My Company/Department', '2016-08-11 07:40:08', NULL),
-(2, 'IT Department', '2016-08-11 07:40:08', NULL),
-(3, 'Demo', '2016-08-11 07:40:08', NULL);
+(2, 'IT Department', '2016-09-27 08:11:48', NULL),
+(3, 'Demo', '2016-09-27 08:11:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -882,7 +885,7 @@ CREATE TABLE IF NOT EXISTS `portal_service_style` (
 --
 
 INSERT INTO `portal_service_style` (`id`, `name`, `description`, `code`, `color`, `type`, `parent_id`, `parent_name`, `created_at`, `updated_at`, `avatar_id`) VALUES
-(1, 'Computers and peripherals', 'Ordering of new hardware (Desktop computer, laptop computer, monitor, mouse, keyboard...) and support in case of hardware failure.', 'Service1', '#1C94C4', 'Service', 9, 'INFRA', '2015-04-07 13:08:45', '2015-04-07 13:49:49', '6eb147aea2654478b297469098434798'),
+(1, 'Computers and peripherals', 'Ordering of new hardware (Desktop computer, laptop computer, monitor, mouse, keyboard...) and support in case of hardware failure.', 'Service1', '#1C94C4', 'Service', 9, 'INFRA', '2015-04-07 13:08:45', '2016-09-09 15:50:35', '6eb147aea2654478b297469098434798'),
 (2, 'AMÉLIORATIONS FONCTIONNELLES', 'Améliorations des logiciels Métiers', 'Service2', '#1C94C4', 'Service', 5, 'METIER', '2015-04-07 13:08:45', '2015-04-07 13:09:16', '13ed5810386e20dcf0a02bfb197564ba'),
 (3, 'Telecom and connectivity', 'Ordering and configuration of new mobile phones, computer connectivity requests, cabling, etc...', 'Service3', '#1C94C4', 'Service', 9, 'INFRA', '2015-04-07 13:08:45', '2015-04-07 13:50:16', '5077346224f7c73bf562c0420951b5ab'),
 (4, 'Network Troubleshooting', 'Ask for help troubleshooting a network related issue.', 'ServiceSubcategory4', '#1C94C4', 'ServiceSubcategory', NULL, NULL, '2015-04-07 13:08:49', '2015-04-07 13:08:49', NULL),
@@ -1106,16 +1109,88 @@ INSERT INTO `translation_translation` (`translation`, `uid_id`, `language_id`) V
 ('Manage navigation', 8, 2),
 ('Langue', 10, 1),
 ('Language', 10, 2),
+('ajouter un nouvel %s', 11, 1),
+('Add a new %s', 11, 2),
 ('Titre', 12, 1),
 ('Title', 12, 2),
+('publié', 13, 1),
+('Is published', 13, 2),
+('A', 14, 1),
+('At', 14, 2),
+('Éditer', 18, 1),
+('Edit', 18, 2),
+('Éditer les propriétés', 19, 1),
+('Edit properties', 19, 2),
+('Êtes vous sûr ? L''opération ne pourra pas être annulée', 20, 1),
+('Are you sure? This operation can not be undone', 20, 2),
+('Effacer', 21, 1),
+('Delete', 21, 2),
+('Nom du module', 23, 1),
+('Module name', 23, 2),
+('Nom du contrôleur', 24, 1),
+('Controller name', 24, 2),
+('Nom de l''action', 25, 1),
+('Action name', 25, 2),
+('Enregistrer', 33, 1),
+('Save', 33, 2),
+('Enregistrer et ajouter un autre', 34, 1),
+('Save and add another', 34, 2),
+('Enregistrer et continuer', 35, 1),
+('Save and continue', 35, 2),
+('Gérer les traductions', 36, 1),
+('Manage translation', 36, 2),
+('Gérer les permissions', 37, 1),
+('Manage permissions', 37, 2),
+('Nom', 39, 1),
+('Name', 39, 2),
 ('Utilisateurs', 41, 1),
 ('Users', 41, 2),
+('Groupes', 42, 1),
+('Groups', 42, 2),
+('Filtres', 43, 1),
+('Filters', 43, 2),
+('Soumettre', 44, 1),
+('Submit', 44, 2),
+('Suivant', 49, 1),
+('Next', 49, 2),
+('Dernier', 50, 1),
+('Last', 50, 2),
+('Enregistrement effectué', 51, 1),
+('Saving has been done.', 51, 2),
+('Contenu', 57, 1),
+('Content', 57, 2),
+('Couverture', 58, 1),
+('Cover', 58, 2),
+('Date de publication', 61, 1),
+('Date to publish', 61, 2),
+('Ordre', 62, 1),
+('Order', 62, 2),
+('Dernière connexion', 66, 1),
+('Last login', 66, 2),
+('Est actif', 67, 1),
+('Is active', 67, 2),
+('Statut', 70, 1),
+('Status', 70, 2),
 ('Oui', 71, 1),
 ('Yes', 71, 2),
+('Non', 72, 1),
+('No', 72, 2),
+('Activer', 73, 1),
+('Activate', 73, 2),
+('Désactiver', 74, 1),
+('Desactivate', 74, 2),
 ('Gestion des utilisateurs', 75, 1),
 ('Manage users', 75, 2),
+('Peut être effacer', 78, 1),
+('Can be deleted', 78, 2),
+('Membre de l''équipe', 79, 1),
+('Is staff', 79, 2),
 ('En tant qu''utilisateur %s, vous n''êtes pas autorisé à effectuer cette action.', 87, 1),
 ('As a %s user, you don''t have the permission to accomplish this action.', 87, 2),
+('Retour', 88, 1),
+('Go back', 88, 2),
+('Surnom', 89, 1),
+('Nickname', 89, 2),
 ('Utilisateur', 91, 1),
 ('user', 91, 2),
 ('Ticket invalide', 93, 1),
@@ -1136,8 +1211,6 @@ INSERT INTO `translation_translation` (`translation`, `uid_id`, `language_id`) V
 ('Service Management', 151, 2),
 ('Calendrier', 154, 1),
 ('Calendar', 154, 2),
-('Documentation Admys', 156, 1),
-('Admys documentation', 156, 2),
 ('Nouveau ticket', 159, 1),
 ('New Request', 159, 2),
 ('Accueil', 160, 1),
@@ -1166,10 +1239,6 @@ INSERT INTO `translation_translation` (`translation`, `uid_id`, `language_id`) V
 ('from', 202, 2),
 ('Bienvenue', 208, 1),
 ('Welcome', 208, 2),
-('Bienvenue dans votre Espace Services Syleps', 211, 1),
-('Welcome in your Syleps Services Portal', 211, 2),
-('Votre espace Services Syleps', 212, 1),
-('Your Syleps Services Area', 212, 2),
 ('priorité', 263, 1),
 ('priority', 263, 2),
 ('Priorité', 267, 1),
@@ -1182,6 +1251,8 @@ INSERT INTO `translation_translation` (`translation`, `uid_id`, `language_id`) V
 ('Incident Management', 280, 2),
 ('Tableau de bord global', 379, 1),
 ('Main Dashboard', 379, 2),
+('Ne visualiser que vos tickets', 380, 1),
+('Display only your own requests', 380, 2),
 ('nouveau', 424, 1),
 ('new', 424, 2),
 ('indéfini', 425, 1),
@@ -1286,6 +1357,12 @@ INSERT INTO `translation_translation` (`translation`, `uid_id`, `language_id`) V
 ('The password must have 5 caracters minimum.', 584, 2),
 ('Le mot de passe a été modifié.', 585, 1),
 ('The password has been changed.', 585, 2),
+('Environnement :', 587, 1),
+('Environment :', 587, 2),
+('Version du Portail', 588, 1),
+('Portal''s Version', 588, 2),
+('Requête ouverte', 590, 1),
+('Opened request', 590, 2),
 ('Tickets par statut', 591, 1),
 ('Tickets per status', 591, 2),
 ('Autre informations', 592, 1),
@@ -1295,7 +1372,27 @@ INSERT INTO `translation_translation` (`translation`, `uid_id`, `language_id`) V
 ('Veuillez renseigner les informations ci-dessous :', 594, 1),
 ('Please fill the informations below:', 594, 2),
 ('Contrats Fournisseurs', 595, 1),
-('Provider Contracts', 595, 2);
+('Provider Contracts', 595, 2),
+('Gestion des incidents', 598, 1),
+('Requests Managment', 598, 2),
+('Utilisateur', 599, 1),
+('User', 599, 2),
+('Organisation', 600, 1),
+('Organization', 600, 2),
+('Ticket par code résolution', 601, 1),
+('Ticket per resolution code', 601, 2),
+('Code résolution', 602, 1),
+('Resolution code', 602, 2),
+('Nbre de tickets', 603, 1),
+('Nb Requests', 603, 2),
+('Ticket par Service', 604, 1),
+('Ticket per Service', 604, 2),
+('Répartition des tickets selon leur code de résolution', 605, 1),
+('Distribution of tickets according to their way of resolution', 605, 2),
+('Les incidents ouverts sur l''année écoulée', 606, 1),
+('The open incidents over the past year', 606, 2),
+('<h1>Visualisation en mode édition</h1><p>Utiliser les fonction d\\''édition du navigateur. Presser \\''Echappe\\'' pour revenir à la page</p>', 632, 1),
+('<h1>Display in Print Mode</h1><p>Use your browser\\''s printing function. Press \\''Escape\\'' to go back</p>', 632, 2);
 
 -- --------------------------------------------------------
 
@@ -1306,7 +1403,7 @@ INSERT INTO `translation_translation` (`translation`, `uid_id`, `language_id`) V
 CREATE TABLE IF NOT EXISTS `translation_uid` (
 `id` int(11) unsigned NOT NULL,
   `uid` text COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=638 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=667 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Contenu de la table `translation_uid`
@@ -1407,7 +1504,6 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (92, 'An error occur when validating the form. See below.'),
 (93, 'Invalid ticket'),
 (94, 'Médiathèque'),
-(95, 'Terre d''émotions, la Vallée du Rhône en images'),
 (97, 'Search for content'),
 (98, 'Add a highlight'),
 (99, 'Manage highlights of: %s'),
@@ -1450,7 +1546,6 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (136, 'Déclarer un incident'),
 (137, 'Veuillez renseigner les informations suivantes'),
 (138, 'Veuillez renseigner les informations suivantes :'),
-(139, 'My Admys Requests'),
 (140, 'name'),
 (141, 'Fichier'),
 (142, 'Valider'),
@@ -1459,24 +1554,17 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (145, 'X'),
 (146, 'File'),
 (147, 'Tableau de bord'),
-(148, 'Atelys'),
 (149, 'Frontoffice'),
 (150, 'Accueil'),
 (151, 'Catalogue des services'),
 (152, 'Contact'),
-(153, 'Revys'),
 (154, 'Calendrier'),
-(155, 'Prevys'),
-(156, 'Documentation Admys'),
-(157, 'Admys'),
 (158, 'Liste des alarmes'),
 (159, 'Nouveau ticket'),
 (160, 'Home'),
 (161, 'Tickets en cours'),
 (162, 'Demande de formation'),
-(163, 'Skolys'),
 (164, 'Demande de service'),
-(165, 'Movys'),
 (166, 'Comptes rendus'),
 (167, 'Compteur Temps'),
 (168, 'Documentation S.U.'),
@@ -1484,8 +1572,6 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (170, 'QCM Sydel Univers'),
 (171, 'Catalogue de Formations'),
 (172, 'Produits'),
-(173, 'Syleps Store'),
-(174, 'Migsys'),
 (175, 'Liste des modifications'),
 (176, 'Panier'),
 (177, 'Ticket incident'),
@@ -1501,35 +1587,8 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (197, 'Nouvelle version S.U.'),
 (201, 'Welcome'),
 (202, 'from'),
-(205, 'Atelys'),
 (208, 'Bienvenue'),
-(211, 'Bienvenue dans votre Espace Services Syleps'),
-(212, 'Votre espace Services Syleps'),
 (213, 'Détails de la requête'),
-(215, 'Votre Store Syleps'),
-(216, 'Votre espace Services Admys'),
-(219, 'Votre Espace Services Atelys'),
-(221, 'Admys - Documentation en ligne'),
-(223, 'Votre espace Services Movys'),
-(224, 'Movys - Vos évolutions'),
-(225, 'Movys - Votre consommation'),
-(226, 'Movys - Effectuer une demande de prestation'),
-(227, 'Votre espace Services Skolys'),
-(228, 'Skolys - Documentation en ligne'),
-(229, 'Skolys - Testez vos connaissances'),
-(230, 'Skolys - Demandes de formation'),
-(231, 'Skolys - Catalogue de formations'),
-(232, 'Votre espace Services Prevys'),
-(233, 'Prevys - Votre planning d''intervention'),
-(234, 'Prevys - Vos Rapports'),
-(235, 'Votre espace Services Révys'),
-(236, 'Révys - Lots de maintenance'),
-(237, 'Révys - Vos demandes'),
-(238, 'Revys - Vos contacts privilégiés'),
-(239, 'Votre espace Services Migsys'),
-(240, 'Migsys - les nouveautés'),
-(241, 'Migsys - Matrice de compatibilité'),
-(242, 'Migsys - Vos demandes de migration'),
 (243, 'Contacter un Agent'),
 (244, 'Titre'),
 (246, 'Ajouter des pièces jointes'),
@@ -1573,10 +1632,7 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (284, 'Evénements'),
 (285, 'Evénements paginés'),
 (286, 'Commandes de préparation'),
-(287, 'Syleps - Bureau d''étude'),
 (288, 'Point d''entrée'),
-(289, 'Syleps - Ajout un point d''entrée'),
-(290, 'Syleps - Dossiers Clients'),
 (291, 'Search'),
 (292, 'Rechercher un client :'),
 (293, 'SU Code'),
@@ -1586,7 +1642,6 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (297, 'existe'),
 (298, 'Connexion'),
 (299, 'Choisissez un client'),
-(300, 'Syleps - Connexions Clients'),
 (301, 'Choisissez un client :'),
 (302, 'Modifier la tarification d''une zone'),
 (303, 'Validation'),
@@ -1626,13 +1681,11 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (337, 'Aide à l''imputation'),
 (338, 'Annuaire'),
 (339, 'Trouver son matricule'),
-(340, 'Syleps'),
 (341, 'Clients'),
 (342, 'Saisie des informations'),
 (343, 'Saisissez votre nom'),
 (344, 'Saisissez un nom et/ou prénom'),
 (345, 'Choisissez un client et/ou saisissez un nom et/ou prénom'),
-(346, 'Syleps - Intranet'),
 (347, 'Prénom'),
 (348, 'Demande'),
 (349, 'test_order=6'),
@@ -1874,8 +1927,6 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (593, 'Listes des Services'),
 (594, 'Veuillez renseigner les informations ci-dessous :'),
 (595, 'Contrats Fournisseurs'),
-(596, 'Your Syleps Area'),
-(597, '4'),
 (598, 'Gestion des incidents'),
 (599, 'Utilisateur'),
 (600, 'Organisation'),
@@ -1915,7 +1966,28 @@ INSERT INTO `translation_uid` (`id`, `uid`) VALUES
 (634, 'Vos Contacts'),
 (635, 'Le responsable'),
 (636, 'Les membres de l''équipe'),
-(637, 'Mes requêtes fermées');
+(637, 'Mes requêtes fermées'),
+(638, 'incident'),
+(639, 'Consulter notre catalogue de service'),
+(640, 'Hiérarchie des Services'),
+(641, 'Catalogue produits'),
+(642, 'Prix'),
+(643, 'Panier en cours'),
+(644, 'Votre Store'),
+(645, 'Version de iTop'),
+(646, 'Please fill the informations below :'),
+(647, 'New user request'),
+(648, 'Votre demande a bien été enregistrée sous la référence'),
+(649, 'Vous recevrez très bientôt un mail vous rappelant la référence votre demande.'),
+(650, 'L''équipe de support vous remercie.'),
+(651, 'Configuration Files'),
+(652, 'Modification des fichier de configuration.'),
+(660, 'The file is not writable, you''re not alloed to modify it'),
+(661, 'The file is not writable, you''re not alloed to modify it !'),
+(663, 'Modification du fichier de configuration de l''application.'),
+(664, 'Application'),
+(665, '4'),
+(666, 'Your Syleps Area');
 
 -- --------------------------------------------------------
 
@@ -2181,7 +2253,7 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT pour la table `centurion_navigation`
 --
 ALTER TABLE `centurion_navigation`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=197;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=200;
 --
 -- AUTO_INCREMENT pour la table `centurion_site`
 --
@@ -2211,12 +2283,12 @@ MODIFY `produitId` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=57;
 -- AUTO_INCREMENT pour la table `media_duplicate`
 --
 ALTER TABLE `media_duplicate`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=71;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=73;
 --
 -- AUTO_INCREMENT pour la table `media_image`
 --
 ALTER TABLE `media_image`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT pour la table `media_multiupload_ticket`
 --
@@ -2271,7 +2343,7 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT pour la table `translation_uid`
 --
 ALTER TABLE `translation_uid`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=638;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=667;
 --
 -- AUTO_INCREMENT pour la table `user_profile`
 --
