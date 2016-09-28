@@ -36,14 +36,18 @@ CKEDITOR.editorConfig = function( config ) {
 	// Simplify the dialog windows.
 	//config.removeDialogTabs = 'image:advanced;image:info;';
 	 // Make dialogs simpler.
-    config.removeDialogTabs = 'image:advanced;image:Link;link:advanced;link:upload' //;image:info';
+    config.removeDialogTabs = 'image:advanced;image:Link;link:advanced;link:upload'; //;image:info';
     config.linkShowTargetTab = false;
 	
 	//config.extraPlugins = 'uploadimage';
 	config.uploadUrl = '/uploader/upload.php';
 	config.filebrowserImageWindowWidth = '640';
     config.filebrowserImageWindowHeight = '480';
-	
+    config.removeButtons = 'Subscript,Superscript,Scayt,Anchor,Source,Outdent,Indent,Blockquote,About,PasteFromWord';
+	config.removePlugins = 'elementspath';
+	config.resize_enabled = false;
+	config.toolbarCanCollapse = true;
+	config.toolbarStartupExpanded = false;
 
 };
 
