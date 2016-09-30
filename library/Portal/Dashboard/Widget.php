@@ -16,10 +16,12 @@
 class Portal_Dashboard_Widget {
 	
 	public $_widget;
+	public $_size;
 	
 	public function __construct($widget){
 		//Zend_Debug::dump($widget);
 		$type = $widget->type;
+		$this->_size = $widget->size;
 		switch ($type) {
 			case 'Pie':
 				/*$AParam = json_decode($widget->parameter);

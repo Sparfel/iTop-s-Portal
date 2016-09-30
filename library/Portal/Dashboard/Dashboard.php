@@ -26,6 +26,7 @@ class Portal_Dashboard_Dashboard {
 	protected $_OPref; // les préférence utilisateurs
 	protected $_dashboard; // le tableau de bord que l'on souhaite afficher (Name dans la table Widget)
 	protected $_list_script_widget; // la liste des Widget triée selon la config (defaut ou choix user) pour l'affichage
+	protected $_AWidget; // Array listant les Objet Widget que l'on va afficher
 	
 	public function __construct($dashboard){
 		$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
@@ -46,7 +47,7 @@ class Portal_Dashboard_Dashboard {
 		$view->headScript()->appendFile('/cui/plugins/flotr2/flotr2.js');
 			
 		$view->headScript()->appendFile('/layouts/frontoffice/js/jquery-sDashboard.js');
-		//$view->headScript()->appendFile('/layouts/frontoffice/js/exampleData.js');
+		$view->headScript()->appendFile('/layouts/frontoffice/js/exampleData.js');
 		$view->headLink()->appendStylesheet('/layouts/frontoffice/css/sDashboard.css');
 		
 		$session = new Zend_Session_Namespace('Zend_Auth');
@@ -83,8 +84,8 @@ class Portal_Dashboard_Dashboard {
 	}
 	
 	private function generateScript(){
-		$script = //'<script type="text/javascript">
-			'$(function() {
+		$script = '<script type="text/javascript">
+			$(function() {
 				function refresh2(widgetData){
 					return {
 							"aaData" : [myExampleData.constructTableWidgetData(),
@@ -191,10 +192,23 @@ class Portal_Dashboard_Dashboard {
 							});
 			
 				}
-			});';
-		//</script>';
+			});
+		</script>';
+		//On ajoute ici les styles particuliers si size = double 
+		// Obligé de la faire ici depuis que l'affichage est asynchrone via Ajax.
+		$style = '<style>';
+		foreach ($this->_AWidget as $key=>$value) {
+			if ($value->_size == 'double') {
+				$style .= 'li#Wid'.$key.'{width:1005px;}';
+			}
+			//echo $key .'->'.$value->_size; 
+			//echo '<br>';
+		} 
+		$style .= '</style>';
+		
 		$this->script = $script;
-		$this->_view->headScript()->appendScript($script);
+		//$this->_view->headScript()->appendScript($script);
+		echo $script.$style; 
 		
 		
 	}
@@ -231,7 +245,7 @@ class Portal_Dashboard_Dashboard {
 		$AlistWidget = $this->listWidgets();
 		$A_Id_Widget_def = $AlistWidget['A_Id_Widget_def'];
 		$AWidget = $AlistWidget['AWidget'];
-		
+		$this->_AWidget = $AWidget;
 		//Zend_Debug::dump($A_Id_Widget_def);
 		//Récupération des préférences utilisateurs si elles existent !
 		
