@@ -148,15 +148,17 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 				$this->view->ref = $ref;
 				$this->view->request = $WSrequest;
 				//Zend_Debug::dump($WSrequest);
-				$itop_version = 2.3; // description et log au format html
-				if ($itop_version >= 2.3) {
+				
+				$Version = new Portal_Version();
+				$this->view->hasHtml = $Version->hasHtmlLog();
+				if ($this->view->hasHtml)  {
 					$HtmlContent = new Portal_Itop_Request_HtmlContent();
 					$HtmlContent->generateItop2Portal($WSrequest);
 					$this->view->request['description'] = $HtmlContent->getHtmlDescPortal();
 					//Zend_Debug::dump($HtmlContent->getAPic());
 					$this->view->request['public_log']['entries'] = $HtmlContent->getHtmlLogPortal(); 
 					//Zend_Debug::dump($HtmlContent->getHtmlLogPortal());
-					$this->view->itop_version = $itop_version;
+					
 				}
 				
 				$ListAttachment = new Portal_Itop_Request_Attachments($WSrequest['id']);

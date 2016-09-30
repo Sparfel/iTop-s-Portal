@@ -169,7 +169,9 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
       						),
       			);     
       	//echo json_encode($aData); 
-    	return $this->CallWebService( $aData); 
+		$result = $this->CallWebService( $aData);
+		
+		return $result;
 	}
 	
 	// Création d'une demande de service
@@ -199,9 +201,29 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 		//Zend_Debug::dump($aData);
 		$result = $this->CallWebService( $aData);
 		//Zend_Debug::dump($result);
+		
 		return $result;
 	}
 	
+	
+	public function UpdateRequestDescription($id,$description)
+	{
+		$aData = array(
+				'operation'=>'core/update',
+				'comment'=>'Création Requête phase 2',
+				'class'=>'UserRequest',
+				'key' => $id,
+				'output_fields'=>'id, ref,friendlyname',
+				'fields'=>array(
+						'description' => $description
+						
+				),
+		);
+		//Zend_Debug::dump($aData);
+		$result = $this->CallWebService( $aData);
+		//Zend_Debug::dump($result);
+		return $result;
+	}
 	
 	public function UpdateRequest($id,$Opref,$newentry)
 	{

@@ -18,16 +18,30 @@ class Request_NewrequestController extends Centurion_Controller_Action
 		if (is_null($id))
 				{
 				$this->view->headScript()->appendFile('/layouts/frontoffice/js/jquery.MultiFile.js');
+				$Version = new Portal_Version();
+				$this->view->hasHtml = $Version->hasHtmlLog();
+				if ($this->view->hasHtml) { 
+					$this->view->headScript()->appendFile('/cui/plugins/ckeditor/ckeditor.js');
+					$this->view->headScript()->appendFile('/cui/plugins/ckeditor/adapters/jquery.js');
+				}
+				
 				$newRequest = new Portal_Form_NewRequest();
 				if ($this->_request->isPost()) {
 					$formData = $this->_request->getPost();
 		            if ($newRequest->isValid($formData)) {
 						try {
+							//Zend_Debug::dump($formData);
 							$webservice = $this->_helper->getHelper('ItopWebservice');
+							$description = $newRequest->getValue('description');
+							
+							$HtmlRequest = new Portal_Itop_Request_HtmlContent();
+							
 							$content = $webservice->CreateRequest($newRequest->getValue('title'),
-															$newRequest->getValue('description'),
+															//$newRequest->getValue('description'),
+									$HtmlRequest->generatePortal2Itop($description),
 															null
 														);
+							//Zend_Debug::dump($content);
 							$this->view->content = $content;
 							$this->view->action='validation';
 							// Add the attachment
@@ -43,6 +57,12 @@ class Request_NewrequestController extends Centurion_Controller_Action
 											$item_class = $data['class'];
 											//Send the Request Id to the view
 											$this->view->NoRequest = $userRequestName;
+											if ($this->view->hasHtml) {
+												//And We update the Request's description to have rich text with htlm and pictures !!
+												// We do it here because we need the Request Id to add InlineImage into iTop
+												$HtmlRequest = new Portal_Itop_Request_HtmlContent($item_id);
+												$webservice->UpdateRequestDescription($item_id,$HtmlRequest->generatePortal2Itop($description));
+											}
 										endforeach;
 										}
 								endforeach;

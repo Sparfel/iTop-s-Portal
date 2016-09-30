@@ -1,8 +1,12 @@
 <style>
 .inline-image {
-	cursor: zoom-in;
-	
+	cursor: zoom-in;	
 }
+textarea#Log{width:100%;  }
+
+	.cke_editable {
+		background-color:#f9f9f9;
+	}
 </style>
 
 <?php
@@ -152,7 +156,7 @@ if (is_array($this->request))
 
 				
 				
-
+			<?php if ($this->hasHtml) {?>
 				//Rich Text for iTop version 2.3.
 		 		$( 'textarea#Log' ).ckeditor({
 		 		    language: 'fr',
@@ -197,6 +201,7 @@ if (is_array($this->request))
 					image2_disableResizer: true
 
 			 		    });
+				<?php }?>
 				
 				jQuery(function(){ // wait for document to load 
 					jQuery('#tab_files-0').MultiFile({ 
@@ -301,7 +306,7 @@ if (is_array($this->request))
 			//echo '<p>'.str_replace($order, $replace,htmlspecialchars_decode($log['message'])). '</p>';
 			
 			//echo '<p>'.$log['message']. '</p>';
-			if ($this->itop_version >= 2.3)
+			if ($this->hasHtml)
 				{echo '<div id="log">'.htmlspecialchars_decode($log['message_html_portal']). '</div>';}
 			else 
 			{echo '<p>'.str_replace($order, $replace,htmlspecialchars_decode($log['message'])). '</p>';}

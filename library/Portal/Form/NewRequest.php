@@ -22,7 +22,7 @@ class Portal_Form_NewRequest extends Centurion_Form
         $description = new Zend_Form_Element_Textarea('description');
         $description->setLabel($this->_translate('Description'))
 	        ->setRequired(true)
-	        ->addFilter('StripTags')
+	        //->addFilter('StripTags')
 	        ->addFilter('StringTrim')
 	        ->setAttribs(array(
 	                'cols' => 60,

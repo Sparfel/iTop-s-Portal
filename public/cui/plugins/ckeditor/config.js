@@ -43,11 +43,15 @@ CKEDITOR.editorConfig = function( config ) {
 	config.uploadUrl = '/uploader/upload.php';
 	config.filebrowserImageWindowWidth = '640';
     config.filebrowserImageWindowHeight = '480';
-    config.removeButtons = 'Subscript,Superscript,Scayt,Anchor,Source,Outdent,Indent,Blockquote,About,PasteFromWord';
+   // config.uiColor = '#AADC6E';
+    config.extraPlugins = 'divarea';
+    
+    config.removeButtons = 'Subscript,Superscript,Scayt,Anchor,Outdent,Indent,Blockquote,About,PasteFromWord,Source';
 	config.removePlugins = 'elementspath';
 	config.resize_enabled = false;
 	config.toolbarCanCollapse = true;
 	config.toolbarStartupExpanded = false;
+	
 
 };
 
