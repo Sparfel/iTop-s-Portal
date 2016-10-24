@@ -22,7 +22,7 @@
 
 final class Portal_Version
 {
-	const VERSION = '1.3-beta';
+	const VERSION = '1.2.1-beta';
 	
 	//Return an Array with the name of iTop
 	// and the version of iTop (2.3.1.4567 for example)
