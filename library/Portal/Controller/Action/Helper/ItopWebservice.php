@@ -219,9 +219,9 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 						
 				),
 		);
-		//Zend_Debug::dump($aData);
+		Zend_Debug::dump($aData);
 		$result = $this->CallWebService( $aData);
-		//Zend_Debug::dump($result);
+		Zend_Debug::dump($result);
 		return $result;
 	}
 	
@@ -1397,7 +1397,7 @@ class Portal_Controller_Action_Helper_ItopWebservice extends Zend_Controller_Act
 		}
 		}
 		else $OImage = null;
-		//Zend_Debug::dump($Oattach);
+		//Zend_Debug::dump($OImage);
 		return $OImage;
 		
 	}

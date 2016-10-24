@@ -29,7 +29,9 @@ class Portal_Itop_Request_InlineImage {
 		$this->_filename = $filename;
 		$this->_data = $data;
 		$fileinfo = explode('/',$mimetype);
-		if (is_array($fileinfo)) {
+		//error_log($filename.' - '.$mimetype);
+		//Zend_Debug::dump($fileinfo);
+		if (is_array($fileinfo) and count($fileinfo)>0) {
 			$this->_filetype = $fileinfo[0];
 			$this->_fileextension = $fileinfo[1];
 		}

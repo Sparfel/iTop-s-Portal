@@ -99,7 +99,7 @@ class Portal_Itop_Request_HtmlContent {
 			//the image's style
 			$imgStyle = strstr(substr($Aimg[$i]['itop'],strpos($Aimg[$i]['itop'], 'style=')),' ',true);
 			$imgStyle = substr($imgStyle,strpos($imgStyle,'"')+1, -1); // We get the Id, +1 to take off the first ", -1 to take off the last "
-			$Aimg[$i]['imgStyle'] = $imgStyle;
+			$Aimg[$i]['imgStyle'] = 'max-width:450px;'.$imgStyle;
 			// THe portal display, we won't show always picture in tehir original size
 			$Aimg[$i]['imgStyle_display'] = 'max-width: 450px;';
 			
@@ -115,7 +115,7 @@ class Portal_Itop_Request_HtmlContent {
 			//Now we have to generate the new link which will display the picture on the portal
 			// We use a controller action to do this !
 			$img_portal_link = $view->url(array('action' => 'displayimage','id'=>$this->_RefId,'secret'=>$Aimg[$i]['imgSecret']),null,false);
-			$Aimg[$i]['portal'] = '<img src="'.$img_portal_link.'" style="'.$Aimg[$i]['imgStyle_display'].'" class="inline-image" href="'.$img_portal_link.'">';
+			$Aimg[$i]['portal'] = '<img src="'.$img_portal_link.'" style="'.$Aimg[$i]['imgStyle'].'" class="inline-image" href="'.$img_portal_link.'">';
  			
 			// we get the rest of the string to analyze
 			$html_read = substr($html_read,strpos($html_read, $Aimg[$i]['itop'])+ strlen($Aimg[$i]['itop']));
@@ -144,6 +144,7 @@ class Portal_Itop_Request_HtmlContent {
 	
 	//Here we push html from Portal to iTop
 	public function generatePortal2Itop($html_portal){
+		//Zend_Debug::dump($html_portal);
 		$result = $this->generatePortalHtml($html_portal,'Portal2Itop');
 		//Zend_Debug::dump($result);
 		return $result;
@@ -163,24 +164,71 @@ class Portal_Itop_Request_HtmlContent {
 		$nb_img = substr_count($html_brut,'<img ');
 		$Aimg = array();
 		$html_read = $html_brut;
+		//Zend_Debug::dump($html_brut);
+		
 		//echo strpos($html_read, '>');
 		for ($i = 0; $i < $nb_img; $i++) {
 			$Aimg[$i]['portal'] = strstr(substr($html_read,strpos($html_read, '<img ')),'>',true).'>';
 			//the image's style
-			$imgStyle = strstr(substr($Aimg[$i]['portal'],strpos($Aimg[$i]['portal'], 'style=')),'" /',true);
+			
+			if (!(strpos(substr($Aimg[$i]['portal'],'height=') === false))) {
+				$imgHeight = strstr(substr($Aimg[$i]['portal'],strpos($Aimg[$i]['portal'],'height=')),'" ',	true);
+				$imgHeight = substr($imgHeight,strpos($imgHeight,'"')+1);
+				$Aimg[$i]['imgHeight'] = 'height:'.$imgHeight.'px;';
+			}
+			
+			if (!(strpos(substr($Aimg[$i]['portal'],'width=') === false))) {
+				$imgWidth = strstr(substr($Aimg[$i]['portal'],strpos($Aimg[$i]['portal'],'width=')),'" ',	true);
+				$imgWidth = substr($imgWidth,strpos($imgWidth,'"')+1);
+				$Aimg[$i]['imgWidth'] = 'width:'.$imgWidth.'px;';
+			}
+
+			if (!(strpos(substr($Aimg[$i]['portal'],'alt=') === false))) {
+				$imgAlt = strstr(substr($Aimg[$i]['portal'],strpos($Aimg[$i]['portal'],'alt=')),'" ',	true);
+				$imgAlt = substr($imgAlt,strpos($imgAlt,'"')+1);
+				$Aimg[$i]['imgAlt'] = $imgAlt;
+			}
+			
+			$imgStyle = strstr(substr($Aimg[$i]['portal'],strpos($Aimg[$i]['portal'], 'style=')),'" ',true);
 			$imgStyle = substr($imgStyle,strpos($imgStyle,'"')+1, -1); // We get the Id, +1 to take off the first ", -1 to take off the last "
 			$Aimg[$i]['imgStyle'] = $imgStyle;
+			
+			
 			
 			//We sent now the picture to iTop and get back the secret Id !
 			//First we get the image
 			$image = strstr(substr($Aimg[$i]['portal'],strpos($Aimg[$i]['portal'], 'src="')+5),'" ',true);
-			$image_link = 'http://' . $_SERVER['SERVER_NAME'].$image;
-			$ApathImg = explode('/',$image);
+			//echo $image.'<br>';
+			//echo substr($image,0,4);
+			//Zend_Debug::dump($image);
+			if (substr($image,0,4) =='data') {
+				$Aimg[$i]['image_orig']='copy/paste';
+				$img_info = explode (',',$image);
+				$img_type_info = explode(';',$img_info[0]);
+				
+				$image_type = substr($img_type_info[0],5);
+				//echo 'image_type '.$image_type;
+				$fileData = $img_info[1];
+				
+				
+			}
+			else { 
+				$Aimg[$i]['image_orig']='file';
+				$image = str_replace('../../../../../..','',$image); // if request Log update
+				$image = str_replace('../../../..','',$image); // if request Description
+				$image_link = 'http://' . $_SERVER['SERVER_NAME'].$image;
+				$ApathImg = explode('/',$image);
+				$image_name = $ApathImg[count($ApathImg)-1];
+				$image_type = image_type_to_mime_type(exif_imagetype($image_link));
+				$fileData =file_get_contents($image_link);
+				//$fileData =file_get_contents($image);
+				$fileData = base64_encode($fileData);
+				//Zend_Debug::dump($fileData);
+			}
 			
-			$image_name = $ApathImg[count($ApathImg)-1];
-			$image_type = image_type_to_mime_type(exif_imagetype($image_link));
-			$fileData =file_get_contents($image_link);
-			$fileData = base64_encode($fileData);
+			
+			
+			//Zend_Debug::dump($fileData);
 			
 			$item_class = 'UserRequest';
 			$session = new Zend_Session_Namespace('Zend_Auth');
@@ -192,7 +240,12 @@ class Portal_Itop_Request_HtmlContent {
 			$InlineImage_id = $webService->AddInlineImage($image_name,$fileData,$item_class,$this->_RefId,$image_type,$org_id,$secret);
 			
 			//We build the iTop link for the picture 
-			$Aimg[$i]['itop'] = '<img src="'.$webService->getItopUrl().'/pages/ajax.document.php?operation=download_inlineimage&id='.$InlineImage_id.'&s='.$secret.'">';
+			$itop_style= 'style="'.$Aimg[$i]['imgHeight'].$Aimg[$i]['imgWidth'].'"';
+			$itop_alt = $Aimg[$i]['imgAlt'];
+			//we transform Atl into a span, iTop delete it else !
+			//$itop_add = '<figcatpion>'.$Aimg[$i]['imgAlt'].'</figcatpion>';
+			//$Aimg[$i]['itop'] = '<figure><img src="'.$webService->getItopUrl().'/pages/ajax.document.php?operation=download_inlineimage&id='.$InlineImage_id.'&s='.$secret.'" '.$itop_style.' >'.$itop_add.'</figure>';
+			$Aimg[$i]['itop'] = '<img src="'.$webService->getItopUrl().'/pages/ajax.document.php?operation=download_inlineimage&id='.$InlineImage_id.'&s='.$secret.'" '.$itop_style.' >';
 			
 			// we get the rest of the string to analyze
 			$html_read = substr($html_read,strpos($html_read, $Aimg[$i]['portal'])+ strlen($Aimg[$i]['portal']));

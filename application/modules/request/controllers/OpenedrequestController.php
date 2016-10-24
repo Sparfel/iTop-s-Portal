@@ -117,8 +117,11 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
     	 */
 		if (isset($id)) {
 			$this->view->headScript()->appendFile('/layouts/frontoffice/js/jquery.MultiFile.js');
-			$this->view->headScript()->appendFile('/cui/plugins/ckeditor/ckeditor.js');
-			$this->view->headScript()->appendFile('/cui/plugins/ckeditor/adapters/jquery.js');
+			
+			//$this->view->headScript()->appendFile('/cui/plugins/ckeditor/ckeditor.js');
+			//$this->view->headScript()->appendFile('/cui/plugins/ckeditor/adapters/jquery.js');
+			//$this->view->headScript()->appendFile('/layouts/frontoffice/js/tinymce/tinymce.min.js');
+			
 			//Style for the tool to print the Request
 			$this->view->headLink()->appendStylesheet('/layouts/frontoffice/css/datatable/dataTables.tableTools.css');
 			
@@ -127,6 +130,7 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 			$this->view->headLink()->appendStylesheet('/layouts/frontoffice/css/magnific-popup.css');
 			
 			$this->view->typ = 'view';
+			$this->view->lang = $session->pref->_language;
 			$webservice = $this->_helper->getHelper('ItopWebservice');
 			
 			// Parameters Array sent to the form
@@ -158,7 +162,6 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 					//Zend_Debug::dump($HtmlContent->getAPic());
 					$this->view->request['public_log']['entries'] = $HtmlContent->getHtmlLogPortal(); 
 					//Zend_Debug::dump($HtmlContent->getHtmlLogPortal());
-					
 				}
 				
 				$ListAttachment = new Portal_Itop_Request_Attachments($WSrequest['id']);
@@ -345,16 +348,18 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 			if ($updateRequestForm->isValid($formData)) {
 				if (isset($_POST['submit'])) {
 					try {
-						if (strlen($updateRequestForm->getValue('Log'))> 0) {
+						if (strlen($updateRequestForm->getValue('TextArea'))> 0) {
 							//We modify the log to send the images to iTop and regenerate the img src link
 							//the picture will be stored into iTop and not (only) in the portal 
-							$publicLog = $updateRequestForm->getValue('Log');
+							$publicLog = $updateRequestForm->getValue('TextArea');
+							//Zend_Debug::dump($publicLog);
 							$HtmlRequest = new Portal_Itop_Request_HtmlContent($id);
-							//$HtmlRequest->generatePortal2Itop($publicLog);
+							$HtmlRequest->generatePortal2Itop($publicLog);
 							//Zend_Debug::dump($HtmlRequest->generatePortal2Itop($publicLog));
-							$content = $webservice->UpdateRequest($id, //$request['ref'],
+							 $content = $webservice->UpdateRequest($id, //$request['ref'],
 									$session->pref,
 									$HtmlRequest->generatePortal2Itop($publicLog));
+									
 						}
 						$this->view->typ='maj';
 						$this->view->title = 'Ticket mis à jour';
@@ -364,13 +369,13 @@ class Request_OpenedrequestController extends Centurion_Controller_Action
 					}
 				}
 				if (isset($_POST['resolved'])) { // the Request became 'Resolved'
-					$content =$webservice->resolveRequest($id,$session->pref,$updateRequestForm->getValue('Log'));
+					$content =$webservice->resolveRequest($id,$session->pref,$updateRequestForm->getValue('TextArea'));
 				}
 				if (isset($_POST['close'])) { // the Request became 'Closed'
-					$content =$webservice->closeRequest($id,$session->pref,$updateRequestForm->getValue('Log'));
+					$content =$webservice->closeRequest($id,$session->pref,$updateRequestForm->getValue('TextArea'));
 				}
 				if (isset($_POST['reopen'])) { // the Request is 'ReOpen'
-					$content =$webservice->reopenRequest($id,$session->pref,$updateRequestForm->getValue('Log'));
+					$content =$webservice->reopenRequest($id,$session->pref,$updateRequestForm->getValue('TextArea'));
 				}
 					
 				//Attachment

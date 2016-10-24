@@ -17,12 +17,18 @@ class Portal_Form_updateRequest extends Centurion_Form
        
         $file->addDecorator ( 'Fieldset', array ('legend' => $this->_translate('Ajouter des pièces jointes')) );
         
-        $content = new Zend_Form_Element_Textarea('Log');
+        $content = new Zend_Form_Element_Textarea('TextArea');
         $content->setLabel($this->_translate('Public Log'))
-        //->setRequired(true)
-        ->setAttrib('rows',5)
-        ->setAttrib('width','100%')
-        ->addFilter('StringTrim');
+	        //->setRequired(true)
+	        ->setAttrib('rows',5)
+	        ->setAttrib('width','100%')
+	        ->addFilter('StringTrim')
+        	/*->setDecorators(array(
+        				'ViewHelper',
+        				'Description',
+        				'Errors',
+        				array('HtmlTag', array('tag' => 'div', 'id'=>'updrequest'))
+        				))*/;
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setAttrib('id', 'submitbutton')
@@ -71,7 +77,7 @@ class Portal_Form_updateRequest extends Centurion_Form
       				array( 'submit',
       						'resolved',
       						'tab_files',
-      						'Log'
+      						'TextArea'
       				),
       				'request',
       				array(
@@ -87,7 +93,7 @@ class Portal_Form_updateRequest extends Centurion_Form
       				array(  'reopen',
       						'close',
       						'tab_files',
-      						'Log'      						
+      						'TextArea'      						
       				),
       				'request',
       				array(
@@ -101,7 +107,7 @@ class Portal_Form_updateRequest extends Centurion_Form
 			$this->addDisplayGroup(
 					array('submit',
 							'tab_files',
-							'Log'							
+							'TextArea'							
 					),
 					'request',
 					array(
@@ -113,7 +119,7 @@ class Portal_Form_updateRequest extends Centurion_Form
 				$this->addElements(array($file,$content));
 				$this->addDisplayGroup(
 						array('tab_files',
-								'Log'
+								'TextArea'
 						),
 						'request',
 						array(

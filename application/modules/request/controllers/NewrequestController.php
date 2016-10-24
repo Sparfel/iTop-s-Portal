@@ -20,10 +20,10 @@ class Request_NewrequestController extends Centurion_Controller_Action
 				$this->view->headScript()->appendFile('/layouts/frontoffice/js/jquery.MultiFile.js');
 				$Version = new Portal_Version();
 				$this->view->hasHtml = $Version->hasHtmlLog();
-				if ($this->view->hasHtml) { 
+				/*if ($this->view->hasHtml) { 
 					$this->view->headScript()->appendFile('/cui/plugins/ckeditor/ckeditor.js');
 					$this->view->headScript()->appendFile('/cui/plugins/ckeditor/adapters/jquery.js');
-				}
+				}*/
 				
 				$newRequest = new Portal_Form_NewRequest();
 				if ($this->_request->isPost()) {
@@ -32,18 +32,19 @@ class Request_NewrequestController extends Centurion_Controller_Action
 						try {
 							//Zend_Debug::dump($formData);
 							$webservice = $this->_helper->getHelper('ItopWebservice');
-							$description = $newRequest->getValue('description');
+							$description = $newRequest->getValue('TextArea');
 							
-							$HtmlRequest = new Portal_Itop_Request_HtmlContent();
+							//$HtmlRequest = new Portal_Itop_Request_HtmlContent();
 							
 							$content = $webservice->CreateRequest($newRequest->getValue('title'),
-															//$newRequest->getValue('description'),
-									$HtmlRequest->generatePortal2Itop($description),
+															$newRequest->getValue('TextArea'),
+														//$HtmlRequest->generatePortal2Itop($description),
 															null
 														);
-							//Zend_Debug::dump($content);
+							Zend_Debug::dump($content);
 							$this->view->content = $content;
 							$this->view->action='validation';
+							//$userRequestName = '123456';
 							// Add the attachment
 							if (is_array($content))
 							{
@@ -78,7 +79,9 @@ class Request_NewrequestController extends Centurion_Controller_Action
 											$attachment = $webservice->AddAttachment($name,$fileData,$item_class,$item_id,$type,$this->_org_id);
 										}
 								}
+							
 							}
+							//Zend_Debug::dump($userRequestName);
 							$this->_helper->redirector('index', 'newrequest', 'request', array('ref_request'=>$userRequestName));
 						}
 						catch(Zend_Exception $e) {

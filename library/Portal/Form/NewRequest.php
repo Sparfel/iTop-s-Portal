@@ -19,20 +19,26 @@ class Portal_Form_NewRequest extends Centurion_Form
 	        ->setAttrib('size','40')
         	->setAttrib('required',true);
 
-        $description = new Zend_Form_Element_Textarea('description');
+        $description = new Zend_Form_Element_Textarea('TextArea');
         $description->setLabel($this->_translate('Description'))
 	        ->setRequired(true)
 	        //->addFilter('StripTags')
 	        ->addFilter('StringTrim')
+	        ->setAttrib('width','100%')
 	        ->setAttribs(array(
 	                'cols' => 60,
-	                'rows' => 7))
-	        ->setAttrib('required',true);
+	                'rows' => 7));
+	        //->setAttrib('required',true); // doesnt work with TinyMCE :/
          
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setAttrib('id', 'submitbutton')
-        		->setLabel($this->_translate('Valider'));
-        
+        		->setLabel($this->_translate('Valider'))
+        		->setDecorators(array(
+        				'ViewHelper',
+        				'Description',
+        				'Errors',
+        				array('HtmlTag', array('tag' => 'li', 'class'=>'buttonsinline'))
+        		));
         
         /*$cancel = new Zend_Form_Element_Submit('reset');
         $cancel->setAttrib('id', 'resetbutton')
@@ -65,7 +71,7 @@ class Portal_Form_NewRequest extends Centurion_Form
 	    $this->addDisplayGroup(
 	        		array(
 		        		'title',
-		        		'description',
+		        		'TextArea',
 		        		'tab_files',
 		        		'submit'
 	        		),

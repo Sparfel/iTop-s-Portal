@@ -2,14 +2,14 @@
 .inline-image {
 	cursor: zoom-in;	
 }
-textarea#Log{width:100%;  }
 
-	.cke_editable {
-		background-color:#f9f9f9;
-	}
+
+	
+#updrequest p {margin-bottom: 0px; }
 </style>
 
 <?php
+
 if (is_array($this->request))
 	{
 		$data = $this->request;
@@ -76,7 +76,7 @@ if (is_array($this->request))
 			echo '</tr>';
 			echo '<tr>';
 			echo '<td class="title"><b>'.$this->translate('Request Type').'</b></td>';
-			echo '<td class="content">'.$this->translate($data['request_type']).'</td>';
+			//echo '<td class="content">'.$this->translate($data['request_type']).'</td>';
 			echo '</tr>';
 			echo '<tr>';
 			echo '<td class="title"><b>'.$this->translate('Hot Flag').'</b></td>';
@@ -146,6 +146,8 @@ if (is_array($this->request))
 				}
 			}	
 			echo $this->updateRequestForm;
+			
+			echo $this->TinyMCE();
 			?>
 			
 			
@@ -155,53 +157,6 @@ if (is_array($this->request))
 			jQuery(document).ready( function() {
 
 				
-				
-			<?php if ($this->hasHtml) {?>
-				//Rich Text for iTop version 2.3.
-		 		$( 'textarea#Log' ).ckeditor({
-		 		    language: 'fr',
-
-		 		  // extraPlugins: 'uploadimage,image',
-					//height: 300,
-
-					// Upload images to a CKFinder connector (note that the response type is set to JSON).
-					//uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-
-					// Configure your file manager integration. This example uses CKFinder 3 for PHP.
-					/*
-					filebrowserBrowseUrl: '/ckfinder/ckfinder.html',
-					filebrowserImageBrowseUrl: '/ckfinder/ckfinder.html?type=Images',
-					filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-					filebrowserImageUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-					filebrowserImageUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-					*/
-
-					filebrowserBrowseUrl : '/kcfinder/browse.php?opener=ckeditor&type=files',
-					filebrowserImageBrowseUrl : '/kcfinder/browse.php?opener=ckeditor&type=images',
-					filebrowserFlashBrowseUrl : '/kcfinder/browse.php?opener=ckeditor&type=flash',
-					filebrowserUploadUrl : '/kcfinder/upload.php?opener=ckeditor&type=files',
-					filebrowserImageUploadUrl : '/kcfinder/upload.php?opener=ckeditor&type=images',
-					filebrowserFlashUploadUrl : '/kcfinder/upload.php?opener=ckeditor&type=flash',
-					
-					// The following options are not necessary and are used here for presentation purposes only.
-					// They configure the Styles drop-down list and widgets to use classes.
-
-					stylesSet: [
-						{ name: 'Narrow image', type: 'widget', widget: 'image', attributes: { 'class': 'image-narrow' } },
-						{ name: 'Wide image', type: 'widget', widget: 'image', attributes: { 'class': 'image-wide' } }
-					],
-
-					// Load the default contents.css file plus customizations for this sample.
-					contentsCss: [ CKEDITOR.basePath + 'contents.css', 'http://sdk.ckeditor.com/samples/assets/css/widgetstyles.css' ],
-
-					// Configure the Enhanced Image plugin to use classes instead of styles and to disable the
-					// resizer (because image size is controlled by widget styles or the image takes maximum
-					// 100% of the editor width).
-					image2_alignClasses: [ 'image-align-left', 'image-align-center', 'image-align-right' ],
-					image2_disableResizer: true
-
-			 		    });
-				<?php }?>
 				
 				jQuery(function(){ // wait for document to load 
 					jQuery('#tab_files-0').MultiFile({ 
