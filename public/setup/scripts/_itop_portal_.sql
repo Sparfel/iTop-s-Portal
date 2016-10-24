@@ -168,7 +168,13 @@ INSERT INTO `auth_group_permission` (`group_id`, `permission_id`) VALUES
 (7, 80),
 (3, 81),
 (6, 81),
-(7, 81);
+(7, 81),
+(3, 82),
+(6, 82),
+(7, 82),
+(3, 83),
+(6, 83),
+(7, 83);
 
 -- --------------------------------------------------------
 
@@ -225,7 +231,10 @@ INSERT INTO `auth_permission` (`id`, `name`, `description`) VALUES
 (78, 'user_admin-services_get', 'Formulaire des services pour les clients autre que Syleps'),
 (79, 'user_admin-user_get', 'View an user'),
 (80, 'home_index_index', 'Accueil du site'),
-(81, 'request_openedrequest_update', 'Modification d''un ticket puis redirection vers la vue du ticket');
+(81, 'request_openedrequest_update', 'Modification d''un ticket puis redirection vers la vue du ticket'),
+(82, 'home_index_getdashboard', 'Generate the dashboard (asynchrone)'),
+(83, 'request_openedrequest_displayimage', 'Show images from iTop');
+
 
 -- --------------------------------------------------------
 
