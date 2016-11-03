@@ -13,7 +13,7 @@ class Portal_View_Helper_TinyMCE extends Zend_View_Helper_Abstract
 		$session = new Zend_Session_Namespace('Zend_Auth');
 		$lang = $session->pref->_language;
 		if ($lang == 'fr') { $language = 'fr_FR';}
-		else {$language = 'en_US';}
+		else {$language = 'en_GB';}
 		$server = $_SERVER['HTTP_HOST'];
 		
 		$Version = new Portal_Version();
