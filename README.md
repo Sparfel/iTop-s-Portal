@@ -51,6 +51,7 @@ It may be necessary to define the adress of the server with his name in your hos
 
 ---
 
+[ !!! not available !!!
 A demo is now available at this adress : http://itop-portal.no-ip.org/
 * Admin user : admin / admin1234
 * Normal user : dali@demo.com / Salvador1234
@@ -61,3 +62,4 @@ This portal is working with an iTop demo : http://services.sydel.fr/itop-test-we
 * Admin user : admin / admin1234
 
 See the documentation online at : http://doc-portal.no-ip.org/
+]
