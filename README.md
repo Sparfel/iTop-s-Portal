@@ -9,7 +9,7 @@ Installation step by step :
 
 * Download Zip on https://github.com/Sparfel/iTop-s-Portal and move it into */tmp*,
 * Create a folder on your webserver, */var/www/itopPortal/* for example,
-* Copy all files into this new folder */var/www/itopPortal/* with the command *cp -R /tmp/iTop-s-Portal-master/. . *
+* Copy all files into this new folder */var/www/itopPortal/* with the command **cp -R /tmp/iTop-s-Portal-master/. . **
 * Change the owner of the files : **chown -R www-data:www-data itopPortal**
 * Create the Database :
 ```
@@ -51,15 +51,13 @@ It may be necessary to define the adress of the server with his name in your hos
 
 ---
 
-[ !!! not available !!!
-A demo is now available at this adress : http://itop-portal.no-ip.org/
+A demo is now available at this adress : http://itop-portal.ddns.net/
 * Admin user : admin / admin1234
 * Normal user : dali@demo.com / Salvador1234
 
-(backoffice address : http://itop-portal.no-ip.org/admin/)
+(backoffice address : http://itop-portal.ddns.net/admin/)
 
 This portal is working with an iTop demo : http://services.sydel.fr/itop-test-web/
 * Admin user : admin / admin1234
 
-See the documentation online at : http://doc-portal.no-ip.org/
-]
+See the documentation online at : http://doc-portal.ddns.net/
