@@ -9,7 +9,7 @@ Installation step by step :
 
 * Download Zip on https://github.com/Sparfel/iTop-s-Portal and move it into */tmp*,
 * Create a folder on your webserver, */var/www/itopPortal/* for example,
-* Copy all files into this new folder */var/www/itopPortal/* with the command *cp -R /tmp/iTop-s-Portal-master/. . *
+* Copy all files into this new folder */var/www/itopPortal/* with the command **cp -R /tmp/iTop-s-Portal-master/. .**
 * Change the owner of the files : **chown -R www-data:www-data itopPortal**
 * Create the Database :
 ```
